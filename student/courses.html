@@ -138,43 +138,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- 课程卡片 4 -->
-                <div class="course-card bg-white rounded-xl shadow-md overflow-hidden hover-card cursor-pointer" data-course-id="4">
-                    <div class="relative">
-                        <img src="https://images.unsplash.com/photo-1612688464275-1db9758834c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60" alt="物理课程" class="w-full h-48 object-cover">
-                        <div class="absolute top-3 right-3">
-                            <span class="badge badge-info">已完成</span>
-                        </div>
-                    </div>
-                    <div class="p-5">
-                        <h3 class="text-lg font-semibold text-gray-800 mb-2">高一物理必修一</h3>
-                        <div class="flex items-center text-gray-600 text-sm mb-3">
-                            <i class="fas fa-user-tie mr-2"></i>
-                            <span>赵老师</span>
-                            <span class="mx-2">|</span>
-                            <i class="fas fa-users mr-2"></i>
-                            <span>28人</span>
-                        </div>
-                        <div class="mb-3">
-                            <div class="text-sm text-gray-600 mb-1 flex justify-between">
-                                <span>学习进度</span>
-                                <span>100%</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-value" style="width: 100%"></div>
-                            </div>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <div class="text-sm text-gray-500">
-                                <i class="fas fa-calendar-alt mr-1"></i> 已于 20天前完成
-                            </div>
-                            <button class="text-blue-600 hover:text-blue-800">
-                                <i class="fas fa-arrow-right"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
             </div>
 
             <!-- 课程详情部分 (初始隐藏) -->
@@ -315,8 +278,8 @@
                         <div class="mb-4">
                             <h3 class="font-semibold text-gray-800 mb-3">测验列表</h3>
                             <div class="space-y-4">
-                                <!-- 测验项目1 -->
-                                <div class="flex items-center p-4 border rounded-lg hover:bg-gray-50">
+                                <!-- 测验项目1 - 已完成 -->
+                                <div class="flex items-center p-4 border rounded-lg hover:bg-gray-50" data-has-exam="true" data-exam-status="completed">
                                     <div class="flex-shrink-0 mr-4">
                                         <i class="fas fa-clipboard-check text-3xl text-green-500"></i>
                                     </div>
@@ -332,14 +295,14 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <button class="text-blue-600 hover:text-blue-800 p-2">
-                                            <i class="fas fa-eye"></i>
+                                        <button class="text-blue-600 hover:text-blue-800 p-2 exam-button">
+                                            <i class="fas fa-eye"></i> 查看参考
                                         </button>
                                     </div>
                                 </div>
                                 
-                                <!-- 测验项目2 -->
-                                <div class="flex items-center p-4 border rounded-lg hover:bg-gray-50">
+                                <!-- 测验项目2 - 进行中 -->
+                                <div class="flex items-center p-4 border rounded-lg hover:bg-gray-50" data-has-exam="true" data-exam-status="in-progress">
                                     <div class="flex-shrink-0 mr-4">
                                         <i class="fas fa-clipboard-list text-3xl text-yellow-500"></i>
                                     </div>
@@ -354,14 +317,14 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <button class="text-white bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded">
+                                        <button class="text-white bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded exam-button">
                                             继续考试
                                         </button>
                                     </div>
                                 </div>
                                 
-                                <!-- 测验项目3 -->
-                                <div class="flex items-center p-4 border rounded-lg hover:bg-gray-50">
+                                <!-- 测验项目3 - 未开始 -->
+                                <div class="flex items-center p-4 border rounded-lg hover:bg-gray-50" data-has-exam="true" data-exam-status="not-started">
                                     <div class="flex-shrink-0 mr-4">
                                         <i class="fas fa-clipboard text-3xl text-gray-400"></i>
                                     </div>
@@ -376,9 +339,27 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <button class="text-white bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded">
+                                        <button class="text-white bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded exam-button">
                                             开始考试
                                         </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- 测验项目4 - 无考题 -->
+                                <div class="flex items-center p-4 border rounded-lg hover:bg-gray-50" data-has-exam="false">
+                                    <div class="flex-shrink-0 mr-4">
+                                        <i class="fas fa-clipboard text-3xl text-gray-400"></i>
+                                    </div>
+                                    <div class="flex-grow">
+                                        <h4 class="font-medium text-gray-800">复习测验：综合练习</h4>
+                                        <div class="flex items-center text-sm text-gray-500 mt-1">
+                                            <span>待发布</span>
+                                            <span class="mx-2">|</span>
+                                            <span>预计发布时间：7月15日</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <!-- 无考题时不显示按钮 -->
                                     </div>
                                 </div>
                             </div>
@@ -389,6 +370,13 @@
         </div>
     </div>
 
+    <!-- 考试模态框 -->
+    <div id="exam-modal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <!-- 考试内容将通过JavaScript动态加载 -->
+        </div>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // 课程卡片点击事件
@@ -396,6 +384,7 @@
             const coursesListContainer = document.getElementById('courses-list-container');
             const courseDetail = document.getElementById('course-detail');
             const backButton = document.getElementById('back-to-list');
+            const examModal = document.getElementById('exam-modal');
             
             // 标签页切换
             const tabItems = document.querySelectorAll('.tab-item');
@@ -445,6 +434,30 @@
                     // 显示对应的内容
                     const tabId = this.getAttribute('data-tab');
                     document.getElementById(`${tabId}-tab`).classList.remove('hidden');
+                });
+            });
+            
+            // 考试按钮点击事件
+            const examButtons = document.querySelectorAll('.exam-button');
+            examButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // 获取考试项目的状态
+                    const examItem = this.closest('[data-has-exam]');
+                    const hasExam = examItem.getAttribute('data-has-exam') === 'true';
+                    
+                    if (hasExam) {
+                        const examStatus = examItem.getAttribute('data-exam-status');
+                        
+                        if (examStatus === 'not-started' || examStatus === 'in-progress') {
+                            // 跳转到考试页面
+                            window.location.href = 'exams.html';
+                        } else if (examStatus === 'completed') {
+                            // 显示查看参考的模态框或其他逻辑
+                            alert('显示考试参考答案');
+                        }
+                    }
                 });
             });
         });
