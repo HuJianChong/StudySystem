@@ -5,12 +5,11 @@ body {
 
 /* 平板设备样式优化 */
 .tablet-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
+    width: 100%;
+    margin: 0;
+    box-shadow: none;
+    border-radius: 0;
     overflow: hidden;
-    aspect-ratio: 16/9;
 }
 
 /* 动画效果 */
