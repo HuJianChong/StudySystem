@@ -31,8 +31,8 @@
 </head>
 <body class="bg-gray-100 h-screen">
     <div class="p-6 h-full flex flex-col">
-        <!-- 顶部导航和搜索 -->
-        <div class="flex justify-between items-center mb-6">
+        <!-- 顶部导航和搜索 - 章节管理视图 -->
+        <div id="chapter-header" class="flex justify-between items-center mb-6">
             <h1 class="text-2xl font-bold text-gray-800" id="page-title">章节管理</h1>
             <div class="flex space-x-4">
                 <div class="relative">
@@ -576,6 +576,7 @@
             // 获取DOM元素
             const chaptersListContainer = document.getElementById('chapters-list');
             const coursesListContainer = document.getElementById('courses-list');
+            const chapterHeader = document.getElementById('chapter-header');
             const viewCoursesButtons = document.querySelectorAll('.view-courses-btn');
             const backToChaptersButton = document.getElementById('back-to-chapters');
             const pageTitle = document.getElementById('page-title');
@@ -594,6 +595,9 @@
                     chaptersListContainer.classList.add('hidden');
                     coursesListContainer.classList.remove('hidden');
                     
+                    // 隐藏章节管理顶部导航（搜索框和新增章节按钮）
+                    chapterHeader.classList.add('hidden');
+                    
                     // 更新页面标题和章节标题
                     pageTitle.textContent = `${chapterTitle} - 课程管理`;
                     currentChapterTitle.textContent = chapterTitle;
@@ -608,6 +612,9 @@
                 // 显示章节列表，隐藏课程列表
                 chaptersListContainer.classList.remove('hidden');
                 coursesListContainer.classList.add('hidden');
+                
+                // 显示章节管理顶部导航（搜索框和新增章节按钮）
+                chapterHeader.classList.remove('hidden');
                 
                 // 恢复页面标题
                 pageTitle.textContent = '章节管理';
