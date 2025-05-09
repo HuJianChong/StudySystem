@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学习资料 - 学生学习系统</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-6">
+        <!-- 页面标题 -->
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-2xl font-bold text-gray-800">学习资料</h1>
+            <div class="flex space-x-2">
+                <div class="relative">
+                    <input type="text" placeholder="搜索资料..." class="pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                </div>
+                <div class="relative">
+                    <select class="py-2 pl-3 pr-10 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none bg-white">
+                        <option value="all">所有课程</option>
+                        <option value="math">数学</option>
+                        <option value="chinese">语文</option>
+                        <option value="english">英语</option>
+                        <option value="physics">物理</option>
+                    </select>
+                    <i class="fas fa-chevron-down absolute right-3 top-3 text-gray-400 pointer-events-none"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- 资料分类导航 -->
+        <div class="flex flex-wrap mb-6 bg-white rounded-lg shadow-sm p-2">
+            <button class="px-4 py-2 rounded-lg bg-blue-600 text-white mr-2 mb-2">全部</button>
+            <button class="px-4 py-2 rounded-lg bg-white text-gray-700 hover:bg-gray-100 mr-2 mb-2">教材</button>
+            <button class="px-4 py-2 rounded-lg bg-white text-gray-700 hover:bg-gray-100 mr-2 mb-2">课件</button>
+            <button class="px-4 py-2 rounded-lg bg-white text-gray-700 hover:bg-gray-100 mr-2 mb-2">习题</button>
+            <button class="px-4 py-2 rounded-lg bg-white text-gray-700 hover:bg-gray-100 mr-2 mb-2">参考资料</button>
+            <button class="px-4 py-2 rounded-lg bg-white text-gray-700 hover:bg-gray-100 mr-2 mb-2">视频</button>
+        </div>
+
+        <!-- 资料列表 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- 资料卡片1 -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden hover-card">
+                <div class="p-5">
+                    <div class="flex items-center mb-3">
+                        <div class="w-12 h-12 flex-shrink-0 bg-red-100 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-file-pdf text-red-500 text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-800">高一数学必修一教材</h3>
+                            <p class="text-sm text-gray-600">PDF文档 · 10.5MB</p>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="text-sm text-gray-600 mb-1">
+                            <span>包含章节：集合、函数、不等式</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center text-sm">
+                        <div class="text-gray-500">
+                            <i class="fas fa-clock mr-1"></i> 上传于 2023-06-01
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="p-2 text-blue-600 hover:text-blue-800">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="p-2 text-blue-600 hover:text-blue-800">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 资料卡片2 -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden hover-card">
+                <div class="p-5">
+                    <div class="flex items-center mb-3">
+                        <div class="w-12 h-12 flex-shrink-0 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-file-powerpoint text-blue-500 text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-800">高一数学函数课件</h3>
+                            <p class="text-sm text-gray-600">PPT文档 · 5.8MB</p>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="text-sm text-gray-600 mb-1">
+                            <span>包含内容：一次函数、二次函数、函数图像</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center text-sm">
+                        <div class="text-gray-500">
+                            <i class="fas fa-clock mr-1"></i> 上传于 2023-06-15
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="p-2 text-blue-600 hover:text-blue-800">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="p-2 text-blue-600 hover:text-blue-800">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 资料卡片3 -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden hover-card">
+                <div class="p-5">
+                    <div class="flex items-center mb-3">
+                        <div class="w-12 h-12 flex-shrink-0 bg-green-100 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-file-word text-green-500 text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-800">高一语文古诗文赏析</h3>
+                            <p class="text-sm text-gray-600">Word文档 · 3.2MB</p>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="text-sm text-gray-600 mb-1">
+                            <span>包含内容：唐诗宋词赏析、写作技巧</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center text-sm">
+                        <div class="text-gray-500">
+                            <i class="fas fa-clock mr-1"></i> 上传于 2023-06-20
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="p-2 text-blue-600 hover:text-blue-800">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="p-2 text-blue-600 hover:text-blue-800">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 资料卡片4 -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden hover-card">
+                <div class="p-5">
+                    <div class="flex items-center mb-3">
+                        <div class="w-12 h-12 flex-shrink-0 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-video text-purple-500 text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-800">高一物理力学视频</h3>
+                            <p class="text-sm text-gray-600">MP4视频 · 250MB</p>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="text-sm text-gray-600 mb-1">
+                            <span>包含内容：牛顿运动定律、力学实验</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center text-sm">
+                        <div class="text-gray-500">
+                            <i class="fas fa-clock mr-1"></i> 上传于 2023-07-01
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="p-2 text-blue-600 hover:text-blue-800">
+                                <i class="fas fa-play"></i>
+                            </button>
+                            <button class="p-2 text-blue-600 hover:text-blue-800">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 资料卡片5 -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden hover-card">
+                <div class="p-5">
+                    <div class="flex items-center mb-3">
+                        <div class="w-12 h-12 flex-shrink-0 bg-yellow-100 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-file-alt text-yellow-500 text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-800">高一英语语法练习</h3>
+                            <p class="text-sm text-gray-600">PDF文档 · 2.8MB</p>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="text-sm text-gray-600 mb-1">
+                            <span>包含内容：时态、语态、从句练习</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center text-sm">
+                        <div class="text-gray-500">
+                            <i class="fas fa-clock mr-1"></i> 上传于 2023-06-25
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="p-2 text-blue-600 hover:text-blue-800">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="p-2 text-blue-600 hover:text-blue-800">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 资料卡片6 -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden hover-card">
+                <div class="p-5">
+                    <div class="flex items-center mb-3">
+                        <div class="w-12 h-12 flex-shrink-0 bg-red-100 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-file-pdf text-red-500 text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-800">高一物理必修一教材</h3>
+                            <p class="text-sm text-gray-600">PDF文档 · 12.3MB</p>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="text-sm text-gray-600 mb-1">
+                            <span>包含章节：运动学、动力学、能量</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center text-sm">
+                        <div class="text-gray-500">
+                            <i class="fas fa-clock mr-1"></i> 上传于 2023-06-01
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="p-2 text-blue-600 hover:text-blue-800">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="p-2 text-blue-600 hover:text-blue-800">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 分页 -->
+        <div class="flex justify-center mt-8">
+            <nav class="inline-flex">
+                <a href="#" class="px-3 py-2 mx-1 text-gray-700 bg-white rounded-md border hover:bg-gray-50">
+                    <i class="fas fa-chevron-left"></i>
+                </a>
+                <a href="#" class="px-3 py-2 mx-1 text-white bg-blue-600 rounded-md border border-blue-600">1</a>
+                <a href="#" class="px-3 py-2 mx-1 text-gray-700 bg-white rounded-md border hover:bg-gray-50">2</a>
+                <a href="#" class="px-3 py-2 mx-1 text-gray-700 bg-white rounded-md border hover:bg-gray-50">3</a>
+                <a href="#" class="px-3 py-2 mx-1 text-gray-700 bg-white rounded-md border hover:bg-gray-50">
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+            </nav>
+        </div>
+    </div>
+</body>
+</html> 

@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>章节管理</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #f0f2f5;
+        }
+        .chapter-card:hover .chapter-actions {
+            opacity: 1;
+        }
+        .chapter-actions {
+            opacity: 0;
+            transition: all 0.3s;
+        }
+        .modal {
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 h-screen">
+    <div class="p-6 h-full flex flex-col">
+        <!-- 顶部导航和搜索 -->
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-2xl font-bold text-gray-800">章节管理</h1>
+            <div class="flex space-x-4">
+                <div class="relative">
+                    <input type="text" placeholder="搜索章节..." class="pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <i class="fas fa-search text-gray-400 absolute left-3 top-3"></i>
+                </div>
+                <button id="add-chapter-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center">
+                    <i class="fas fa-plus mr-2"></i> 新增章节
+                </button>
+            </div>
+        </div>
+
+        <!-- 内容区域 -->
+        <div class="flex-1 overflow-y-auto">
+            <!-- 章节列表 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- 章节卡片 -->
+                <div class="chapter-card bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all duration-300">
+                    <div class="p-5">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800">第一章：基础概念</h3>
+                                <p class="text-sm text-gray-500 mt-1">包含5个课程 • 更新于 2023-05-12</p>
+                            </div>
+                            <div class="chapter-actions flex space-x-1">
+                                <button class="edit-chapter-btn p-2 text-blue-600 hover:bg-blue-50 rounded-full">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="delete-chapter-btn p-2 text-red-600 hover:bg-red-50 rounded-full">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex items-center text-sm text-gray-600">
+                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium">已发布</span>
+                            <span class="ml-3"><i class="fas fa-user-graduate mr-1"></i> 56位学生学习</span>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-gray-100 flex justify-between">
+                            <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                                查看详情
+                            </button>
+                            <div class="text-gray-500 text-sm flex items-center">
+                                <i class="fas fa-clock mr-1"></i> 预计学时：3小时
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 章节卡片 -->
+                <div class="chapter-card bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all duration-300">
+                    <div class="p-5">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800">第二章：进阶理论</h3>
+                                <p class="text-sm text-gray-500 mt-1">包含3个课程 • 更新于 2023-05-18</p>
+                            </div>
+                            <div class="chapter-actions flex space-x-1">
+                                <button class="edit-chapter-btn p-2 text-blue-600 hover:bg-blue-50 rounded-full">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="delete-chapter-btn p-2 text-red-600 hover:bg-red-50 rounded-full">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex items-center text-sm text-gray-600">
+                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium">已发布</span>
+                            <span class="ml-3"><i class="fas fa-user-graduate mr-1"></i> 42位学生学习</span>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-gray-100 flex justify-between">
+                            <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                                查看详情
+                            </button>
+                            <div class="text-gray-500 text-sm flex items-center">
+                                <i class="fas fa-clock mr-1"></i> 预计学时：4小时
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 章节卡片 -->
+                <div class="chapter-card bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all duration-300">
+                    <div class="p-5">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800">第三章：实践应用</h3>
+                                <p class="text-sm text-gray-500 mt-1">包含7个课程 • 更新于 2023-06-01</p>
+                            </div>
+                            <div class="chapter-actions flex space-x-1">
+                                <button class="edit-chapter-btn p-2 text-blue-600 hover:bg-blue-50 rounded-full">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="delete-chapter-btn p-2 text-red-600 hover:bg-red-50 rounded-full">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex items-center text-sm text-gray-600">
+                            <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs font-medium">草稿</span>
+                            <span class="ml-3"><i class="fas fa-user-graduate mr-1"></i> 尚未发布</span>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-gray-100 flex justify-between">
+                            <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                                查看详情
+                            </button>
+                            <div class="text-gray-500 text-sm flex items-center">
+                                <i class="fas fa-clock mr-1"></i> 预计学时：6小时
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 新增章节模态框 -->
+    <div id="add-chapter-modal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl shadow-xl w-full max-w-md p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold text-gray-800">新增章节</h3>
+                <button id="close-add-modal" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-medium mb-2" for="chapter-title">
+                        章节标题
+                    </label>
+                    <input type="text" id="chapter-title" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="请输入章节标题">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-medium mb-2" for="chapter-description">
+                        章节描述
+                    </label>
+                    <textarea id="chapter-description" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="请输入章节描述"></textarea>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-medium mb-2" for="chapter-hours">
+                        预计学时（小时）
+                    </label>
+                    <input type="number" id="chapter-hours" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="请输入预计学时" min="1" max="100">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-medium mb-2" for="chapter-status">
+                        发布状态
+                    </label>
+                    <select id="chapter-status" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <option value="draft">草稿</option>
+                        <option value="published">已发布</option>
+                    </select>
+                </div>
+                <div class="flex justify-end space-x-3 mt-6">
+                    <button type="button" id="cancel-add" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-lg">
+                        取消
+                    </button>
+                    <button type="button" id="submit-add" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg">
+                        确认添加
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 编辑章节模态框 -->
+    <div id="edit-chapter-modal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl shadow-xl w-full max-w-md p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold text-gray-800">编辑章节</h3>
+                <button id="close-edit-modal" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-medium mb-2" for="edit-chapter-title">
+                        章节标题
+                    </label>
+                    <input type="text" id="edit-chapter-title" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" value="第一章：基础概念">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-medium mb-2" for="edit-chapter-description">
+                        章节描述
+                    </label>
+                    <textarea id="edit-chapter-description" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">本章介绍了基础概念，适合初学者学习。</textarea>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-medium mb-2" for="edit-chapter-hours">
+                        预计学时（小时）
+                    </label>
+                    <input type="number" id="edit-chapter-hours" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" value="3" min="1" max="100">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-medium mb-2" for="edit-chapter-status">
+                        发布状态
+                    </label>
+                    <select id="edit-chapter-status" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <option value="draft">草稿</option>
+                        <option value="published" selected>已发布</option>
+                    </select>
+                </div>
+                <div class="flex justify-end space-x-3 mt-6">
+                    <button type="button" id="cancel-edit" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-lg">
+                        取消
+                    </button>
+                    <button type="button" id="submit-edit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg">
+                        保存修改
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 删除确认模态框 -->
+    <div id="delete-confirm-modal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl shadow-xl w-full max-w-md p-6">
+            <div class="text-center">
+                <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-red-100 mb-4">
+                    <i class="fas fa-exclamation-triangle text-red-600 text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 mb-2">确认删除章节？</h3>
+                <p class="text-gray-600 mb-6">删除后将无法恢复，章节下的所有课程也将被删除。</p>
+                <div class="flex justify-center space-x-3">
+                    <button id="cancel-delete" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-lg">
+                        取消
+                    </button>
+                    <button id="confirm-delete" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg">
+                        确认删除
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 新增章节模态框
+        const addChapterBtn = document.getElementById('add-chapter-btn');
+        const addChapterModal = document.getElementById('add-chapter-modal');
+        const closeAddModal = document.getElementById('close-add-modal');
+        const cancelAdd = document.getElementById('cancel-add');
+        
+        addChapterBtn.addEventListener('click', () => {
+            addChapterModal.classList.remove('hidden');
+        });
+        
+        function hideAddModal() {
+            addChapterModal.classList.add('hidden');
+        }
+        
+        closeAddModal.addEventListener('click', hideAddModal);
+        cancelAdd.addEventListener('click', hideAddModal);
+        
+        // 编辑章节模态框
+        const editChapterBtns = document.querySelectorAll('.edit-chapter-btn');
+        const editChapterModal = document.getElementById('edit-chapter-modal');
+        const closeEditModal = document.getElementById('close-edit-modal');
+        const cancelEdit = document.getElementById('cancel-edit');
+        
+        editChapterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                editChapterModal.classList.remove('hidden');
+            });
+        });
+        
+        function hideEditModal() {
+            editChapterModal.classList.add('hidden');
+        }
+        
+        closeEditModal.addEventListener('click', hideEditModal);
+        cancelEdit.addEventListener('click', hideEditModal);
+        
+        // 删除确认模态框
+        const deleteChapterBtns = document.querySelectorAll('.delete-chapter-btn');
+        const deleteConfirmModal = document.getElementById('delete-confirm-modal');
+        const cancelDelete = document.getElementById('cancel-delete');
+        
+        deleteChapterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                deleteConfirmModal.classList.remove('hidden');
+            });
+        });
+        
+        function hideDeleteModal() {
+            deleteConfirmModal.classList.add('hidden');
+        }
+        
+        cancelDelete.addEventListener('click', hideDeleteModal);
+        
+        // 点击模态框外部关闭模态框
+        window.addEventListener('click', (e) => {
+            if (e.target === addChapterModal) {
+                hideAddModal();
+            }
+            if (e.target === editChapterModal) {
+                hideEditModal();
+            }
+            if (e.target === deleteConfirmModal) {
+                hideDeleteModal();
+            }
+        });
+    </script>
+</body>
+</html>

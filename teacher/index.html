@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>教师管理系统</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #f0f2f5;
+        }
+        .tablet-container {
+            aspect-ratio: 16/9;
+            max-width: 1200px;
+            margin: 0 auto;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .sidebar {
+            width: 240px;
+            background: #001529;
+        }
+        .main-content {
+            flex: 1;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body class="h-screen">
+    <div class="tablet-container bg-white flex h-full">
+        <!-- 侧边导航 -->
+        <div class="sidebar text-gray-300">
+            <div class="p-4 bg-blue-800 flex items-center">
+                <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=50&h=50&fit=crop" class="w-10 h-10 rounded-full mr-3" alt="用户头像">
+                <div>
+                    <div class="font-bold text-white">王老师</div>
+                    <div class="text-xs text-gray-300">高级教师</div>
+                </div>
+            </div>
+            
+            <ul class="mt-6">
+                <li class="nav-item active" data-page="chapters.html">
+                    <a href="#" class="flex items-center p-4 hover:bg-blue-800 bg-blue-700">
+                        <i class="fas fa-book-open mr-3"></i>
+                        <span>章节管理</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-page="courses.html">
+                    <a href="#" class="flex items-center p-4 hover:bg-blue-800">
+                        <i class="fas fa-graduation-cap mr-3"></i>
+                        <span>课程管理</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-page="materials.html">
+                    <a href="#" class="flex items-center p-4 hover:bg-blue-800">
+                        <i class="fas fa-book mr-3"></i>
+                        <span>教材管理</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-page="exams.html">
+                    <a href="#" class="flex items-center p-4 hover:bg-blue-800">
+                        <i class="fas fa-file-alt mr-3"></i>
+                        <span>试题管理</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="absolute bottom-4 w-full px-4">
+                <div class="bg-blue-900 rounded-lg p-3 text-xs">
+                    <div class="font-medium">当前版本：1.2.0</div>
+                    <div class="mt-1 text-gray-400">最近更新：2023-06-15</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 主要内容区域 -->
+        <div class="main-content bg-gray-100">
+            <iframe id="content-frame" src="chapters.html" title="内容页面"></iframe>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navItems = document.querySelectorAll('.nav-item');
+            const contentFrame = document.getElementById('content-frame');
+            
+            navItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // 移除所有active类
+                    navItems.forEach(nav => {
+                        nav.querySelector('a').classList.remove('bg-blue-700');
+                    });
+                    
+                    // 添加active类到当前项目
+                    this.querySelector('a').classList.add('bg-blue-700');
+                    
+                    // 更改iframe的src
+                    contentFrame.src = this.dataset.page;
+                });
+            });
+        });
+    </script>
+</body>
+</html>

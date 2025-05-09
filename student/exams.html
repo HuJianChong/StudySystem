@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>考试测验 - 学生学习系统</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-6">
+        <!-- 页面标题 -->
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-2xl font-bold text-gray-800">考试测验</h1>
+            <div class="flex space-x-2">
+                <div class="relative">
+                    <input type="text" placeholder="搜索考试..." class="pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                </div>
+                <div class="relative">
+                    <select class="py-2 pl-3 pr-10 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none bg-white">
+                        <option value="all">所有状态</option>
+                        <option value="not-started">未开始</option>
+                        <option value="in-progress">进行中</option>
+                        <option value="completed">已完成</option>
+                    </select>
+                    <i class="fas fa-chevron-down absolute right-3 top-3 text-gray-400 pointer-events-none"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- 考试列表和考试容器 -->
+        <div class="flex flex-col space-y-6">
+            <!-- 考试列表部分 -->
+            <div id="exams-list-container">
+                <!-- 不同类型考试分类 -->
+                <div class="mb-6">
+                    <h2 class="text-lg font-semibold text-gray-700 mb-4">进行中的考试</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                        <!-- 进行中考试项 -->
+                        <div class="bg-white rounded-xl shadow-md overflow-hidden hover-card border-l-4 border-yellow-500" data-exam-id="1" data-exam-status="in-progress">
+                            <div class="p-5">
+                                <div class="flex justify-between mb-3">
+                                    <h3 class="text-lg font-semibold text-gray-800">高一数学函数测验</h3>
+                                    <span class="exam-status-badge status-in-progress">进行中</span>
+                                </div>
+                                <div class="flex items-center text-gray-600 text-sm mb-3">
+                                    <i class="fas fa-book mr-2"></i>
+                                    <span>高一数学必修一</span>
+                                    <span class="mx-2">|</span>
+                                    <i class="fas fa-user-tie mr-2"></i>
+                                    <span>王老师</span>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="text-sm text-gray-600 mb-1">
+                                        <div class="flex justify-between mb-1">
+                                            <span>已完成题目</span>
+                                            <span>5/15题</span>
+                                        </div>
+                                        <div class="progress-bar">
+                                            <div class="progress-value" style="width: 33%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex justify-between items-center text-sm">
+                                    <div class="text-gray-500">
+                                        <i class="fas fa-clock mr-1"></i> 剩余时间: 20分钟
+                                    </div>
+                                    <button class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all">
+                                        继续考试
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h2 class="text-lg font-semibold text-gray-700 mb-4">即将开始的考试</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                        <!-- 未开始考试项 -->
+                        <div class="bg-white rounded-xl shadow-md overflow-hidden hover-card border-l-4 border-blue-400" data-exam-id="2" data-exam-status="not-started">
+                            <div class="p-5">
+                                <div class="flex justify-between mb-3">
+                                    <h3 class="text-lg font-semibold text-gray-800">高一语文古诗文鉴赏</h3>
+                                    <span class="exam-status-badge status-not-started">未开始</span>
+                                </div>
+                                <div class="flex items-center text-gray-600 text-sm mb-3">
+                                    <i class="fas fa-book mr-2"></i>
+                                    <span>高一语文必修二</span>
+                                    <span class="mx-2">|</span>
+                                    <i class="fas fa-user-tie mr-2"></i>
+                                    <span>张老师</span>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="flex items-center text-sm text-gray-600">
+                                        <i class="fas fa-calendar-alt mr-2"></i>
+                                        <span>2023-07-10</span>
+                                        <span class="mx-2">|</span>
+                                        <i class="fas fa-clock mr-2"></i>
+                                        <span>14:00-15:30</span>
+                                    </div>
+                                </div>
+                                <div class="flex justify-between items-center text-sm">
+                                    <div class="text-gray-500">
+                                        <i class="fas fa-info-circle mr-1"></i> 20题 · 90分钟
+                                    </div>
+                                    <button class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all">
+                                        查看详情
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 未开始考试项 -->
+                        <div class="bg-white rounded-xl shadow-md overflow-hidden hover-card border-l-4 border-blue-400" data-exam-id="3" data-exam-status="not-started">
+                            <div class="p-5">
+                                <div class="flex justify-between mb-3">
+                                    <h3 class="text-lg font-semibold text-gray-800">高一物理力学测验</h3>
+                                    <span class="exam-status-badge status-not-started">未开始</span>
+                                </div>
+                                <div class="flex items-center text-gray-600 text-sm mb-3">
+                                    <i class="fas fa-book mr-2"></i>
+                                    <span>高一物理必修二</span>
+                                    <span class="mx-2">|</span>
+                                    <i class="fas fa-user-tie mr-2"></i>
+                                    <span>赵老师</span>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="flex items-center text-sm text-gray-600">
+                                        <i class="fas fa-calendar-alt mr-2"></i>
+                                        <span>2023-07-15</span>
+                                        <span class="mx-2">|</span>
+                                        <i class="fas fa-clock mr-2"></i>
+                                        <span>10:00-11:30</span>
+                                    </div>
+                                </div>
+                                <div class="flex justify-between items-center text-sm">
+                                    <div class="text-gray-500">
+                                        <i class="fas fa-info-circle mr-1"></i> 15题 · 60分钟
+                                    </div>
+                                    <button class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all">
+                                        查看详情
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h2 class="text-lg font-semibold text-gray-700 mb-4">已完成的考试</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                        <!-- 已完成考试项 -->
+                        <div class="bg-white rounded-xl shadow-md overflow-hidden hover-card border-l-4 border-green-500" data-exam-id="4" data-exam-status="completed">
+                            <div class="p-5">
+                                <div class="flex justify-between mb-3">
+                                    <h3 class="text-lg font-semibold text-gray-800">高一数学集合测验</h3>
+                                    <span class="exam-status-badge status-completed">已完成</span>
+                                </div>
+                                <div class="flex items-center text-gray-600 text-sm mb-3">
+                                    <i class="fas fa-book mr-2"></i>
+                                    <span>高一数学必修一</span>
+                                    <span class="mx-2">|</span>
+                                    <i class="fas fa-user-tie mr-2"></i>
+                                    <span>王老师</span>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="flex items-center text-sm text-gray-600">
+                                        <i class="fas fa-calendar-alt mr-2"></i>
+                                        <span>2023-06-20</span>
+                                        <span class="mx-2">|</span>
+                                        <span class="text-green-600 font-medium">得分：90分</span>
+                                    </div>
+                                </div>
+                                <div class="flex justify-between items-center text-sm">
+                                    <div class="text-gray-500">
+                                        <i class="fas fa-check-circle mr-1"></i> 已批改
+                                    </div>
+                                    <button class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all">
+                                        查看详情
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 已完成考试项 -->
+                        <div class="bg-white rounded-xl shadow-md overflow-hidden hover-card border-l-4 border-green-500" data-exam-id="5" data-exam-status="completed">
+                            <div class="p-5">
+                                <div class="flex justify-between mb-3">
+                                    <h3 class="text-lg font-semibold text-gray-800">高一英语语法测验</h3>
+                                    <span class="exam-status-badge status-completed">已完成</span>
+                                </div>
+                                <div class="flex items-center text-gray-600 text-sm mb-3">
+                                    <i class="fas fa-book mr-2"></i>
+                                    <span>高一英语必修一</span>
+                                    <span class="mx-2">|</span>
+                                    <i class="fas fa-user-tie mr-2"></i>
+                                    <span>李老师</span>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="flex items-center text-sm text-gray-600">
+                                        <i class="fas fa-calendar-alt mr-2"></i>
+                                        <span>2023-06-15</span>
+                                        <span class="mx-2">|</span>
+                                        <span class="text-green-600 font-medium">得分：85分</span>
+                                    </div>
+                                </div>
+                                <div class="flex justify-between items-center text-sm">
+                                    <div class="text-gray-500">
+                                        <i class="fas fa-check-circle mr-1"></i> 已批改
+                                    </div>
+                                    <button class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all">
+                                        查看详情
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 考试页面 (初始隐藏) -->
+            <div id="exam-container" class="hidden">
+                <!-- 考试头部信息 -->
+                <div class="bg-white p-4 rounded-lg shadow-md mb-6">
+                    <div class="flex justify-between items-center">
+                        <h2 id="exam-title" class="text-xl font-bold text-gray-800">高一数学函数测验</h2>
+                        <div id="exam-timer" class="bg-blue-100 text-blue-800 px-4 py-2 rounded-lg font-medium">
+                            剩余时间: <span id="remaining-time">20:00</span>
+                        </div>
+                    </div>
+                    <div class="mt-3 flex flex-wrap items-center text-sm text-gray-600">
+                        <div class="mr-4">
+                            <i class="fas fa-book mr-1"></i> 课程: <span id="exam-course">高一数学必修一</span>
+                        </div>
+                        <div class="mr-4">
+                            <i class="fas fa-user-tie mr-1"></i> 教师: <span id="exam-teacher">王老师</span>
+                        </div>
+                        <div class="mr-4">
+                            <i class="fas fa-tasks mr-1"></i> 题目: <span id="exam-question-count">15题</span>
+                        </div>
+                        <div>
+                            <i class="fas fa-clock mr-1"></i> 总时长: <span id="exam-total-time">45分钟</span>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <div class="text-sm text-gray-600 mb-1 flex justify-between">
+                            <span>答题进度: <span id="progress-text">5/15</span></span>
+                            <span id="progress-percentage">33%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div id="progress-bar-value" class="progress-value" style="width: 33%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 考试内容 -->
+                <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+                    <!-- 题目导航 -->
+                    <div class="mb-6 overflow-x-auto">
+                        <div class="flex space-x-2 pb-2">
+                            <!-- 题目导航按钮 -->
+                            <button class="question-nav-btn bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-medium">1</button>
+                            <button class="question-nav-btn bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-medium">2</button>
+                            <button class="question-nav-btn bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-medium">3</button>
+                            <button class="question-nav-btn bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-medium">4</button>
+                            <button class="question-nav-btn bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-medium">5</button>
+                            <button class="question-nav-btn bg-gray-200 text-gray-600 w-8 h-8 rounded-full flex items-center justify-center font-medium">6</button>
+                            <button class="question-nav-btn bg-gray-200 text-gray-600 w-8 h-8 rounded-full flex items-center justify-center font-medium">7</button>
+                            <button class="question-nav-btn bg-gray-200 text-gray-600 w-8 h-8 rounded-full flex items-center justify-center font-medium">8</button>
+                            <button class="question-nav-btn bg-gray-200 text-gray-600 w-8 h-8 rounded-full flex items-center justify-center font-medium">9</button>
+                            <button class="question-nav-btn bg-gray-200 text-gray-600 w-8 h-8 rounded-full flex items-center justify-center font-medium">10</button>
+                            <button class="question-nav-btn bg-gray-200 text-gray-600 w-8 h-8 rounded-full flex items-center justify-center font-medium">11</button>
+                            <button class="question-nav-btn bg-gray-200 text-gray-600 w-8 h-8 rounded-full flex items-center justify-center font-medium">12</button>
+                            <button class="question-nav-btn bg-gray-200 text-gray-600 w-8 h-8 rounded-full flex items-center justify-center font-medium">13</button>
+                            <button class="question-nav-btn bg-gray-200 text-gray-600 w-8 h-8 rounded-full flex items-center justify-center font-medium">14</button>
+                            <button class="question-nav-btn bg-gray-200 text-gray-600 w-8 h-8 rounded-full flex items-center justify-center font-medium">15</button>
+                        </div>
+                        <div class="flex justify-end text-xs text-gray-500 mt-1">
+                            <div class="flex items-center mr-4">
+                                <div class="w-3 h-3 bg-blue-600 rounded-full mr-1"></div> 已答
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-gray-200 rounded-full mr-1"></div> 未答
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 当前题目 -->
+                    <div class="current-question">
+                        <div class="mb-4">
+                            <div class="flex items-center mb-2">
+                                <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm font-medium mr-2">第6题</span>
+                                <span class="text-gray-500 text-sm">单选题 (5分)</span>
+                            </div>
+                            <p class="text-gray-800 text-lg">已知函数f(x)=x<sup>2</sup>-4x+3，则f(x)的最小值为：</p>
+                        </div>
+
+                        <!-- 选项列表 -->
+                        <div class="space-y-3 mb-6">
+                            <label class="flex items-center p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                                <input type="radio" name="question6" value="A" class="mr-3">
+                                <span class="font-medium mr-2">A.</span>
+                                <span>-1</span>
+                            </label>
+                            <label class="flex items-center p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                                <input type="radio" name="question6" value="B" class="mr-3">
+                                <span class="font-medium mr-2">B.</span>
+                                <span>0</span>
+                            </label>
+                            <label class="flex items-center p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                                <input type="radio" name="question6" value="C" class="mr-3">
+                                <span class="font-medium mr-2">C.</span>
+                                <span>1</span>
+                            </label>
+                            <label class="flex items-center p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                                <input type="radio" name="question6" value="D" class="mr-3">
+                                <span class="font-medium mr-2">D.</span>
+                                <span>3</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 导航按钮 -->
+                    <div class="flex justify-between mt-6">
+                        <button id="prev-question" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
+                            <i class="fas fa-arrow-left mr-2"></i> 上一题
+                        </button>
+                        <button id="next-question" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg">
+                            下一题 <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 考试控制按钮 -->
+                <div class="flex justify-between">
+                    <button id="exit-exam" class="px-6 py-3 border border-red-500 text-red-500 hover:bg-red-50 rounded-lg font-medium">
+                        退出考试
+                    </button>
+                    <button id="submit-exam" class="px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium">
+                        提交试卷
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 确认提交模态框 -->
+    <div id="submit-modal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg p-6 max-w-md w-full">
+            <h3 class="text-xl font-bold text-gray-800 mb-4">确认提交试卷</h3>
+            <p class="text-gray-600 mb-6">您还有10题未作答，确定要提交试卷吗？</p>
+            <div class="flex justify-end space-x-3">
+                <button id="cancel-submit" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
+                    取消
+                </button>
+                <button id="confirm-submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg">
+                    确认提交
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 获取DOM元素
+            const examsListContainer = document.getElementById('exams-list-container');
+            const examContainer = document.getElementById('exam-container');
+            const examCards = document.querySelectorAll('[data-exam-status="in-progress"]');
+            const submitModal = document.getElementById('submit-modal');
+            const cancelSubmit = document.getElementById('cancel-submit');
+            const confirmSubmit = document.getElementById('confirm-submit');
+            const submitExam = document.getElementById('submit-exam');
+            const exitExam = document.getElementById('exit-exam');
+            
+            // 继续考试按钮点击事件
+            examCards.forEach(card => {
+                const button = card.querySelector('button');
+                button.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    examsListContainer.classList.add('hidden');
+                    examContainer.classList.remove('hidden');
+                    
+                    // 开始计时器
+                    startTimer();
+                });
+            });
+            
+            // 退出考试按钮点击事件
+            exitExam.addEventListener('click', function() {
+                examsListContainer.classList.remove('hidden');
+                examContainer.classList.add('hidden');
+            });
+            
+            // 提交试卷按钮点击事件
+            submitExam.addEventListener('click', function() {
+                submitModal.classList.remove('hidden');
+                submitModal.classList.add('show');
+            });
+            
+            // 取消提交按钮点击事件
+            cancelSubmit.addEventListener('click', function() {
+                submitModal.classList.remove('show');
+                setTimeout(() => {
+                    submitModal.classList.add('hidden');
+                }, 300);
+            });
+            
+            // 确认提交按钮点击事件
+            confirmSubmit.addEventListener('click', function() {
+                // 这里添加提交逻辑
+                alert('试卷已提交！');
+                submitModal.classList.remove('show');
+                setTimeout(() => {
+                    submitModal.classList.add('hidden');
+                    examsListContainer.classList.remove('hidden');
+                    examContainer.classList.add('hidden');
+                }, 300);
+            });
+            
+            // 计时器功能
+            function startTimer() {
+                const timerElement = document.getElementById('remaining-time');
+                let minutes = 20;
+                let seconds = 0;
+                
+                const timer = setInterval(function() {
+                    if (seconds === 0) {
+                        if (minutes === 0) {
+                            clearInterval(timer);
+                            alert('考试时间已结束！');
+                            return;
+                        }
+                        minutes--;
+                        seconds = 59;
+                    } else {
+                        seconds--;
+                    }
+                    
+                    // 更新显示
+                    timerElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                    
+                    // 时间少于5分钟时，显示红色警告
+                    if (minutes < 5) {
+                        document.getElementById('exam-timer').classList.remove('bg-blue-100', 'text-blue-800');
+                        document.getElementById('exam-timer').classList.add('bg-red-100', 'text-red-800');
+                    }
+                }, 1000);
+            }
+            
+            // 题目导航按钮点击事件
+            const questionNavBtns = document.querySelectorAll('.question-nav-btn');
+            questionNavBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // 这里可以添加题目切换逻辑
+                    const questionNumber = parseInt(this.textContent);
+                    alert(`切换到第${questionNumber}题`);
+                });
+            });
+            
+            // 上一题、下一题按钮点击事件
+            document.getElementById('prev-question').addEventListener('click', function() {
+                alert('切换到上一题');
+            });
+            
+            document.getElementById('next-question').addEventListener('click', function() {
+                alert('切换到下一题');
+            });
+        });
+    </script>
+</body>
+</html> 

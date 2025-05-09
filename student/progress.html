@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学习进度 - 学生学习系统</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <!-- 引入Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-6">
+        <!-- 页面标题 -->
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-2xl font-bold text-gray-800">学习进度</h1>
+            <div class="flex space-x-3">
+                <div class="relative">
+                    <select id="time-range" class="py-2 pl-3 pr-10 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none bg-white">
+                        <option value="week">本周</option>
+                        <option value="month" selected>本月</option>
+                        <option value="semester">本学期</option>
+                        <option value="year">本学年</option>
+                    </select>
+                    <i class="fas fa-chevron-down absolute right-3 top-3 text-gray-400 pointer-events-none"></i>
+                </div>
+                <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-all">
+                    <i class="fas fa-download mr-2"></i>导出报告
+                </button>
+            </div>
+        </div>
+
+        <!-- 进度概览 -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+            <div class="bg-white rounded-xl shadow-md p-4">
+                <div class="flex items-center justify-between mb-2">
+                    <h2 class="font-semibold text-gray-700">总体进度</h2>
+                    <span class="text-blue-600"><i class="fas fa-chart-line"></i></span>
+                </div>
+                <div class="text-3xl font-bold text-gray-800 mb-2">75%</div>
+                <div class="progress-bar mb-2">
+                    <div class="progress-value" style="width: 75%"></div>
+                </div>
+                <p class="text-sm text-gray-600">+5% 相比上月</p>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-md p-4">
+                <div class="flex items-center justify-between mb-2">
+                    <h2 class="font-semibold text-gray-700">平均成绩</h2>
+                    <span class="text-green-600"><i class="fas fa-graduation-cap"></i></span>
+                </div>
+                <div class="text-3xl font-bold text-gray-800 mb-2">87.5</div>
+                <div class="progress-bar mb-2">
+                    <div class="progress-value bg-green-500" style="width: 87.5%"></div>
+                </div>
+                <p class="text-sm text-gray-600">+2.5 相比上月</p>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-md p-4">
+                <div class="flex items-center justify-between mb-2">
+                    <h2 class="font-semibold text-gray-700">完成课程</h2>
+                    <span class="text-purple-600"><i class="fas fa-book"></i></span>
+                </div>
+                <div class="text-3xl font-bold text-gray-800 mb-2">8<span class="text-lg">/12</span></div>
+                <div class="progress-bar mb-2">
+                    <div class="progress-value bg-purple-500" style="width: 66.7%"></div>
+                </div>
+                <p class="text-sm text-gray-600">本学期课程完成率</p>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-md p-4">
+                <div class="flex items-center justify-between mb-2">
+                    <h2 class="font-semibold text-gray-700">学习时长</h2>
+                    <span class="text-yellow-600"><i class="fas fa-clock"></i></span>
+                </div>
+                <div class="text-3xl font-bold text-gray-800 mb-2">128<span class="text-lg">小时</span></div>
+                <div class="progress-bar mb-2">
+                    <div class="progress-value bg-yellow-500" style="width: 64%"></div>
+                </div>
+                <p class="text-sm text-gray-600">+15小时 相比上月</p>
+            </div>
+        </div>
+
+        <!-- 图表区域 -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- 各科目学习进度 -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                <div class="p-4 bg-blue-50 border-b">
+                    <h2 class="text-lg font-semibold text-gray-800">各科目学习进度</h2>
+                </div>
+                <div class="p-5">
+                    <canvas id="subjectProgressChart" height="250"></canvas>
+                </div>
+            </div>
+
+            <!-- 学习时间分布 -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                <div class="p-4 bg-blue-50 border-b">
+                    <h2 class="text-lg font-semibold text-gray-800">各科目学习时间分布</h2>
+                </div>
+                <div class="p-5">
+                    <canvas id="timeDistributionChart" height="250"></canvas>
+                </div>
+            </div>
+
+            <!-- 成绩走势 -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                <div class="p-4 bg-blue-50 border-b">
+                    <h2 class="text-lg font-semibold text-gray-800">成绩走势</h2>
+                </div>
+                <div class="p-5">
+                    <canvas id="scoreChart" height="250"></canvas>
+                </div>
+            </div>
+
+            <!-- 学习活跃度 -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                <div class="p-4 bg-blue-50 border-b">
+                    <h2 class="text-lg font-semibold text-gray-800">学习活跃度热力图</h2>
+                </div>
+                <div class="p-5">
+                    <canvas id="activityChart" height="250"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- 课程完成详情 -->
+        <div class="mt-6 bg-white rounded-xl shadow-md overflow-hidden">
+            <div class="p-4 bg-blue-50 border-b">
+                <h2 class="text-lg font-semibold text-gray-800">课程完成详情</h2>
+            </div>
+            <div class="p-4">
+                <div class="overflow-x-auto">
+                    <table class="table w-full">
+                        <thead>
+                            <tr>
+                                <th class="text-left py-3 px-4">课程名称</th>
+                                <th class="text-left py-3 px-4">教师</th>
+                                <th class="text-left py-3 px-4">进度</th>
+                                <th class="text-left py-3 px-4">平均成绩</th>
+                                <th class="text-left py-3 px-4">学习时长</th>
+                                <th class="text-left py-3 px-4">状态</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="py-3 px-4">高一数学必修一</td>
+                                <td class="py-3 px-4">王老师</td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center">
+                                        <div class="progress-bar w-32 mr-2">
+                                            <div class="progress-value" style="width: 75%"></div>
+                                        </div>
+                                        <span>75%</span>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4">88分</td>
+                                <td class="py-3 px-4">35小时</td>
+                                <td class="py-3 px-4"><span class="badge badge-success">进行中</span></td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4">高一语文必修二</td>
+                                <td class="py-3 px-4">张老师</td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center">
+                                        <div class="progress-bar w-32 mr-2">
+                                            <div class="progress-value" style="width: 60%"></div>
+                                        </div>
+                                        <span>60%</span>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4">84分</td>
+                                <td class="py-3 px-4">28小时</td>
+                                <td class="py-3 px-4"><span class="badge badge-success">进行中</span></td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4">高一英语必修一</td>
+                                <td class="py-3 px-4">李老师</td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center">
+                                        <div class="progress-bar w-32 mr-2">
+                                            <div class="progress-value" style="width: 100%"></div>
+                                        </div>
+                                        <span>100%</span>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4">92分</td>
+                                <td class="py-3 px-4">30小时</td>
+                                <td class="py-3 px-4"><span class="badge badge-info">已完成</span></td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4">高一物理必修一</td>
+                                <td class="py-3 px-4">赵老师</td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center">
+                                        <div class="progress-bar w-32 mr-2">
+                                            <div class="progress-value" style="width: 100%"></div>
+                                        </div>
+                                        <span>100%</span>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4">86分</td>
+                                <td class="py-3 px-4">32小时</td>
+                                <td class="py-3 px-4"><span class="badge badge-info">已完成</span></td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4">高一英语必修三</td>
+                                <td class="py-3 px-4">李老师</td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center">
+                                        <div class="progress-bar w-32 mr-2">
+                                            <div class="progress-value" style="width: 0%"></div>
+                                        </div>
+                                        <span>0%</span>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4">-</td>
+                                <td class="py-3 px-4">0小时</td>
+                                <td class="py-3 px-4"><span class="badge badge-warning">未开始</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 各科目学习进度图表
+            const subjectProgressCtx = document.getElementById('subjectProgressChart').getContext('2d');
+            const subjectProgressChart = new Chart(subjectProgressCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['数学', '语文', '英语', '物理', '化学', '生物'],
+                    datasets: [{
+                        label: '学习进度',
+                        data: [75, 60, 85, 100, 50, 40],
+                        backgroundColor: [
+                            'rgba(66, 153, 225, 0.6)',
+                            'rgba(72, 187, 120, 0.6)',
+                            'rgba(237, 100, 166, 0.6)',
+                            'rgba(246, 173, 85, 0.6)',
+                            'rgba(113, 128, 150, 0.6)',
+                            'rgba(160, 174, 192, 0.6)'
+                        ],
+                        borderColor: [
+                            'rgba(66, 153, 225, 1)',
+                            'rgba(72, 187, 120, 1)',
+                            'rgba(237, 100, 166, 1)',
+                            'rgba(246, 173, 85, 1)',
+                            'rgba(113, 128, 150, 1)',
+                            'rgba(160, 174, 192, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+
+            // 学习时间分布图表
+            const timeDistributionCtx = document.getElementById('timeDistributionChart').getContext('2d');
+            const timeDistributionChart = new Chart(timeDistributionCtx, {
+                type: 'pie',
+                data: {
+                    labels: ['数学', '语文', '英语', '物理', '化学', '生物'],
+                    datasets: [{
+                        data: [35, 28, 30, 32, 15, 8],
+                        backgroundColor: [
+                            'rgba(66, 153, 225, 0.6)',
+                            'rgba(72, 187, 120, 0.6)',
+                            'rgba(237, 100, 166, 0.6)',
+                            'rgba(246, 173, 85, 0.6)',
+                            'rgba(113, 128, 150, 0.6)',
+                            'rgba(160, 174, 192, 0.6)'
+                        ],
+                        borderColor: [
+                            'rgba(66, 153, 225, 1)',
+                            'rgba(72, 187, 120, 1)',
+                            'rgba(237, 100, 166, 1)',
+                            'rgba(246, 173, 85, 1)',
+                            'rgba(113, 128, 150, 1)',
+                            'rgba(160, 174, 192, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.label || '';
+                                    const value = context.raw || 0;
+                                    return `${label}: ${value}小时`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // 成绩走势图表
+            const scoreCtx = document.getElementById('scoreChart').getContext('2d');
+            const scoreChart = new Chart(scoreCtx, {
+                type: 'line',
+                data: {
+                    labels: ['3月', '4月', '5月', '6月', '7月'],
+                    datasets: [
+                        {
+                            label: '数学',
+                            data: [82, 85, 80, 88, 90],
+                            borderColor: 'rgba(66, 153, 225, 1)',
+                            backgroundColor: 'rgba(66, 153, 225, 0.2)',
+                            tension: 0.3,
+                            fill: false
+                        },
+                        {
+                            label: '语文',
+                            data: [78, 80, 82, 84, 86],
+                            borderColor: 'rgba(72, 187, 120, 1)',
+                            backgroundColor: 'rgba(72, 187, 120, 0.2)',
+                            tension: 0.3,
+                            fill: false
+                        },
+                        {
+                            label: '英语',
+                            data: [85, 88, 90, 92, 94],
+                            borderColor: 'rgba(237, 100, 166, 1)',
+                            backgroundColor: 'rgba(237, 100, 166, 0.2)',
+                            tension: 0.3,
+                            fill: false
+                        },
+                        {
+                            label: '物理',
+                            data: [75, 78, 80, 84, 86],
+                            borderColor: 'rgba(246, 173, 85, 1)',
+                            backgroundColor: 'rgba(246, 173, 85, 0.2)',
+                            tension: 0.3,
+                            fill: false
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            min: 60,
+                            max: 100
+                        }
+                    }
+                }
+            });
+
+            // 学习活跃度图表 (简化为柱状图)
+            const activityCtx = document.getElementById('activityChart').getContext('2d');
+            const activityChart = new Chart(activityCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+                    datasets: [{
+                        label: '学习时长 (小时)',
+                        data: [4.5, 3.8, 5.2, 4.0, 3.5, 6.1, 5.8],
+                        backgroundColor: 'rgba(66, 153, 225, 0.6)',
+                        borderColor: 'rgba(66, 153, 225, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.dataset.label || '';
+                                    const value = context.raw || 0;
+                                    return `${label}: ${value}`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

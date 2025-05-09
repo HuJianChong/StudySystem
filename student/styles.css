@@ -1,0 +1,222 @@
+/* 自定义样式表 */
+body {
+    font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+}
+
+/* 平板设备样式优化 */
+.tablet-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    aspect-ratio: 16/9;
+}
+
+/* 动画效果 */
+.transition-all {
+    transition: all 0.3s ease;
+}
+
+/* 卡片悬停效果 */
+.hover-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* 侧边栏样式 - 学生版配色 */
+.sidebar {
+    width: 240px;
+    background: linear-gradient(to bottom, #2c5282, #3182ce);
+}
+
+/* 自定义滚动条 */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #c5c5c5;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a0a0a0;
+}
+
+/* 模态框过渡效果 */
+.modal {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* 徽章样式 */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+}
+
+.badge-success {
+    background-color: #c6f6d5;
+    color: #2f855a;
+}
+
+.badge-warning {
+    background-color: #fefcbf;
+    color: #975a16;
+}
+
+.badge-info {
+    background-color: #bee3f8;
+    color: #2c5282;
+}
+
+/* 标签样式 */
+.tag {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* 导航激活状态 */
+.nav-item.active a {
+    background-color: rgba(66, 153, 225, 0.15);
+    color: #fff;
+    border-left: 3px solid #90cdf4;
+}
+
+/* 按钮悬停特效 */
+.btn-primary {
+    background-color: #4299e1;
+    color: white;
+    transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: #3182ce;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* 卡片特效 */
+.card {
+    border-radius: 0.5rem;
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* 表格美化 */
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th {
+    background-color: #f7fafc;
+    font-weight: 600;
+    text-align: left;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.table tr:hover {
+    background-color: #f7fafc;
+}
+
+/* 进度条样式 */
+.progress-bar {
+    height: 8px;
+    border-radius: 4px;
+    background-color: #e2e8f0;
+    overflow: hidden;
+}
+
+.progress-value {
+    height: 100%;
+    border-radius: 4px;
+    background: linear-gradient(to right, #4299e1, #63b3ed);
+    transition: width 0.3s ease;
+}
+
+/* 课程卡片样式 */
+.course-card {
+    border-radius: 0.75rem;
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+.course-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* 考试状态徽章 */
+.exam-status-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.status-not-started {
+    background-color: #e2e8f0;
+    color: #4a5568;
+}
+
+.status-in-progress {
+    background-color: #fefcbf;
+    color: #975a16;
+}
+
+.status-completed {
+    background-color: #c6f6d5;
+    color: #2f855a;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .tablet-container {
+        aspect-ratio: auto;
+        border-radius: 0;
+    }
+    
+    .sidebar {
+        width: 200px;
+    }
+} 
