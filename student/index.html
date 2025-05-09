@@ -15,67 +15,118 @@
             <div class="p-4 bg-blue-800 flex items-center">
                 <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=50&h=50&fit=crop" class="w-10 h-10 rounded-full mr-3" alt="用户头像">
                 <div>
-                    <div class="font-bold text-white">李同学</div>
-                    <div class="text-xs text-gray-300">高一年级</div>
+                    <h3 class="font-medium">李同学</h3>
+                    <div class="text-xs opacity-80">高一(3)班</div>
                 </div>
             </div>
-            
-            <ul class="mt-6">
-                <li class="nav-item active" data-page="dashboard.html">
-                    <a href="#" class="flex items-center p-4 hover:bg-blue-800 bg-blue-700">
-                        <i class="fas fa-tachometer-alt mr-3"></i>
-                        <span>学习主页</span>
-                    </a>
-                </li>
-                <li class="nav-item" data-page="courses.html">
-                    <a href="#" class="flex items-center p-4 hover:bg-blue-800">
-                        <i class="fas fa-graduation-cap mr-3"></i>
-                        <span>课程管理</span>
-                    </a>
-                </li>
-                <li class="nav-item" data-page="exams.html">
-                    <a href="#" class="flex items-center p-4 hover:bg-blue-800">
-                        <i class="fas fa-file-alt mr-3"></i>
-                        <span>试题管理</span>
-                    </a>
-                </li>
-            </ul>
-
-            <div class="absolute bottom-4 w-full px-4">
-                <div class="bg-blue-900 rounded-lg p-3 text-xs">
-                    <div class="font-medium">学期：2023-2024 春季</div>
-                    <div class="mt-1 text-gray-400">距离期末考试：45天</div>
-                </div>
+            <div class="py-4">
+                <a href="dashboard.html" target="content-frame" class="nav-link active">
+                    <i class="fas fa-home"></i>
+                    <span>学习主页</span>
+                </a>
+                <a href="courses.html" target="content-frame" class="nav-link">
+                    <i class="fas fa-book"></i>
+                    <span>我的课程</span>
+                </a>
+                <a href="exams.html" target="content-frame" class="nav-link">
+                    <i class="fas fa-clipboard-list"></i>
+                    <span>试题测验</span>
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>学习分析</span>
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-comment-alt"></i>
+                    <span>在线讨论</span>
+                </a>
             </div>
         </div>
-        
-        <!-- 主要内容区域 -->
-        <div class="main-content bg-gray-100">
-            <iframe id="content-frame" src="dashboard.html" title="内容页面"></iframe>
+
+        <!-- 主内容区域 -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- 顶部导航条 -->
+            <header class="bg-white shadow-sm z-10">
+                <div class="flex justify-between items-center p-4">
+                    <div class="flex items-center">
+                        <button id="toggle-sidebar" class="mr-4 text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        <h1 class="text-xl font-bold text-gray-700" id="page-title">学习主页</h1>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="relative mr-4">
+                            <button class="relative text-gray-500 hover:text-gray-700">
+                                <i class="fas fa-bell"></i>
+                                <span class="absolute -top-1 -right-1 bg-red-500 text-xs text-white rounded-full w-4 h-4 flex items-center justify-center">3</span>
+                            </button>
+                        </div>
+                        <div class="text-sm text-gray-600">
+                            <i class="fas fa-calendar-alt mr-1"></i>
+                            <span id="current-date">2023年7月5日 星期三</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- iframe内容区域 -->
+            <main class="flex-1 overflow-auto bg-gray-100">
+                <iframe name="content-frame" src="dashboard.html" class="w-full h-full border-0" id="content-frame"></iframe>
+            </main>
         </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const navItems = document.querySelectorAll('.nav-item');
-            const contentFrame = document.getElementById('content-frame');
+            // 获取当前日期并格式化
+            const now = new Date();
+            const days = ['日', '一', '二', '三', '四', '五', '六'];
+            const dateStr = `${now.getFullYear()}年${now.getMonth() + 1}月${now.getDate()}日 星期${days[now.getDay()]}`;
+            document.getElementById('current-date').textContent = dateStr;
             
-            navItems.forEach(item => {
-                item.addEventListener('click', function(e) {
-                    e.preventDefault();
+            // 侧边栏折叠功能
+            const toggleButton = document.getElementById('toggle-sidebar');
+            const sidebar = document.querySelector('.sidebar');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            toggleButton.addEventListener('click', function() {
+                sidebar.classList.toggle('collapsed');
+            });
+            
+            // 导航链接点击事件
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    // 移除所有链接的活动状态
+                    navLinks.forEach(l => l.classList.remove('active'));
                     
-                    // 移除所有active类
-                    navItems.forEach(nav => {
-                        nav.classList.remove('active');
-                        nav.querySelector('a').classList.remove('bg-blue-700');
-                    });
-                    
-                    // 添加active类到当前项目
+                    // 添加当前链接的活动状态
                     this.classList.add('active');
-                    this.querySelector('a').classList.add('bg-blue-700');
                     
-                    // 更改iframe的src
-                    contentFrame.src = this.dataset.page;
+                    // 更新页面标题
+                    const pageTitle = this.querySelector('span').textContent;
+                    document.getElementById('page-title').textContent = pageTitle;
+                });
+            });
+            
+            // iframe 加载完成后更新页面标题
+            document.getElementById('content-frame').addEventListener('load', function() {
+                // 获取iframe中的标题
+                const iframeTitle = this.contentDocument.title;
+                
+                // 如果标题包含 " - "，只取后半部分
+                const titleParts = iframeTitle.split(' - ');
+                const pageTitle = titleParts.length > 1 ? titleParts[0] : iframeTitle;
+                
+                // 更新页面标题
+                document.getElementById('page-title').textContent = pageTitle;
+                
+                // 根据页面更新导航栏活动状态
+                navLinks.forEach(link => {
+                    const href = link.getAttribute('href');
+                    if (href && this.contentWindow.location.href.includes(href)) {
+                        navLinks.forEach(l => l.classList.remove('active'));
+                        link.classList.add('active');
+                    }
                 });
             });
         });
