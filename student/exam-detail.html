@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高等数学期末考试</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .question-card {
+            transition: all 0.3s ease;
+        }
+        .question-card:hover {
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+        /* 移除所有可能会导致离开考试页面的链接样式 */
+        a[href]:not([href^="#"]) {
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+        /* 禁止选择文本，避免复制粘贴 */
+        .no-select {
+            user-select: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <!-- 顶部考试标题栏 -->    
+    <header class="fixed top-0 left-0 right-0 bg-white shadow-md py-4 px-6 z-10">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center">
+                <i class="fas fa-file-alt text-blue-600 text-2xl mr-3"></i>
+                <h1 class="text-xl font-bold text-gray-800">高等数学期末考试</h1>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm">考试进行中</div>
+                <div class="text-gray-700 text-sm flex items-center">
+                    <i class="fas fa-clock mr-1"></i>
+                    <span id="exam-timer" class="font-bold">00:29:58</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容区域 -->
+    <div class="container mx-auto px-6 pt-24 pb-24">
+        <div class="bg-white rounded-xl shadow-md p-5 mb-6">
+            <div class="flex justify-between items-center">
+                <div>
+                    <div class="text-lg text-gray-800 font-bold mb-1">考试信息</div>
+                    <p class="text-gray-500">总分：100分 | 考试时间：60分钟 | 开始时间：2024-04-28 09:30</p>
+                </div>
+                <div>
+                    <span class="px-2 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-bold">考试编号：MATH-2024-001</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-md overflow-hidden mb-6">
+            <div class="p-5 border-b border-gray-200">
+                <h2 class="text-lg font-bold text-gray-800">考试须知</h2>
+            </div>
+            <div class="p-5 text-gray-600 text-sm">
+                <ol class="list-decimal ml-5 space-y-2">
+                    <li>考试过程中禁止离开页面，离开页面超过3次将自动交卷。</li>
+                    <li>考试时间到期后，系统将自动收卷并计算成绩。</li>
+                    <li>选择题请选择正确的答案，判断题请选择"正确"或"错误"。</li>
+                    <li>答题完成后点击"提交并判分"按钮完成考试。</li>
+                </ol>
+            </div>
+        </div>
+
+        <form id="exam-form" class="no-select">
+            <!-- 选择题部分 -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden mb-6">
+                <div class="p-5 border-b border-gray-200">
+                    <h2 class="text-lg font-bold text-gray-800">一、选择题（每题5分，共4题）</h2>
+                </div>
+                <div class="p-5 space-y-6">
+                    <!-- 问题1 -->
+                    <div class="question-card p-4 bg-gray-50 rounded-lg">
+                        <div class="mb-3 font-medium">1. 下列哪个是极限的定义？</div>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-2 hover:bg-gray-100 rounded cursor-pointer">
+                                <input type="radio" name="q1" value="A" class="mr-2">
+                                <span>A. 某点处函数值</span>
+                            </label>
+                            <label class="flex items-center p-2 hover:bg-gray-100 rounded cursor-pointer">
+                                <input type="radio" name="q1" value="B" class="mr-2">
+                                <span>B. 某点处导数</span>
+                            </label>
+                            <label class="flex items-center p-2 hover:bg-gray-100 rounded cursor-pointer">
+                                <input type="radio" name="q1" value="C" class="mr-2">
+                                <span>C. 函数在某点附近趋于某一确定值</span>
+                            </label>
+                            <label class="flex items-center p-2 hover:bg-gray-100 rounded cursor-pointer">
+                                <input type="radio" name="q1" value="D" class="mr-2">
+                                <span>D. 积分区间</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 问题2 -->
+                    <div class="question-card p-4 bg-gray-50 rounded-lg">
+                        <div class="mb-3 font-medium">2. 导数的几何意义是？</div>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-2 hover:bg-gray-100 rounded cursor-pointer">
+                                <input type="radio" name="q2" value="A" class="mr-2">
+                                <span>A. 切线斜率</span>
+                            </label>
+                            <label class="flex items-center p-2 hover:bg-gray-100 rounded cursor-pointer">
+                                <input type="radio" name="q2" value="B" class="mr-2">
+                                <span>B. 面积</span>
+                            </label>
+                            <label class="flex items-center p-2 hover:bg-gray-100 rounded cursor-pointer">
+                                <input type="radio" name="q2" value="C" class="mr-2">
+                                <span>C. 体积</span>
+                            </label>
+                            <label class="flex items-center p-2 hover:bg-gray-100 rounded cursor-pointer">
+                                <input type="radio" name="q2" value="D" class="mr-2">
+                                <span>D. 极限</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 问题3 -->
+                    <div class="question-card p-4 bg-gray-50 rounded-lg">
+                        <div class="mb-3 font-medium">3. 以下哪个公式表示定积分的几何意义？</div>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-2 hover:bg-gray-100 rounded cursor-pointer">
+                                <input type="radio" name="q3" value="A" class="mr-2">
+                                <span>A. 曲线下方面积</span>
+                            </label>
+                            <label class="flex items-center p-2 hover:bg-gray-100 rounded cursor-pointer">
+                                <input type="radio" name="q3" value="B" class="mr-2">
+                                <span>B. 曲线的长度</span>
+                            </label>
+                            <label class="flex items-center p-2 hover:bg-gray-100 rounded cursor-pointer">
+                                <input type="radio" name="q3" value="C" class="mr-2">
+                                <span>C. 旋转体的体积</span>
+                            </label>
+                            <label class="flex items-center p-2 hover:bg-gray-100 rounded cursor-pointer">
+                                <input type="radio" name="q3" value="D" class="mr-2">
+                                <span>D. 变化率</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 问题4 -->
+                    <div class="question-card p-4 bg-gray-50 rounded-lg">
+                        <div class="mb-3 font-medium">4. 下列哪个是微分方程的一般形式？</div>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-2 hover:bg-gray-100 rounded cursor-pointer">
+                                <input type="radio" name="q4" value="A" class="mr-2">
+                                <span>A. y = f(x)</span>
+                            </label>
+                            <label class="flex items-center p-2 hover:bg-gray-100 rounded cursor-pointer">
+                                <input type="radio" name="q4" value="B" class="mr-2">
+                                <span>B. F(x, y, y', y'',..., y^(n)) = 0</span>
+                            </label>
+                            <label class="flex items-center p-2 hover:bg-gray-100 rounded cursor-pointer">
+                                <input type="radio" name="q4" value="C" class="mr-2">
+                                <span>C. ∫f(x)dx</span>
+                            </label>
+                            <label class="flex items-center p-2 hover:bg-gray-100 rounded cursor-pointer">
+                                <input type="radio" name="q4" value="D" class="mr-2">
+                                <span>D. lim(x→a) f(x)</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 判断题部分 -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden mb-6">
+                <div class="p-5 border-b border-gray-200">
+                    <h2 class="text-lg font-bold text-gray-800">二、判断题（每题5分，共2题）</h2>
+                </div>
+                <div class="p-5 space-y-6">
+                    <!-- 判断题1 -->
+                    <div class="question-card p-4 bg-gray-50 rounded-lg">
+                        <div class="mb-3 font-medium">1. 若函数f(x)在点x=a处可导，则f(x)在x=a处必连续。</div>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-2 hover:bg-gray-100 rounded cursor-pointer">
+                                <input type="radio" name="q5" value="true" class="mr-2">
+                                <span>正确</span>
+                            </label>
+                            <label class="flex items-center p-2 hover:bg-gray-100 rounded cursor-pointer">
+                                <input type="radio" name="q5" value="false" class="mr-2">
+                                <span>错误</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 判断题2 -->
+                    <div class="question-card p-4 bg-gray-50 rounded-lg">
+                        <div class="mb-3 font-medium">2. 函数y=|x|在x=0处连续但不可导。</div>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-2 hover:bg-gray-100 rounded cursor-pointer">
+                                <input type="radio" name="q6" value="true" class="mr-2">
+                                <span>正确</span>
+                            </label>
+                            <label class="flex items-center p-2 hover:bg-gray-100 rounded cursor-pointer">
+                                <input type="radio" name="q6" value="false" class="mr-2">
+                                <span>错误</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- 底部固定操作栏 -->
+    <div class="fixed bottom-0 left-0 right-0 bg-white py-4 px-6 border-t border-gray-200 shadow-md z-10">
+        <div class="container mx-auto flex justify-between items-center">
+            <div id="exam-status" class="text-gray-500">
+                <div class="flex items-center space-x-4">
+                    <div class="text-sm text-gray-500">进度：<span class="font-bold">6/6</span> 题</div>
+                    <div class="h-2 w-32 bg-gray-200 rounded-full overflow-hidden">
+                        <div class="h-full bg-green-500" style="width: 100%"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex gap-4">
+                <button type="button" class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded flex items-center" onclick="saveAndExit()">
+                    <i class="fas fa-save mr-2"></i>保存并退出
+                </button>
+                <button type="button" class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded flex items-center" onclick="submitExam()">
+                    <i class="fas fa-check mr-2"></i>提交并判分
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 弹窗：确认提交 -->
+    <div id="confirm-submit" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-6">
+            <h3 class="text-xl font-bold mb-4 text-gray-800">确认提交</h3>
+            <p class="text-gray-600 mb-6">您确定要提交本次考试吗？提交后将无法修改答案。</p>
+            <div class="flex justify-end gap-4">
+                <button class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded" onclick="closeConfirmModal()">取消</button>
+                <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded" onclick="confirmSubmit()">确认提交</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 弹窗：考试结果 -->
+    <div id="exam-result" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-6">
+            <h3 class="text-xl font-bold mb-4 text-gray-800">考试结果</h3>
+            <div class="bg-blue-50 p-4 rounded-lg mb-5">
+                <div class="flex justify-between items-center">
+                    <span class="font-bold text-blue-800">总分：</span>
+                    <span id="total-score" class="font-bold text-2xl text-blue-800">0 / 30</span>
+                </div>
+            </div>
+            <p class="text-gray-600 mb-6">您的考试已完成，详细答题情况请在"试题与考试"页面中查看。</p>
+            <div class="flex justify-end">
+                <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded" onclick="backToExams()">返回考试列表</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 页面离开检测
+        let leaveCount = 0;
+        document.addEventListener('visibilitychange', function() {
+            if (document.visibilityState === 'hidden') {
+                leaveCount++;
+                if (leaveCount >= 3) {
+                    document.getElementById('exam-status').innerHTML = '<span class="text-red-500">已离开页面3次，考试将自动提交。</span>';
+                    submitExam();
+                } else {
+                    const warning = document.createElement('div');
+                    warning.className = 'text-red-500 mt-2';
+                    warning.textContent = `警告：您已离开考试页面${leaveCount}次，累计3次将自动交卷！`;
+                    document.getElementById('exam-status').appendChild(warning);
+                }
+            }
+        });
+
+        // 禁止右键菜单
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+        // 考试倒计时
+        let examTimerInterval;
+        function startExamTimer(seconds) {
+            clearInterval(examTimerInterval);
+            let time = seconds;
+            const timerEl = document.getElementById('exam-timer');
+            function update() {
+                const m = String(Math.floor(time / 60)).padStart(2, '0');
+                const s = String(time % 60).padStart(2, '0');
+                timerEl.textContent = `00:${m}:${s}`;
+                if (time <= 0) {
+                    clearInterval(examTimerInterval);
+                    document.getElementById('exam-status').innerHTML = '<span class="text-red-500">考试时间到，已自动提交。</span>';
+                    submitExam();
+                } else {
+                    time--;
+                }
+            }
+            update();
+            examTimerInterval = setInterval(update, 1000);
+        }
+
+        // 更新答题进度
+        function updateProgress() {
+            const totalQuestions = 6;
+            let answered = 0;
+            
+            for (let i = 1; i <= totalQuestions; i++) {
+                const radios = document.querySelectorAll(`input[name="q${i}"]:checked`);
+                if (radios.length > 0) answered++;
+            }
+            
+            const progressEl = document.querySelector('#exam-status .flex');
+            progressEl.querySelector('span').textContent = `${answered}/${totalQuestions}`;
+            progressEl.querySelector('.bg-green-500').style.width = `${(answered/totalQuestions) * 100}%`;
+        }
+
+        // 监听单选按钮变化来更新进度
+        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', updateProgress);
+        });
+
+        // 开始考试和计时
+        window.onload = function() {
+            startExamTimer(29 * 60 + 58); // 29:58
+            updateProgress();
+        };
+
+        // 弹窗控制
+        function submitExam() {
+            document.getElementById('confirm-submit').classList.remove('hidden');
+        }
+
+        function closeConfirmModal() {
+            document.getElementById('confirm-submit').classList.add('hidden');
+        }
+
+        function confirmSubmit() {
+            closeConfirmModal();
+            clearInterval(examTimerInterval);
+            
+            // 计算成绩（简单示例）
+            const correctAnswers = {
+                q1: 'C', 
+                q2: 'A',
+                q3: 'A',
+                q4: 'B',
+                q5: 'true',
+                q6: 'true'
+            };
+            
+            let score = 0;
+            let totalQuestions = Object.keys(correctAnswers).length;
+            
+            for (const [key, value] of Object.entries(correctAnswers)) {
+                const selectedAnswer = document.querySelector(`input[name="${key}"]:checked`);
+                if (selectedAnswer && selectedAnswer.value === value) {
+                    score += 5;
+                }
+            }
+            
+            // 显示成绩
+            document.getElementById('total-score').textContent = `${score} / ${totalQuestions * 5}`;
+            document.getElementById('exam-result').classList.remove('hidden');
+        }
+
+        function saveAndExit() {
+            if (confirm('确定要保存当前答案并退出考试吗？您可以稍后继续考试。')) {
+                // 这里可以添加保存逻辑
+                window.close(); // 关闭当前窗口
+                // 如果窗口未关闭，则返回考试列表
+                window.location.href = 'exams.html';
+            }
+        }
+
+        function backToExams() {
+            window.close(); // 关闭当前窗口
+            window.location.href = 'exams.html'; // 如果窗口未关闭，则返回考试列表
+        }
+    </script>
+</body>
+</html>
