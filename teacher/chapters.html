@@ -68,7 +68,6 @@
                         </div>
                         <div class="mt-4 flex items-center text-sm text-gray-600">
                             <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium">已发布</span>
-                            <span class="ml-3"><i class="fas fa-user-graduate mr-1"></i> 56位学生学习</span>
                         </div>
                         <div class="mt-4 pt-4 border-t border-gray-100 flex justify-between">
                             <button class="view-courses-btn text-blue-600 hover:text-blue-800 text-sm font-medium">
@@ -100,7 +99,6 @@
                         </div>
                         <div class="mt-4 flex items-center text-sm text-gray-600">
                             <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium">已发布</span>
-                            <span class="ml-3"><i class="fas fa-user-graduate mr-1"></i> 42位学生学习</span>
                         </div>
                         <div class="mt-4 pt-4 border-t border-gray-100 flex justify-between">
                             <button class="view-courses-btn text-blue-600 hover:text-blue-800 text-sm font-medium">
@@ -132,7 +130,6 @@
                         </div>
                         <div class="mt-4 flex items-center text-sm text-gray-600">
                             <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs font-medium">草稿</span>
-                            <span class="ml-3"><i class="fas fa-user-graduate mr-1"></i> 尚未发布</span>
                         </div>
                         <div class="mt-4 pt-4 border-t border-gray-100 flex justify-between">
                             <button class="view-courses-btn text-blue-600 hover:text-blue-800 text-sm font-medium">
@@ -165,8 +162,6 @@
                 <div class="flex justify-between items-center mt-2">
                     <div class="flex items-center text-sm text-gray-600">
                         <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium mr-3">已发布</span>
-                        <span><i class="fas fa-user-graduate mr-1"></i> 56位学生学习</span>
-                        <span class="mx-3">|</span>
                         <span><i class="fas fa-clock mr-1"></i> 预计学时：3小时</span>
                     </div>
                     <div>
@@ -205,7 +200,7 @@
             <!-- 课程列表 -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <!-- 课程卡片1 -->
-                <div class="course-card bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all duration-300">
+                <div class="course-card bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all duration-300" data-course-id="1">
                     <div class="h-40 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1592303645463-5638e11ce4f7?w=500&h=200&fit=crop');">
                         <div class="h-full w-full bg-black bg-opacity-30 p-4 flex justify-between">
                             <div>
@@ -235,22 +230,22 @@
                         </div>
                         <div class="mt-4 pt-4 border-t border-gray-100 flex justify-between items-center">
                             <div class="flex space-x-2">
-                                <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center">
+                                <a href="course-detail.html" class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center view-course-detail">
                                     <i class="fas fa-info-circle mr-1"></i> 查看详情
                                 </a>
-                                <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center ml-4">
-                                    <i class="fas fa-file-alt mr-1"></i> 查看试题
+                                <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center ml-4 view-course-materials">
+                                    <i class="fas fa-book mr-1"></i> 教材查看
                                 </a>
-                            </div>
-                            <div class="text-gray-500 text-sm flex items-center">
-                                <i class="fas fa-user-graduate mr-1"></i> 45名学生
+                                <a href="#" class="text-green-600 hover:text-green-800 text-sm font-medium flex items-center ml-4 generate-exam">
+                                    <i class="fas fa-file-medical mr-1"></i> 生成试题
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- 课程卡片2 -->
-                <div class="course-card bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all duration-300">
+                <div class="course-card bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all duration-300" data-course-id="2">
                     <div class="h-40 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=500&h=200&fit=crop');">
                         <div class="h-full w-full bg-black bg-opacity-30 p-4 flex justify-between">
                             <div>
@@ -279,15 +274,247 @@
                         </div>
                         <div class="mt-4 pt-4 border-t border-gray-100 flex justify-between items-center">
                             <div class="flex space-x-2">
-                                <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center">
+                                <a href="course-detail.html" class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center view-course-detail">
                                     <i class="fas fa-info-circle mr-1"></i> 查看详情
                                 </a>
-                                <a href="#" class="text-green-600 hover:text-green-800 text-sm font-medium flex items-center ml-4">
+                                <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center ml-4 view-course-materials">
+                                    <i class="fas fa-book mr-1"></i> 教材查看
+                                </a>
+                                <a href="#" class="text-green-600 hover:text-green-800 text-sm font-medium flex items-center ml-4 generate-exam">
                                     <i class="fas fa-file-medical mr-1"></i> 生成试题
                                 </a>
                             </div>
-                            <div class="text-gray-500 text-sm flex items-center">
-                                <i class="fas fa-user-graduate mr-1"></i> 尚未发布
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 课程详情页面（初始隐藏） -->
+        <div id="course-detail" class="flex-1 overflow-y-auto hidden">
+            <!-- 返回按钮 -->
+            <div class="mb-4 flex justify-between items-center">
+                <button id="back-to-courses" class="flex items-center text-blue-600 hover:text-blue-800">
+                    <i class="fas fa-arrow-left mr-2"></i> 返回课程列表
+                </button>
+                <div class="flex space-x-3">
+                    <button id="view-materials-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center">
+                        <i class="fas fa-book mr-2"></i> 教材查看
+                    </button>
+                    <button id="generate-exam-btn" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg flex items-center">
+                        <i class="fas fa-file-medical mr-2"></i> 生成试题
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 课程详细信息 -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden mb-6">
+                <div class="relative">
+                    <img id="course-detail-img" src="https://images.unsplash.com/photo-1592303645463-5638e11ce4f7?w=900&h=300&fit=crop" alt="课程封面" class="w-full h-64 object-cover">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-end">
+                        <div class="p-6 text-white">
+                            <h2 id="course-detail-title" class="text-2xl font-bold">Python编程入门</h2>
+                            <div class="flex items-center mt-2">
+                                <span class="bg-green-500 text-white text-xs px-2 py-1 rounded mr-3">已发布</span>
+                                <span class="mr-3"><i class="fas fa-user-tie mr-1"></i> 王老师</span>
+                                <span><i class="fas fa-calendar-alt mr-1"></i> 2023-05-12更新</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="p-6">
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-medium">计算机基础</span>
+                        <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded-full text-xs font-medium">编程入门</span>
+                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium">Python</span>
+                    </div>
+                    
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">课程简介</h3>
+                    <p id="course-detail-description" class="text-gray-600 mb-6">
+                        本课程是Python编程的入门课程，面向零基础学生，通过简单易懂的实例讲解Python编程基础知识，包括变量、条件语句、循环、函数等核心概念。课程注重实践，每节课都有配套练习和项目实战，帮助学生快速掌握Python编程技能。
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="text-sm text-gray-500 mb-1">开课地点</div>
+                            <div id="course-detail-location" class="font-medium">计算机教室B201</div>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="text-sm text-gray-500 mb-1">开课时间</div>
+                            <div id="course-detail-time" class="font-medium">每周一 14:00-16:00</div>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="text-sm text-gray-500 mb-1">适用班级</div>
+                            <div id="course-detail-class" class="font-medium">高一年级</div>
+                        </div>
+                    </div>
+                    
+                    <div class="border-t pt-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">课程目标</h3>
+                        <ul class="list-disc pl-5 text-gray-600 space-y-2">
+                            <li>掌握Python基础语法和核心概念</li>
+                            <li>能够独立编写简单的Python程序</li>
+                            <li>理解编程逻辑和算法思维</li>
+                            <li>完成一个小型Python项目</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 课程统计信息 -->
+            <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">课程统计</h3>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div class="bg-blue-50 p-4 rounded-lg text-center">
+                        <div class="text-3xl font-bold text-blue-600 mb-1">5</div>
+                        <div class="text-sm text-gray-600">教材资源</div>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-lg text-center">
+                        <div class="text-3xl font-bold text-green-600 mb-1">3</div>
+                        <div class="text-sm text-gray-600">练习试卷</div>
+                    </div>
+                    <div class="bg-yellow-50 p-4 rounded-lg text-center">
+                        <div class="text-3xl font-bold text-yellow-600 mb-1">85%</div>
+                        <div class="text-sm text-gray-600">平均成绩</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 教材管理界面（初始隐藏） -->
+        <div id="materials-management" class="flex-1 overflow-y-auto hidden">
+            <!-- 返回按钮 -->
+            <div class="mb-4 flex justify-between items-center">
+                <button id="back-to-course-detail" class="flex items-center text-blue-600 hover:text-blue-800">
+                    <i class="fas fa-arrow-left mr-2"></i> 返回课程详情
+                </button>
+                <div class="flex space-x-3">
+                    <button id="add-material-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center">
+                        <i class="fas fa-plus mr-2"></i> 添加教材
+                    </button>
+                    <div class="relative">
+                        <button id="import-material-btn" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg flex items-center">
+                            <i class="fas fa-file-import mr-2"></i> 导入文件
+                        </button>
+                        <input type="file" class="hidden" id="material-file-input" multiple>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 课程和教材信息 -->
+            <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+                <h2 id="materials-course-title" class="text-xl font-bold text-gray-800 mb-2">Python编程入门 - 教材资源</h2>
+                <div class="flex items-center text-sm text-gray-500">
+                    <span class="mr-3"><i class="fas fa-user-tie mr-1"></i> 王老师</span>
+                    <span class="mr-3"><i class="fas fa-book mr-1"></i> 5个教材资源</span>
+                    <span><i class="fas fa-calendar-alt mr-1"></i> 最近更新：2023-05-20</span>
+                </div>
+            </div>
+            
+            <!-- 教材列表 -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden mb-6">
+                <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+                    <h3 class="text-lg font-semibold text-gray-800">教材资源列表</h3>
+                    <div class="flex space-x-3">
+                        <div class="relative">
+                            <input type="text" placeholder="搜索资源..." class="pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <i class="fas fa-search text-gray-400 absolute left-3 top-3"></i>
+                        </div>
+                        <select class="px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <option value="all">所有类型</option>
+                            <option value="pdf">PDF文档</option>
+                            <option value="video">视频教程</option>
+                            <option value="ppt">幻灯片</option>
+                            <option value="custom">自定义内容</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="p-6">
+                    <div class="space-y-4">
+                        <!-- 教材项目1 -->
+                        <div class="flex items-center p-4 border rounded-lg hover:bg-gray-50 transition-all">
+                            <div class="flex-shrink-0 mr-4">
+                                <i class="fas fa-file-pdf text-3xl text-red-500"></i>
+                            </div>
+                            <div class="flex-grow">
+                                <h4 class="font-medium text-gray-800">Python基础语法入门.pdf</h4>
+                                <div class="flex items-center text-sm text-gray-500 mt-1">
+                                    <span>PDF文档</span>
+                                    <span class="mx-2">|</span>
+                                    <span>2.4MB</span>
+                                    <span class="mx-2">|</span>
+                                    <span>上传于 2023-05-10</span>
+                                </div>
+                                <p class="text-sm text-gray-600 mt-1">介绍Python的基础语法、数据类型和控制结构等基本概念</p>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button class="text-blue-600 hover:text-blue-800 p-2" title="查看">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="text-green-600 hover:text-green-800 p-2" title="下载">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                                <button class="text-red-600 hover:text-red-800 p-2" title="删除">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- 教材项目2 -->
+                        <div class="flex items-center p-4 border rounded-lg hover:bg-gray-50 transition-all">
+                            <div class="flex-shrink-0 mr-4">
+                                <i class="fas fa-file-video text-3xl text-blue-500"></i>
+                            </div>
+                            <div class="flex-grow">
+                                <h4 class="font-medium text-gray-800">Python函数与模块.mp4</h4>
+                                <div class="flex items-center text-sm text-gray-500 mt-1">
+                                    <span>视频教程</span>
+                                    <span class="mx-2">|</span>
+                                    <span>45分钟</span>
+                                    <span class="mx-2">|</span>
+                                    <span>上传于 2023-05-15</span>
+                                </div>
+                                <p class="text-sm text-gray-600 mt-1">详细讲解Python函数的定义、调用、参数传递以及模块的使用</p>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button class="text-blue-600 hover:text-blue-800 p-2" title="查看">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="text-green-600 hover:text-green-800 p-2" title="下载">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                                <button class="text-red-600 hover:text-red-800 p-2" title="删除">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- 教材项目3 (自定义内容) -->
+                        <div class="flex items-center p-4 border rounded-lg hover:bg-gray-50 transition-all">
+                            <div class="flex-shrink-0 mr-4">
+                                <i class="fas fa-file-alt text-3xl text-purple-500"></i>
+                            </div>
+                            <div class="flex-grow">
+                                <h4 class="font-medium text-gray-800">Python编程常见问题解答</h4>
+                                <div class="flex items-center text-sm text-gray-500 mt-1">
+                                    <span>自定义内容</span>
+                                    <span class="mx-2">|</span>
+                                    <span>创建于 2023-05-20</span>
+                                </div>
+                                <p class="text-sm text-gray-600 mt-1">收集整理学生常见的Python编程问题和解决方案，帮助学生快速排错</p>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button class="text-blue-600 hover:text-blue-800 p-2" title="查看">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="text-blue-600 hover:text-blue-800 p-2" title="编辑">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="text-red-600 hover:text-red-800 p-2" title="删除">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
                             </div>
                         </div>
                     </div>

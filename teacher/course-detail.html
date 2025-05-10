@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>课程详情</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.0-rc.2/dist/quill.snow.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f0f2f5;
+        }
+        .modal {
+            transition: all 0.3s ease;
+        }
+        .tab-active {
+            border-bottom: 2px solid #3B82F6;
+            color: #3B82F6;
+        }
+        .material-card:hover {
+            transform: translateY(-2px);
+        }
+        .ql-editor {
+            min-height: 200px;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 h-screen">
+    <div class="p-6 h-full flex flex-col">
+        <!-- 顶部导航和操作 -->
+        <div class="flex justify-between items-center mb-6">
+            <div class="flex items-center">
+                <a href="courses.html" class="text-gray-600 hover:text-blue-600 mr-4">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+                <h1 class="text-2xl font-bold text-gray-800">Python编程入门</h1>
+                <span class="ml-4 bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">已发布</span>
+            </div>
+            <div class="flex space-x-3">
+                <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center">
+                    <i class="fas fa-edit mr-2"></i> 编辑课程
+                </button>
+                <button id="view-materials-btn" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg flex items-center">
+                    <i class="fas fa-book mr-2"></i> 教材查看
+                </button>
+                <button id="generate-exam-btn" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg flex items-center">
+                    <i class="fas fa-file-alt mr-2"></i> 生成试题
+                </button>
+            </div>
+        </div>
+
+        <!-- 课程详情卡片 -->
+        <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
+            <div class="flex">
+                <!-- 左侧封面图 -->
+                <div class="w-64 h-48 rounded-lg overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1592303645463-5638e11ce4f7?w=500&h=200&fit=crop" class="w-full h-full object-cover" alt="课程封面">
+                </div>
+                <!-- 右侧基本信息 -->
+                <div class="ml-6 flex-1">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-500">所属章节</h3>
+                            <p class="mt-1 text-gray-900">第一章：基础概念</p>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-500">开课班级</h3>
+                            <p class="mt-1 text-gray-900">高一年级</p>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-500">开课老师</h3>
+                            <p class="mt-1 text-gray-900">王老师</p>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-500">开课地点</h3>
+                            <p class="mt-1 text-gray-900">计算机教室(301)</p>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-500">开课时间</h3>
+                            <p class="mt-1 text-gray-900">2023-09-01 14:00</p>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <h3 class="text-sm font-medium text-gray-500">课程标签</h3>
+                        <div class="mt-1 flex flex-wrap gap-2">
+                            <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-medium">计算机基础</span>
+                            <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded-full text-xs font-medium">编程入门</span>
+                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium">Python</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-6 pt-6 border-t border-gray-100">
+                <h3 class="text-sm font-medium text-gray-500">课程简介</h3>
+                <p class="mt-2 text-gray-700">本课程是为零基础学生设计的Python编程入门课程。通过本课程，学生将了解Python编程语言的基本语法、数据类型、控制流程和函数等核心概念。课程采用实践教学法，每个概念都配有相应的编程练习，帮助学生从实践中掌握编程技能。</p>
+            </div>
+        </div>
+
+        <!-- 内容标签页 -->
+        <div class="bg-white rounded-xl shadow-sm p-6 flex-1 overflow-hidden flex flex-col">
+            <div class="border-b border-gray-200">
+                <div class="flex">
+                    <button class="tab-active px-4 py-2 font-medium text-sm mr-4">课程资料</button>
+                    <button class="px-4 py-2 font-medium text-sm text-gray-600 hover:text-blue-600">作业与测试</button>
+                </div>
+            </div>
+            
+            <!-- 教材列表容器 -->
+            <div class="mt-6 flex-1 overflow-y-auto">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-semibold text-gray-800">教材列表</h3>
+                    <div class="flex space-x-3">
+                        <button id="add-course-material-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-lg flex items-center text-sm">
+                            <i class="fas fa-plus mr-2"></i> 添加教材
+                        </button>
+                        <button id="import-course-material-btn" class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded-lg flex items-center text-sm">
+                            <i class="fas fa-file-import mr-2"></i> 导入教材
+                        </button>
+                        <button id="export-course-material-btn" class="bg-gray-600 hover:bg-gray-700 text-white px-3 py-1 rounded-lg flex items-center text-sm">
+                            <i class="fas fa-file-export mr-2"></i> 导出教材
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 教材列表 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <!-- 教材卡片 -->
+                    <div class="material-card bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-md transition-all duration-300">
+                        <div class="p-4">
+                            <div class="flex justify-between items-start">
+                                <div class="flex items-center">
+                                    <div class="bg-blue-100 p-2 rounded-lg">
+                                        <i class="fas fa-book text-blue-600"></i>
+                                    </div>
+                                    <div class="ml-3">
+                                        <h3 class="text-md font-semibold text-gray-800">Python基础语法</h3>
+                                        <p class="text-xs text-gray-500 mt-1">第1讲 • 更新于2023-05-18</p>
+                                    </div>
+                                </div>
+                                <div class="dropdown relative">
+                                    <button class="p-1 text-gray-500 hover:bg-gray-100 rounded-full">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <p class="text-gray-600 text-xs line-clamp-2">介绍Python变量、数据类型和基本语法结构，适合零基础学习者。</p>
+                            </div>
+                            <div class="mt-3 flex items-center text-xs text-gray-600 justify-between">
+                                <span><i class="fas fa-file-alt mr-1"></i> 12页</span>
+                                <span class="text-xs bg-green-100 text-green-800 py-0.5 px-2 rounded-full">已完成</span>
+                            </div>
+                            <div class="mt-3 pt-3 border-t border-gray-100 flex justify-between">
+                                <div class="flex">
+                                    <a href="#" class="text-blue-600 hover:text-blue-800 text-xs font-medium flex items-center">
+                                        <i class="fas fa-book-open mr-1"></i> 浏览
+                                    </a>
+                                    <a href="#" class="text-blue-600 hover:text-blue-800 text-xs font-medium flex items-center ml-3">
+                                        <i class="fas fa-edit mr-1"></i> 编辑
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 教材卡片 -->
+                    <div class="material-card bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-md transition-all duration-300">
+                        <div class="p-4">
+                            <div class="flex justify-between items-start">
+                                <div class="flex items-center">
+                                    <div class="bg-purple-100 p-2 rounded-lg">
+                                        <i class="fas fa-book text-purple-600"></i>
+                                    </div>
+                                    <div class="ml-3">
+                                        <h3 class="text-md font-semibold text-gray-800">Python控制流</h3>
+                                        <p class="text-xs text-gray-500 mt-1">第2讲 • 更新于2023-05-25</p>
+                                    </div>
+                                </div>
+                                <div class="dropdown relative">
+                                    <button class="p-1 text-gray-500 hover:bg-gray-100 rounded-full">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <p class="text-gray-600 text-xs line-clamp-2">详细讲解Python的条件语句、循环结构，包含实用案例和练习。</p>
+                            </div>
+                            <div class="mt-3 flex items-center text-xs text-gray-600 justify-between">
+                                <span><i class="fas fa-file-alt mr-1"></i> 15页</span>
+                                <span class="text-xs bg-green-100 text-green-800 py-0.5 px-2 rounded-full">已完成</span>
+                            </div>
+                            <div class="mt-3 pt-3 border-t border-gray-100 flex justify-between">
+                                <div class="flex">
+                                    <a href="#" class="text-blue-600 hover:text-blue-800 text-xs font-medium flex items-center">
+                                        <i class="fas fa-book-open mr-1"></i> 浏览
+                                    </a>
+                                    <a href="#" class="text-blue-600 hover:text-blue-800 text-xs font-medium flex items-center ml-3">
+                                        <i class="fas fa-edit mr-1"></i> 编辑
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 教材卡片 -->
+                    <div class="material-card bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-md transition-all duration-300">
+                        <div class="p-4">
+                            <div class="flex justify-between items-start">
+                                <div class="flex items-center">
+                                    <div class="bg-green-100 p-2 rounded-lg">
+                                        <i class="fas fa-book text-green-600"></i>
+                                    </div>
+                                    <div class="ml-3">
+                                        <h3 class="text-md font-semibold text-gray-800">Python函数</h3>
+                                        <p class="text-xs text-gray-500 mt-1">第3讲 • 更新于2023-06-02</p>
+                                    </div>
+                                </div>
+                                <div class="dropdown relative">
+                                    <button class="p-1 text-gray-500 hover:bg-gray-100 rounded-full">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <p class="text-gray-600 text-xs line-clamp-2">学习Python函数的定义、参数、返回值以及函数式编程的基本概念。</p>
+                            </div>
+                            <div class="mt-3 flex items-center text-xs text-gray-600 justify-between">
+                                <span><i class="fas fa-file-alt mr-1"></i> 18页</span>
+                                <span class="text-xs bg-yellow-100 text-yellow-800 py-0.5 px-2 rounded-full">编辑中</span>
+                            </div>
+                            <div class="mt-3 pt-3 border-t border-gray-100 flex justify-between">
+                                <div class="flex">
+                                    <a href="#" class="text-blue-600 hover:text-blue-800 text-xs font-medium flex items-center">
+                                        <i class="fas fa-book-open mr-1"></i> 浏览
+                                    </a>
+                                    <a href="#" class="text-blue-600 hover:text-blue-800 text-xs font-medium flex items-center ml-3">
+                                        <i class="fas fa-edit mr-1"></i> 编辑
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 添加教材模态框 -->
+    <div id="add-material-modal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl shadow-xl w-full max-w-2xl p-6 h-4/5 overflow-y-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold text-gray-800">添加教材</h3>
+                <button id="close-add-material-modal" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-medium mb-2" for="material-title">
+                        教材标题 <span class="text-red-500">*</span>
+                    </label>
+                    <input type="text" id="material-title" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="请输入教材标题">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-medium mb-2" for="material-description">
+                        教材简介 <span class="text-red-500">*</span>
+                    </label>
+                    <textarea id="material-description" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="请输入教材简介"></textarea>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-medium mb-2">
+                        教材内容 <span class="text-red-500">*</span>
+                    </label>
+                    <div id="editor"></div>
+                </div>
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-2" for="material-sort">
+                            讲次排序
+                        </label>
+                        <input type="number" id="material-sort" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" min="1" placeholder="请输入排序数字">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-2" for="material-status">
+                            状态
+                        </label>
+                        <select id="material-status" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <option value="draft">编辑中</option>
+                            <option value="completed">已完成</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="flex justify-end space-x-3">
+                    <button type="button" id="cancel-add-material" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">取消</button>
+                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 导入教材模态框 -->
+    <div id="import-material-modal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl shadow-xl w-full max-w-lg p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold text-gray-800">导入教材</h3>
+                <button id="close-import-modal" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-medium mb-2">
+                        选择文件 <span class="text-red-500">*</span>
+                    </label>
+                    <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                        <i class="fas fa-file-upload text-gray-400 text-4xl mb-2"></i>
+                        <p class="text-gray-500 mb-2">点击或拖拽文件到此处上传</p>
+                        <p class="text-gray-400 text-sm">支持 .docx, .pdf, .md, .html 格式</p>
+                        <input type="file" class="hidden" id="file-upload" accept=".docx,.pdf,.md,.html">
+                        <button type="button" id="upload-trigger" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm">选择文件</button>
+                    </div>
+                </div>
+                <div class="mb-4 hidden" id="file-info">
+                    <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+                        <i class="fas fa-file-alt text-blue-600 mr-3"></i>
+                        <div class="flex-1">
+                            <p class="text-sm font-medium" id="file-name">document.pdf</p>
+                            <p class="text-xs text-gray-500" id="file-size">1.2 MB</p>
+                        </div>
+                        <button type="button" class="text-red-500 hover:text-red-700" id="remove-file">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-2" for="import-title">
+                            教材标题 <span class="text-red-500">*</span>
+                        </label>
+                        <input type="text" id="import-title" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="请输入教材标题">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-2" for="import-sort">
+                            讲次排序
+                        </label>
+                        <input type="number" id="import-sort" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" min="1" placeholder="请输入排序数字">
+                    </div>
+                </div>
+                <div class="flex justify-end space-x-3">
+                    <button type="button" id="cancel-import" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">取消</button>
+                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">导入</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 生成试题模态框 -->
+    <div id="generate-exam-modal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl shadow-xl w-full max-w-lg p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold text-gray-800">生成试题</h3>
+                <button id="close-exam-modal" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-medium mb-2" for="exam-title">
+                        试卷标题 <span class="text-red-500">*</span>
+                    </label>
+                    <input type="text" id="exam-title" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="请输入试卷标题">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-medium mb-2">
+                        选择教材 <span class="text-red-500">*</span>
+                    </label>
+                    <div class="max-h-48 overflow-y-auto border border-gray-300 rounded-lg">
+                        <div class="p-2 border-b hover:bg-gray-50">
+                            <label class="flex items-center">
+                                <input type="checkbox" class="mr-2">
+                                <span>Python基础语法</span>
+                            </label>
+                        </div>
+                        <div class="p-2 border-b hover:bg-gray-50">
+                            <label class="flex items-center">
+                                <input type="checkbox" class="mr-2">
+                                <span>Python控制流</span>
+                            </label>
+                        </div>
+                        <div class="p-2 hover:bg-gray-50">
+                            <label class="flex items-center">
+                                <input type="checkbox" class="mr-2">
+                                <span>Python函数</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-2" for="question-count">
+                            题目数量 <span class="text-red-500">*</span>
+                        </label>
+                        <input type="number" id="question-count" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" min="1" value="10">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-2" for="exam-difficulty">
+                            难度系数
+                        </label>
+                        <select id="exam-difficulty" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <option value="easy">简单</option>
+                            <option value="medium" selected>中等</option>
+                            <option value="hard">困难</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="flex justify-end space-x-3">
+                    <button type="button" id="cancel-exam" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">取消</button>
+                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">生成</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.0-rc.2/dist/quill.min.js"></script>
+    <script>
+        // 初始化富文本编辑器
+        var quill = new Quill('#editor', {
+            theme: 'snow',
+            modules: {
+                toolbar: [
+                    ['bold', 'italic', 'underline', 'strike'],
+                    ['blockquote', 'code-block'],
+                    [{ 'header': 1 }, { 'header': 2 }],
+                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                    [{ 'script': 'sub'}, { 'script': 'super' }],
+                    [{ 'indent': '-1'}, { 'indent': '+1' }],
+                    [{ 'size': ['small', false, 'large', 'huge'] }],
+                    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+                    [{ 'color': [] }, { 'background': [] }],
+                    [{ 'align': [] }],
+                    ['link', 'image'],
+                    ['clean']
+                ]
+            }
+        });
+
+        // 模态框控制
+        document.getElementById('add-course-material-btn').addEventListener('click', function() {
+            document.getElementById('add-material-modal').classList.remove('hidden');
+        });
+
+        document.getElementById('close-add-material-modal').addEventListener('click', function() {
+            document.getElementById('add-material-modal').classList.add('hidden');
+        });
+
+        document.getElementById('cancel-add-material').addEventListener('click', function() {
+            document.getElementById('add-material-modal').classList.add('hidden');
+        });
+
+        document.getElementById('import-course-material-btn').addEventListener('click', function() {
+            document.getElementById('import-material-modal').classList.remove('hidden');
+        });
+
+        document.getElementById('close-import-modal').addEventListener('click', function() {
+            document.getElementById('import-material-modal').classList.add('hidden');
+        });
+
+        document.getElementById('cancel-import').addEventListener('click', function() {
+            document.getElementById('import-material-modal').classList.add('hidden');
+        });
+
+        document.getElementById('generate-exam-btn').addEventListener('click', function() {
+            document.getElementById('generate-exam-modal').classList.remove('hidden');
+        });
+
+        document.getElementById('close-exam-modal').addEventListener('click', function() {
+            document.getElementById('generate-exam-modal').classList.add('hidden');
+        });
+
+        document.getElementById('cancel-exam').addEventListener('click', function() {
+            document.getElementById('generate-exam-modal').classList.add('hidden');
+        });
+
+        // 文件上传处理
+        document.getElementById('upload-trigger').addEventListener('click', function() {
+            document.getElementById('file-upload').click();
+        });
+
+        document.getElementById('file-upload').addEventListener('change', function(e) {
+            if (e.target.files.length > 0) {
+                const file = e.target.files[0];
+                document.getElementById('file-name').textContent = file.name;
+                document.getElementById('file-size').textContent = (file.size / 1024).toFixed(2) + ' KB';
+                document.getElementById('file-info').classList.remove('hidden');
+                document.getElementById('import-title').value = file.name.split('.')[0];
+            }
+        });
+
+        document.getElementById('remove-file').addEventListener('click', function() {
+            document.getElementById('file-upload').value = '';
+            document.getElementById('file-info').classList.add('hidden');
+        });
+    </script>
+</body>
+</html>
