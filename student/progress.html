@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>学生端 - 学习进度</title>
+    <title>学生端 - 我的</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
@@ -35,8 +35,8 @@
 <body class="bg-gray-100">
     <div class="p-6">
         <div class="mb-6">
-            <h1 class="text-2xl font-bold text-gray-800">学习进度</h1>
-            <p class="text-gray-500">课程进度与学习数据分析</p>
+            <h1 class="text-2xl font-bold text-gray-800">我的</h1>
+            <p class="text-gray-500">个人数据与学习情况</p>
         </div>
 
         <!-- 进度概览统计卡片 -->
@@ -55,18 +55,18 @@
                 <p class="text-sm text-gray-500">较上月 <span class="text-green-500">+12</span></p>
             </div>
             
-            <!-- 累计课时时长 -->
+            <!-- 累计教材 -->
             <div class="bg-white rounded-xl shadow-md p-5">
                 <div class="flex items-center justify-between mb-4">
                     <div>
-                        <h3 class="text-gray-500 text-sm">累计课时时长</h3>
-                        <p class="text-3xl font-bold text-gray-800">192小时</p>
+                        <h3 class="text-gray-500 text-sm">累计教材</h3>
+                        <p class="text-3xl font-bold text-gray-800">24本</p>
                     </div>
                     <div class="bg-green-100 p-3 rounded-full">
-                        <i class="fas fa-clock text-green-600 text-xl"></i>
+                        <i class="fas fa-book text-green-600 text-xl"></i>
                     </div>
                 </div>
-                <p class="text-sm text-gray-500">较上月 <span class="text-green-500">+18小时</span></p>
+                <p class="text-sm text-gray-500">较上月 <span class="text-green-500">+3本</span></p>
             </div>
             
             <!-- 累计考试次数 -->
@@ -84,191 +84,88 @@
             </div>
         </div>
 
-        <!-- 最近五次考试分数趋势图 -->
-        <div class="bg-white rounded-xl shadow-md overflow-hidden mb-8">
+        <!-- 最高分和最低分信息 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <!-- 历史最高分 -->
+            <div class="bg-white rounded-xl shadow-md p-5">
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <h3 class="text-gray-500 text-sm">历史最高分</h3>
+                        <p class="text-3xl font-bold text-green-600">93分</p>
+                    </div>
+                    <div class="bg-green-100 p-3 rounded-full">
+                        <i class="fas fa-arrow-up text-green-600 text-xl"></i>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-800">最高分课时：<span class="font-medium">大学物理 第3章</span></p>
+            </div>
+            
+            <!-- 历史最低分 -->
+            <div class="bg-white rounded-xl shadow-md p-5">
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <h3 class="text-gray-500 text-sm">历史最低分</h3>
+                        <p class="text-3xl font-bold text-red-500">78分</p>
+                    </div>
+                    <div class="bg-red-100 p-3 rounded-full">
+                        <i class="fas fa-arrow-down text-red-500 text-xl"></i>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-800">最低分课时：<span class="font-medium">英语听力 第2章</span></p>
+            </div>
+        </div>
+
+        <!-- 最近五次考试分数趋势图（美化版-加宽） -->
+        <div class="bg-white rounded-xl shadow-md mb-8">
             <div class="p-5 border-b border-gray-200">
                 <h2 class="text-lg font-bold text-gray-800">最近五次考试分数趋势</h2>
             </div>
             <div class="p-5">
-                <div class="h-64 flex flex-col">
-                    <div class="flex-1 flex items-end justify-around mb-2">
-                        <div class="trend-bar h-48 relative group">
-                            <div class="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-blue-800 text-white px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity text-xs whitespace-nowrap">
-                                高等数学: 85分
-                            </div>
-                        </div>
-                        <div class="trend-bar h-40 relative group">
-                            <div class="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-blue-800 text-white px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity text-xs whitespace-nowrap">
-                                英语听力: 78分
-                            </div>
-                        </div>
-                        <div class="trend-bar h-52 relative group">
-                            <div class="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-blue-800 text-white px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity text-xs whitespace-nowrap">
-                                大学物理: 93分
-                            </div>
-                        </div>
-                        <div class="trend-bar h-44 relative group">
-                            <div class="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-blue-800 text-white px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity text-xs whitespace-nowrap">
-                                计算机基础: 83分
-                            </div>
-                        </div>
-                        <div class="trend-bar h-50 relative group">
-                            <div class="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-blue-800 text-white px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity text-xs whitespace-nowrap">
-                                高等数学(2): 90分
-                            </div>
-                        </div>
-                    </div>
-                    <div class="h-px bg-gray-200 mb-2"></div>
-                    <div class="flex justify-around">
-                        <div class="text-xs text-gray-500">第1次</div>
-                        <div class="text-xs text-gray-500">第2次</div>
-                        <div class="text-xs text-gray-500">第3次</div>
-                        <div class="text-xs text-gray-500">第4次</div>
-                        <div class="text-xs text-gray-500">第5次</div>
-                    </div>
+                <div class="w-full overflow-x-auto">
+                    <svg viewBox="0 0 500 140" width="500" height="140" style="min-width:500px;max-width:100%;" class="block mx-auto">
+                        <defs>
+                            <linearGradient id="lineGradient" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stop-color="#a5b4fc" stop-opacity="0.5"/>
+                                <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+                            </linearGradient>
+                            <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+                                <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#6366f1" flood-opacity="0.2"/>
+                            </filter>
+                        </defs>
+                        <!-- 横向刻度线 -->
+                        <line x1="40" y1="30" x2="460" y2="30" stroke="#e5e7eb" stroke-width="1" />
+                        <line x1="40" y1="70" x2="460" y2="70" stroke="#e5e7eb" stroke-width="1" />
+                        <line x1="40" y1="110" x2="460" y2="110" stroke="#e5e7eb" stroke-width="1" />
+                        <!-- 平滑折线 -->
+                        <path d="M60,90 Q110,120 160,106 Q210,92 260,62 Q310,32 360,98 Q410,130 460,42" fill="none" stroke="url(#lineGradient)" stroke-width="4" />
+                        <path d="M60,90 Q110,120 160,106 Q210,92 260,62 Q310,32 360,98 Q410,130 460,42" fill="none" stroke="#6366f1" stroke-width="2.5" filter="url(#shadow)" />
+                        <!-- 点 -->
+                        <circle cx="60" cy="90" r="6" fill="#fff" stroke="#6366f1" stroke-width="2" filter="url(#shadow)"/>
+                        <circle cx="160" cy="106" r="6" fill="#fff" stroke="#10b981" stroke-width="2" filter="url(#shadow)"/>
+                        <circle cx="260" cy="62" r="6" fill="#fff" stroke="#8b5cf6" stroke-width="2" filter="url(#shadow)"/>
+                        <circle cx="360" cy="98" r="6" fill="#fff" stroke="#f59e42" stroke-width="2" filter="url(#shadow)"/>
+                        <circle cx="460" cy="42" r="6" fill="#fff" stroke="#2563eb" stroke-width="2" filter="url(#shadow)"/>
+                        <!-- 分数文字 -->
+                        <text x="60" y="80" font-size="13" fill="#6366f1" font-weight="bold">85</text>
+                        <text x="160" y="121" font-size="13" fill="#10b981" font-weight="bold">78</text>
+                        <text x="260" y="52" font-size="13" fill="#8b5cf6" font-weight="bold">93</text>
+                        <text x="360" y="113" font-size="13" fill="#f59e42" font-weight="bold">83</text>
+                        <text x="460" y="32" font-size="13" fill="#2563eb" font-weight="bold">90</text>
+                        <!-- 名称文字 -->
+                        <text x="60" y="135" font-size="12" fill="#888">高数</text>
+                        <text x="160" y="135" font-size="12" fill="#888">英语</text>
+                        <text x="260" y="135" font-size="12" fill="#888">物理</text>
+                        <text x="360" y="135" font-size="12" fill="#888">计算机</text>
+                        <text x="460" y="135" font-size="12" fill="#888">高数2</text>
+                    </svg>
                 </div>
-                <div class="text-right mt-2">
+                <div class="text-right mt-4">
                     <span class="text-sm text-gray-500">平均分: <span class="font-bold text-blue-600">85.8</span></span>
                 </div>
             </div>
         </div>
-
-        <!-- 课程进度详情 -->
-        <div class="bg-white rounded-xl shadow-md overflow-hidden mb-8">
-            <div class="p-5 border-b border-gray-200">
-                <h2 class="text-lg font-bold text-gray-800">课程进度详情</h2>
-            </div>
-            <div class="p-5">
-                <!-- 高等数学进度 -->
-                <div class="progress-card mb-6 p-4 bg-gray-50 rounded-lg">
-                    <div class="flex justify-between items-center mb-2">
-                        <div class="flex items-center">
-                            <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
-                                <i class="fas fa-calculator text-blue-600"></i>
-                            </div>
-                            <div>
-                                <h3 class="font-bold text-gray-800">高等数学</h3>
-                                <p class="text-sm text-gray-500">李老师 | 2024春季</p>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <div class="font-bold text-gray-800">8/12 章节</div>
-                            <div class="text-sm text-gray-500">课时: 48/72</div>
-                        </div>
-                    </div>
-                    <div class="relative pt-1">
-                        <div class="overflow-hidden h-2 mb-2 text-xs flex rounded bg-blue-100">
-                            <div style="width: 66.6%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-600 transition-all duration-500"></div>
-                        </div>
-                        <div class="flex justify-between text-xs text-gray-500">
-                            <span>进度：66.6%</span>
-                            <span>预计完成时间：2024-06-15</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 大学英语进度 -->
-                <div class="progress-card mb-6 p-4 bg-gray-50 rounded-lg">
-                    <div class="flex justify-between items-center mb-2">
-                        <div class="flex items-center">
-                            <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-3">
-                                <i class="fas fa-language text-green-600"></i>
-                            </div>
-                            <div>
-                                <h3 class="font-bold text-gray-800">大学英语</h3>
-                                <p class="text-sm text-gray-500">王老师 | 2024春季</p>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <div class="font-bold text-gray-800">5/10 章节</div>
-                            <div class="text-sm text-gray-500">课时: 30/60</div>
-                        </div>
-                    </div>
-                    <div class="relative pt-1">
-                        <div class="overflow-hidden h-2 mb-2 text-xs flex rounded bg-green-100">
-                            <div style="width: 50%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-green-600 transition-all duration-500"></div>
-                        </div>
-                        <div class="flex justify-between text-xs text-gray-500">
-                            <span>进度：50%</span>
-                            <span>预计完成时间：2024-07-10</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 大学物理进度 -->
-                <div class="progress-card p-4 bg-gray-50 rounded-lg">
-                    <div class="flex justify-between items-center mb-2">
-                        <div class="flex items-center">
-                            <div class="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center mr-3">
-                                <i class="fas fa-atom text-yellow-600"></i>
-                            </div>
-                            <div>
-                                <h3 class="font-bold text-gray-800">大学物理</h3>
-                                <p class="text-sm text-gray-500">张老师 | 2024春季</p>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <div class="font-bold text-gray-800">7/8 章节</div>
-                            <div class="text-sm text-gray-500">课时: 42/48</div>
-                        </div>
-                    </div>
-                    <div class="relative pt-1">
-                        <div class="overflow-hidden h-2 mb-2 text-xs flex rounded bg-yellow-100">
-                            <div style="width: 87.5%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-yellow-600 transition-all duration-500"></div>
-                        </div>
-                        <div class="flex justify-between text-xs text-gray-500">
-                            <span>进度：87.5%</span>
-                            <span>预计完成时间：2024-05-30</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- 学习建议 -->
-        <div class="bg-white rounded-xl shadow-md overflow-hidden">
-            <div class="p-5 border-b border-gray-200">
-                <h2 class="text-lg font-bold text-gray-800">学习建议</h2>
-            </div>
-            <div class="p-5">
-                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-4">
-                    <div class="flex">
-                        <div class="flex-shrink-0">
-                            <i class="fas fa-info-circle text-blue-500"></i>
-                        </div>
-                        <div class="ml-3">
-                            <p class="text-sm text-blue-700">
-                                <span class="font-bold">高等数学：</span> 建议加强对微分方程章节的学习，该部分是后续课程的重要基础。
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 mb-4">
-                    <div class="flex">
-                        <div class="flex-shrink-0">
-                            <i class="fas fa-exclamation-circle text-yellow-500"></i>
-                        </div>
-                        <div class="ml-3">
-                            <p class="text-sm text-yellow-700">
-                                <span class="font-bold">大学英语：</span> 听力部分需要提高，建议每天坚持英语听力练习30分钟。
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-green-50 border-l-4 border-green-500 p-4">
-                    <div class="flex">
-                        <div class="flex-shrink-0">
-                            <i class="fas fa-check-circle text-green-500"></i>
-                        </div>
-                        <div class="ml-3">
-                            <p class="text-sm text-green-700">
-                                <span class="font-bold">大学物理：</span> 进度良好，成绩优异，建议可以提前预习下学期的电磁学部分。
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- 页面底部空白 -->
+        <div style="height:100px;"></div>
     </div>
 </body>
 </html>
