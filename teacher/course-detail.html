@@ -51,7 +51,7 @@
                     <i class="fas fa-edit mr-2"></i> 编辑课程
                 </button>
                 <button id="generate-exam-btn" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg flex items-center">
-                    <i class="fas fa-file-alt mr-2"></i> 生成试题
+                    <i class="fas fa-file-alt mr-2"></i> 一键生成试题
                 </button>
             </div>
         </div>
@@ -330,7 +330,7 @@
                 </div>
                 <div class="mb-4 hidden" id="file-info">
                     <div class="flex items-center p-3 bg-gray-50 rounded-lg">
-                        <i class="fas fa-file-alt text-blue-600 mr-3"></i>
+                        <i id="file-icon" class="fas fa-file-alt text-blue-600 mr-3"></i>
                         <div class="flex-1">
                             <p class="text-sm font-medium" id="file-name">document.pdf</p>
                             <p class="text-xs text-gray-500" id="file-size">1.2 MB</p>
@@ -370,7 +370,7 @@
                 </div>
                 <div class="flex justify-end space-x-3">
                     <button type="button" id="cancel-import" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">取消</button>
-                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">导入</button>
+                    <button type="button" id="submit-import" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">导入</button>
                 </div>
             </form>
         </div>
@@ -443,6 +443,40 @@
         </div>
     </div>
 
+    <!-- 生成试题成功模态框 -->
+    <div id="generate-exam-success-modal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl shadow-xl w-full max-w-md p-6">
+            <div class="text-center">
+                <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 mb-4">
+                    <i class="fas fa-check text-green-600 text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 mb-2">试题生成成功</h3>
+                <p class="text-gray-600 mb-6">已根据课程内容自动生成试题，现在可以查看或编辑试题。</p>
+                <div class="flex justify-center space-x-3">
+                    <button id="close-exam-success" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-lg">
+                        关闭
+                    </button>
+                    <button id="view-generated-exam" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg">
+                        查看试题
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 生成试题加载模态框 -->
+    <div id="generating-exam-modal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl shadow-xl w-full max-w-md p-6">
+            <div class="text-center">
+                <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-blue-100 mb-4">
+                    <i class="fas fa-spinner fa-spin text-blue-600 text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 mb-2">正在生成试题</h3>
+                <p class="text-gray-600 mb-6">系统正在基于课程内容自动生成试题，请稍候...</p>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.0-rc.2/dist/quill.min.js"></script>
     <script>
         // 初始化富文本编辑器
@@ -509,8 +543,34 @@
             document.getElementById('import-material-modal').classList.add('hidden');
         });
 
+        // 一键生成试题功能
         document.getElementById('generate-exam-btn').addEventListener('click', function() {
-            document.getElementById('generate-exam-modal').classList.remove('hidden');
+            // 显示加载模态框
+            document.getElementById('generating-exam-modal').classList.remove('hidden');
+            
+            // 禁用按钮
+            this.disabled = true;
+            this.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> 生成中...';
+            this.classList.add('opacity-70');
+            
+            // 模拟生成试题过程（2秒）
+            setTimeout(() => {
+                // 隐藏加载模态框
+                document.getElementById('generating-exam-modal').classList.add('hidden');
+                
+                // 显示成功模态框
+                document.getElementById('generate-exam-success-modal').classList.remove('hidden');
+                
+                // 恢复按钮状态
+                this.disabled = false;
+                this.innerHTML = '<i class="fas fa-check-circle mr-2"></i> 试题已生成';
+                this.classList.remove('opacity-70');
+                this.classList.remove('bg-purple-600', 'hover:bg-purple-700');
+                this.classList.add('bg-green-600', 'hover:bg-green-700');
+                
+                // 生成随机的考试ID
+                window.examId = 'EXAM-' + Math.floor(1000 + Math.random() * 9000);
+            }, 2000);
         });
 
         document.getElementById('close-exam-modal').addEventListener('click', function() {
@@ -519,6 +579,18 @@
 
         document.getElementById('cancel-exam').addEventListener('click', function() {
             document.getElementById('generate-exam-modal').classList.add('hidden');
+        });
+        
+        // 关闭生成成功模态框
+        document.getElementById('close-exam-success').addEventListener('click', function() {
+            document.getElementById('generate-exam-success-modal').classList.add('hidden');
+        });
+        
+        // 查看生成的试题
+        document.getElementById('view-generated-exam').addEventListener('click', function() {
+            document.getElementById('generate-exam-success-modal').classList.add('hidden');
+            // 跳转到试题详情页面
+            window.location.href = `exam-detail.html?id=${window.examId}`;
         });
 
         // 文件上传处理
@@ -538,22 +610,39 @@
                 const fileExt = file.name.split('.').pop().toLowerCase();
                 document.getElementById('file-specific-fields').classList.remove('hidden');
                 
+                // 根据文件类型设置图标
+                const fileIcon = document.getElementById('file-icon');
+                fileIcon.className = 'fas mr-3';
+                
                 // 视频文件
                 if (['mp4', 'mov', 'avi', 'webm'].includes(fileExt)) {
                     document.getElementById('video-fields').classList.remove('hidden');
                     document.getElementById('ppt-fields').classList.add('hidden');
-                    // 在实际应用中，这里可以读取视频时长
-                    document.getElementById('file-size').textContent += ' • 约15分钟';
+                    fileIcon.classList.add('fa-file-video', 'text-red-600');
                 } 
                 // PPT文件
                 else if (['ppt', 'pptx'].includes(fileExt)) {
                     document.getElementById('ppt-fields').classList.remove('hidden');
                     document.getElementById('video-fields').classList.add('hidden');
+                    fileIcon.classList.add('fa-file-powerpoint', 'text-orange-600');
                 } 
+                // PDF文件
+                else if (fileExt === 'pdf') {
+                    document.getElementById('video-fields').classList.add('hidden');
+                    document.getElementById('ppt-fields').classList.add('hidden');
+                    fileIcon.classList.add('fa-file-pdf', 'text-red-600');
+                }
+                // 文档文件
+                else if (['docx', 'doc', 'md', 'txt'].includes(fileExt)) {
+                    document.getElementById('video-fields').classList.add('hidden');
+                    document.getElementById('ppt-fields').classList.add('hidden');
+                    fileIcon.classList.add('fa-file-word', 'text-blue-600');
+                }
                 // 其他文件类型
                 else {
                     document.getElementById('video-fields').classList.add('hidden');
                     document.getElementById('ppt-fields').classList.add('hidden');
+                    fileIcon.classList.add('fa-file-alt', 'text-gray-600');
                 }
             }
         });
@@ -562,6 +651,71 @@
             document.getElementById('file-upload').value = '';
             document.getElementById('file-info').classList.add('hidden');
             document.getElementById('file-specific-fields').classList.add('hidden');
+        });
+        
+        // 导入文件提交
+        document.getElementById('submit-import').addEventListener('click', function() {
+            // 检查是否已选择文件
+            if (document.getElementById('file-upload').files.length === 0) {
+                alert('请先选择要导入的文件');
+                return;
+            }
+            
+            // 检查是否填写了标题
+            if (document.getElementById('import-title').value.trim() === '') {
+                alert('请输入教材标题');
+                return;
+            }
+            
+            // 显示导入成功提示
+            const fileName = document.getElementById('file-name').textContent;
+            const fileType = fileName.split('.').pop().toLowerCase();
+            
+            // 添加新教材卡片到教材列表
+            let borderColor = 'border-blue-500';
+            let icon = 'fa-file-alt';
+            let iconColor = 'text-blue-500';
+            let typeText = '文档';
+            
+            if (['mp4', 'mov', 'avi', 'webm'].includes(fileType)) {
+                borderColor = 'border-red-500';
+                icon = 'fa-video';
+                iconColor = 'text-red-500';
+                typeText = '视频';
+            } else if (['ppt', 'pptx'].includes(fileType)) {
+                borderColor = 'border-orange-500';
+                icon = 'fa-file-powerpoint';
+                iconColor = 'text-orange-500';
+                typeText = '幻灯片';
+            } else if (fileType === 'pdf') {
+                borderColor = 'border-red-500';
+                icon = 'fa-file-pdf';
+                iconColor = 'text-red-500';
+                typeText = 'PDF文档';
+            }
+            
+            // 关闭导入模态框
+            document.getElementById('import-material-modal').classList.add('hidden');
+            
+            // 显示导入成功通知
+            const successNotice = document.createElement('div');
+            successNotice.className = 'fixed top-4 right-4 bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded shadow-md';
+            successNotice.innerHTML = `<div class="flex items-center"><i class="fas fa-check-circle mr-2"></i> 教材 "${document.getElementById('import-title').value}" 导入成功！</div>`;
+            document.body.appendChild(successNotice);
+            
+            // 3秒后移除成功提示
+            setTimeout(() => {
+                document.body.removeChild(successNotice);
+            }, 3000);
+            
+            // 重置表单
+            document.getElementById('file-upload').value = '';
+            document.getElementById('file-info').classList.add('hidden');
+            document.getElementById('file-specific-fields').classList.add('hidden');
+            document.getElementById('import-title').value = '';
+            document.getElementById('import-sort').value = '';
+            document.getElementById('video-duration').value = '';
+            document.getElementById('ppt-pages').value = '';
         });
 
         // 获取URL参数以确定返回链接
@@ -592,6 +746,19 @@
             
             // 根据URL中的参数，可以通过API获取详细信息（模拟）
             // 在实际应用中，这里会根据courseId从后端获取数据
+
+            // 设置模态框点击外部关闭
+            window.addEventListener('click', function(e) {
+                const generateExamSuccessModal = document.getElementById('generate-exam-success-modal');
+                if (e.target === generateExamSuccessModal) {
+                    generateExamSuccessModal.classList.add('hidden');
+                }
+                
+                const generatingExamModal = document.getElementById('generating-exam-modal');
+                if (e.target === generatingExamModal) {
+                    // 不关闭生成中模态框，防止用户中断生成过程
+                }
+            });
         });
     </script>
 </body>
