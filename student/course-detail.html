@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学生端 - 课程详情</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .course-header {
+            border-left: 4px solid #9061F9;
+            padding-left: 16px;
+        }
+        .section-header {
+            border-left: 4px solid #9061F9;
+            padding-left: 16px;
+            margin-bottom: 1rem;
+        }
+        .material-card {
+            transition: all 0.3s ease;
+        }
+        .material-card:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen pb-20">
+    <div class="p-6 h-full overflow-y-auto">
+        <!-- 顶部导航和操作 -->
+        <div class="flex justify-between items-center mb-6">
+            <div class="flex items-center">
+                <a href="courses.html" class="text-gray-600 hover:text-purple-600 mr-4">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+                <h1 class="text-2xl font-bold text-gray-800">课程详情</h1>
+            </div>
+        </div>
+
+        <!-- 课程详情卡片 -->
+        <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
+            <div class="course-header mb-6">
+                <h2 class="text-xl font-semibold text-gray-800" id="course-title">高等数学</h2>
+            </div>
+            
+            <!-- 课程基本信息 -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                    <h3 class="text-sm font-medium text-gray-500">任课教师</h3>
+                    <p class="mt-1 text-gray-900" id="course-teacher">李老师</p>
+                </div>
+                <div>
+                    <h3 class="text-sm font-medium text-gray-500">所属班级</h3>
+                    <p class="mt-1 text-gray-900" id="course-class">高一年级</p>
+                </div>
+                <div>
+                    <h3 class="text-sm font-medium text-gray-500">课程编号</h3>
+                    <p class="mt-1 text-gray-900" id="course-code">MATH101</p>
+                </div>
+                <div>
+                    <h3 class="text-sm font-medium text-gray-500">上课地点</h3>
+                    <p class="mt-1 text-gray-900" id="course-location">教学楼301</p>
+                </div>
+                <div>
+                    <h3 class="text-sm font-medium text-gray-500">学习进度</h3>
+                    <p class="mt-1 text-gray-900">3/4 已完成</p>
+                </div>
+                <div>
+                    <h3 class="text-sm font-medium text-gray-500">总学时</h3>
+                    <p class="mt-1 text-gray-900">48学时</p>
+                </div>
+            </div>
+            
+            <div class="mt-6">
+                <h3 class="text-sm font-medium text-gray-500">课程标签</h3>
+                <div class="mt-1 flex flex-wrap gap-2">
+                    <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded-full text-xs font-medium">数学基础</span>
+                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-medium">微积分</span>
+                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium">必修课程</span>
+                </div>
+            </div>
+            
+            <div class="mt-6 pt-6 border-t border-gray-100">
+                <h3 class="text-sm font-medium text-gray-500">课程简介</h3>
+                <p class="mt-2 text-gray-700" id="course-intro">本课程涵盖微积分、极限、导数等内容，适合理工科学生。课程目标是培养学生的数学思维与分析能力，建立坚实的数学基础，为后续专业课程打下基础。</p>
+            </div>
+            
+            <div class="mt-6 flex justify-end space-x-4">
+                <a href="exams.html" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded flex items-center">
+                    <i class="fas fa-pen-to-square mr-2"></i> 进入考试
+                </a>
+            </div>
+        </div>
+
+        <!-- 教材列表内容 -->
+        <div class="bg-white rounded-xl shadow-sm p-6" id="materials">
+            <div class="section-header mb-4">
+                <h3 class="text-lg font-semibold text-gray-800">教材列表</h3>
+            </div>
+            
+            <div class="flex justify-between items-center mb-4">
+                <div class="text-sm text-gray-500">共4个教材资源</div>
+                <button class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1.5 rounded-lg flex items-center text-sm">
+                    <i class="fas fa-upload mr-2"></i> 导入本地库
+                </button>
+            </div>
+            
+            <!-- 教材列表 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- 教材卡片 - 文档 -->
+                <div class="material-card bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-md transition-all duration-300 border-l-4 border-blue-500">
+                    <div class="p-4">
+                        <div class="flex items-start">
+                            <div class="ml-1">
+                                <h3 class="text-md font-semibold text-gray-800">极限与连续</h3>
+                                <p class="text-xs text-gray-500 mt-1">第1讲 • 更新于2023-05-18</p>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <p class="text-gray-600 text-xs line-clamp-2">介绍微积分中的极限概念，包括函数极限、两侧极限、连续性等内容。</p>
+                        </div>
+                        <div class="mt-3 flex items-center text-xs text-gray-600 justify-between">
+                            <span><i class="fas fa-file-alt mr-1"></i> 25页</span>
+                            <span class="text-xs bg-green-100 text-green-800 py-0.5 px-2 rounded-full">已完成</span>
+                        </div>
+                        <div class="mt-3 pt-3 border-t border-gray-100 flex justify-between">
+                            <a href="#" class="text-purple-600 hover:text-purple-800 text-xs font-medium flex items-center">
+                                <i class="fas fa-book-open mr-1"></i> 阅读教材
+                            </a>
+                            <a href="#" class="text-purple-600 hover:text-purple-800 text-xs font-medium flex items-center">
+                                <i class="fas fa-download mr-1"></i> 下载
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 教材卡片 - PPT -->
+                <div class="material-card bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-md transition-all duration-300 border-l-4 border-orange-500">
+                    <div class="p-4">
+                        <div class="flex items-start">
+                            <div class="ml-1">
+                                <h3 class="text-md font-semibold text-gray-800">导数与微分</h3>
+                                <p class="text-xs text-gray-500 mt-1">第2讲 • 更新于2023-05-25</p>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <p class="text-gray-600 text-xs line-clamp-2">详细讲解导数的概念、计算方法以及几何意义，包含实用案例和练习。</p>
+                        </div>
+                        <div class="mt-3 flex items-center text-xs text-gray-600 justify-between">
+                            <span><i class="fas fa-file-powerpoint mr-1"></i> 18页</span>
+                            <span class="text-xs bg-green-100 text-green-800 py-0.5 px-2 rounded-full">已完成</span>
+                        </div>
+                        <div class="mt-3 pt-3 border-t border-gray-100 flex justify-between">
+                            <a href="#" class="text-purple-600 hover:text-purple-800 text-xs font-medium flex items-center">
+                                <i class="fas fa-book-open mr-1"></i> 查看PPT
+                            </a>
+                            <a href="#" class="text-purple-600 hover:text-purple-800 text-xs font-medium flex items-center">
+                                <i class="fas fa-download mr-1"></i> 下载
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 教材卡片 - 视频 -->
+                <div class="material-card bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-md transition-all duration-300 border-l-4 border-red-500">
+                    <div class="p-4">
+                        <div class="flex items-start">
+                            <div class="ml-1">
+                                <h3 class="text-md font-semibold text-gray-800">积分基础</h3>
+                                <p class="text-xs text-gray-500 mt-1">第3讲 • 更新于2023-06-03</p>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <p class="text-gray-600 text-xs line-clamp-2">积分的概念、不定积分与定积分的计算方法，以及应用场景介绍。</p>
+                        </div>
+                        <div class="mt-3 flex items-center text-xs text-gray-600 justify-between">
+                            <span><i class="fas fa-video mr-1"></i> 45分钟</span>
+                            <span class="text-xs bg-yellow-100 text-yellow-800 py-0.5 px-2 rounded-full">进行中</span>
+                        </div>
+                        <div class="mt-3 pt-3 border-t border-gray-100 flex justify-between">
+                            <a href="#" class="text-purple-600 hover:text-purple-800 text-xs font-medium flex items-center">
+                                <i class="fas fa-play mr-1"></i> 播放视频
+                            </a>
+                            <a href="#" class="text-purple-600 hover:text-purple-800 text-xs font-medium flex items-center">
+                                <i class="fas fa-download mr-1"></i> 下载
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 教材卡片 - 文档2 -->
+                <div class="material-card bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-md transition-all duration-300 border-l-4 border-blue-500">
+                    <div class="p-4">
+                        <div class="flex items-start">
+                            <div class="ml-1">
+                                <h3 class="text-md font-semibold text-gray-800">微分方程</h3>
+                                <p class="text-xs text-gray-500 mt-1">第4讲 • 更新于2023-06-10</p>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <p class="text-gray-600 text-xs line-clamp-2">介绍常微分方程的基本概念、一阶微分方程的求解方法及应用。</p>
+                        </div>
+                        <div class="mt-3 flex items-center text-xs text-gray-600 justify-between">
+                            <span><i class="fas fa-file-alt mr-1"></i> 22页</span>
+                            <span class="text-xs bg-gray-100 text-gray-800 py-0.5 px-2 rounded-full">未开始</span>
+                        </div>
+                        <div class="mt-3 pt-3 border-t border-gray-100 flex justify-between">
+                            <a href="#" class="text-purple-600 hover:text-purple-800 text-xs font-medium flex items-center">
+                                <i class="fas fa-book-open mr-1"></i> 阅读教材
+                            </a>
+                            <a href="#" class="text-purple-600 hover:text-purple-800 text-xs font-medium flex items-center">
+                                <i class="fas fa-download mr-1"></i> 下载
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部导航栏 -->
+    <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 py-3 px-6 flex justify-around">
+        <a href="index.html" class="flex flex-col items-center">
+            <i class="fas fa-home text-gray-500 text-xl"></i>
+            <span class="text-xs mt-1 text-gray-500">首页</span>
+        </a>
+        <a href="courses.html" class="flex flex-col items-center">
+            <i class="fas fa-book text-purple-600 text-xl"></i>
+            <span class="text-xs mt-1 text-purple-600">课程</span>
+        </a>
+        <a href="exams.html" class="flex flex-col items-center">
+            <i class="fas fa-file-alt text-gray-500 text-xl"></i>
+            <span class="text-xs mt-1 text-gray-500">考试</span>
+        </a>
+        <a href="progress.html" class="flex flex-col items-center">
+            <i class="fas fa-chart-line text-gray-500 text-xl"></i>
+            <span class="text-xs mt-1 text-gray-500">进度</span>
+        </a>
+    </div>
+
+    <!-- 脚本 -->
+    <script>
+        // 获取URL参数
+        function getUrlParam(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+        
+        // 加载课程详情
+        function loadCourseDetail() {
+            const courseId = getUrlParam('id');
+            // 这里只是示例，实际应用中应该根据courseId从服务器获取数据
+            const courseData = {
+                'math': {
+                    title: '高等数学',
+                    teacher: '李老师',
+                    class: '高一年级',
+                    code: 'MATH101',
+                    location: '教学楼301',
+                    intro: '本课程涵盖微积分、极限、导数等内容，适合理工科学生。课程目标是培养学生的数学思维与分析能力，建立坚实的数学基础，为后续专业课程打下基础。'
+                },
+                'english': {
+                    title: '大学英语',
+                    teacher: '王老师',
+                    class: '高一年级',
+                    code: 'ENG101',
+                    location: '外语楼203',
+                    intro: '本课程注重英语听说读写能力的全面培养，配合丰富的文化讲解。通过大量实践活动，提高学生的语言应用能力和跨文化交际能力。'
+                }
+            };
+            
+            const course = courseData[courseId] || courseData['math']; // 默认显示数学课程
+            
+            // 更新页面内容
+            document.getElementById('course-title').textContent = course.title;
+            document.getElementById('course-teacher').textContent = course.teacher;
+            document.getElementById('course-class').textContent = course.class;
+            document.getElementById('course-code').textContent = course.code;
+            document.getElementById('course-location').textContent = course.location;
+            document.getElementById('course-intro').textContent = course.intro;
+            
+            // 更新页面标题
+            document.title = `学生端 - ${course.title}`;
+        }
+        
+        // 页面加载完成后执行
+        window.onload = function() {
+            loadCourseDetail();
+        };
+    </script>
+</body>
+</html> 

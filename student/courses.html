@@ -43,18 +43,14 @@
                 <div class="p-5">
                     <div class="flex justify-between items-start mb-3">
                         <h3 class="text-xl font-bold text-gray-800">高等数学</h3>
-                        <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">进行中</span>
                     </div>
                     <div class="text-gray-600 mb-2 text-sm">教师：李老师</div>
                     <div class="text-gray-400 text-sm mb-3">2024春季 | 课程编号：MATH101</div>
                     <p class="text-gray-600 text-sm mb-4">本课程涵盖微积分、极限、导数等内容，适合理工科学生。</p>
                     <div class="flex justify-between">
-                        <button onclick="showCourseDetail('math')" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded flex items-center text-sm">
+                        <a href="course-detail.html?id=math" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded flex items-center text-sm">
                             <i class="fas fa-eye mr-1"></i> 详情
-                        </button>
-                        <button onclick="showMaterials('math')" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-1.5 rounded flex items-center text-sm">
-                            <i class="fas fa-book mr-1"></i> 教材
-                        </button>
+                        </a>
                         <a href="exam-detail.html" target="_blank" class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1.5 rounded flex items-center text-sm">
                             <i class="fas fa-pen-to-square mr-1"></i> 考试
                         </a>
@@ -70,202 +66,31 @@
                 <div class="p-5">
                     <div class="flex justify-between items-start mb-3">
                         <h3 class="text-xl font-bold text-gray-800">大学英语</h3>
-                        <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full">待考试</span>
                     </div>
                     <div class="text-gray-600 mb-2 text-sm">教师：王老师</div>
                     <div class="text-gray-400 text-sm mb-3">2024春季 | 课程编号：ENG101</div>
                     <p class="text-gray-600 text-sm mb-4">本课程注重英语听说读写能力的全面培养，配合丰富的文化讲解。</p>
                     <div class="flex justify-between">
-                        <button onclick="showCourseDetail('english')" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded flex items-center text-sm">
+                        <a href="course-detail.html?id=english" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded flex items-center text-sm">
                             <i class="fas fa-eye mr-1"></i> 详情
-                        </button>
-                        <button onclick="showMaterials('english')" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-1.5 rounded flex items-center text-sm">
-                            <i class="fas fa-book mr-1"></i> 教材
-                        </button>
-                        <button onclick="showExam('english')" class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1.5 rounded flex items-center text-sm">
+                        </a>
+                        <a href="exams.html" class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1.5 rounded flex items-center text-sm">
                             <i class="fas fa-pen-to-square mr-1"></i> 考试
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- 课程详情模态框 -->
-        <div id="modal-course-detail" class="modal-container fixed inset-0 flex items-center justify-center z-50">
-            <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl p-8 relative animate__animated animate__fadeIn">
-                <button class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-2xl" onclick="closeModal('modal-course-detail')">
-                    <i class="fas fa-times"></i>
-                </button>
-                <h3 class="text-xl font-bold mb-4 text-gray-800 border-b pb-4">高等数学 - 课程详情</h3>
-                <div class="text-gray-600 mb-4">教师：李老师 | 2024春季 | 课程编号：MATH101</div>
-                <div class="mb-6">
-                    <img src="https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=800&q=80" class="rounded-lg w-full h-56 object-cover mb-4" alt="课程图片">
-                    <div class="bg-gray-50 p-4 rounded-lg">
-                        <h4 class="font-bold mb-2 text-gray-700">课程介绍</h4>
-                        <p class="text-gray-600">本课程涵盖微积分、极限、导数等内容，适合理工科学生。课程目标是培养学生的数学思维与分析能力，建立坚实的数学基础，为后续专业课程打下基础。</p>
-                    </div>
-                </div>
-                <div class="flex gap-4 justify-end">
-                    <button class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded flex items-center" onclick="showMaterials('math')">
-                        <i class="fas fa-book mr-2"></i>查看教材
-                    </button>
-                    <a href="exam-detail.html" target="_blank" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded flex items-center">
-                        <i class="fas fa-pen-to-square mr-2"></i>进入考试
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <!-- 教材查看模态框 -->
-        <div id="modal-materials" class="modal-container fixed inset-0 flex items-center justify-center z-50">
-            <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl p-8 relative animate__animated animate__fadeIn">
-                <button class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-2xl" onclick="closeModal('modal-materials')">
-                    <i class="fas fa-times"></i>
-                </button>
-                <h3 class="text-xl font-bold mb-4 text-gray-800 border-b pb-4">高等数学 - 教材</h3>
-                <div class="mb-6">
-                    <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80" class="rounded-lg w-full h-40 object-cover mb-4" alt="教材图片">
-                    <div class="bg-gray-50 p-4 rounded-lg">
-                        <h4 class="font-bold mb-2 text-gray-700">教材章节</h4>
-                        <ul class="list-disc ml-5 text-gray-600">
-                            <li class="mb-1">第一章：极限与连续</li>
-                            <li class="mb-1">第二章：导数与微分</li>
-                            <li class="mb-1">第三章：积分</li>
-                            <li class="mb-1">第四章：微分方程</li>
-                        </ul>
-                        <div class="mt-4 flex justify-between items-center border-t pt-4">
-                            <span class="text-gray-600">格式：PDF文档</span>
-                            <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded flex items-center text-sm">
-                                <i class="fas fa-download mr-1"></i> 下载教材
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 考试模态框 -->
-        <div id="modal-exam" class="modal-container fixed inset-0 flex items-center justify-center z-50">
-            <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl p-8 relative animate__animated animate__fadeIn">
-                <button class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-2xl" onclick="closeModal('modal-exam')">
-                    <i class="fas fa-times"></i>
-                </button>
-                <h3 class="text-xl font-bold mb-4 text-gray-800 border-b pb-4">高等数学 - 期末考试</h3>
-                <div class="flex items-center gap-4 mb-4">
-                    <span class="bg-blue-100 text-blue-700 px-2 py-1 rounded-full text-xs">考试进行中</span>
-                    <span class="text-gray-500 text-sm flex items-center">
-                        <i class="fas fa-clock mr-1"></i>
-                        <span id="exam-timer">00:29:58</span>
-                    </span>
-                </div>
-                <div class="bg-gray-50 p-4 rounded-lg mb-6">
-                    <div class="font-bold mb-3 text-gray-700">一、选择题（每题5分，共2题）</div>
-                    <div class="mb-4 p-3 bg-white rounded border border-gray-200">
-                        <div class="mb-2 font-medium">1. 下列哪个是极限的定义？</div>
-                        <div class="flex flex-col gap-2">
-                            <label class="flex items-center p-2 hover:bg-gray-50 rounded">
-                                <input type="radio" name="q1" class="mr-2">
-                                <span>A. 某点处函数值</span>
-                            </label>
-                            <label class="flex items-center p-2 hover:bg-gray-50 rounded">
-                                <input type="radio" name="q1" class="mr-2">
-                                <span>B. 某点处导数</span>
-                            </label>
-                            <label class="flex items-center p-2 hover:bg-gray-50 rounded">
-                                <input type="radio" name="q1" class="mr-2">
-                                <span>C. 函数在某点附近趋于某一确定值</span>
-                            </label>
-                            <label class="flex items-center p-2 hover:bg-gray-50 rounded">
-                                <input type="radio" name="q1" class="mr-2">
-                                <span>D. 积分区间</span>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="mb-4 p-3 bg-white rounded border border-gray-200">
-                        <div class="mb-2 font-medium">2. 导数的几何意义是？</div>
-                        <div class="flex flex-col gap-2">
-                            <label class="flex items-center p-2 hover:bg-gray-50 rounded">
-                                <input type="radio" name="q2" class="mr-2">
-                                <span>A. 切线斜率</span>
-                            </label>
-                            <label class="flex items-center p-2 hover:bg-gray-50 rounded">
-                                <input type="radio" name="q2" class="mr-2">
-                                <span>B. 面积</span>
-                            </label>
-                            <label class="flex items-center p-2 hover:bg-gray-50 rounded">
-                                <input type="radio" name="q2" class="mr-2">
-                                <span>C. 体积</span>
-                            </label>
-                            <label class="flex items-center p-2 hover:bg-gray-50 rounded">
-                                <input type="radio" name="q2" class="mr-2">
-                                <span>D. 极限</span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <!-- 自动判分与提交 -->
-                <div class="flex items-center justify-between">
-                    <span id="exam-status" class="text-gray-500"></span>
-                    <button class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded flex items-center" onclick="autoGradeExam()">
-                        <i class="fas fa-check mr-2"></i>提交并判分
-                    </button>
-                </div>
-            </div>
+        <div id="modal-course-detail" class="modal-container fixed inset-0 flex items-center justify-center z-50 hidden">
+            <!-- 删除整个模态框内容 -->
         </div>
     </div>
 
     <!-- 脚本 -->
     <script>
-        // 模态框控制
-        function showCourseDetail(id) {
-            document.getElementById('modal-course-detail').style.display = 'flex';
-        }
-        function showMaterials(id) {
-            closeModal('modal-course-detail');
-            document.getElementById('modal-materials').style.display = 'flex';
-        }
-        function showExam(id) {
-            closeModal('modal-course-detail');
-            closeModal('modal-materials');
-            document.getElementById('modal-exam').style.display = 'flex';
-            startExamTimer(29 * 60 + 58); // 29:58
-        }
-        function closeModal(id) {
-            document.getElementById(id).style.display = 'none';
-        }
-
-        // 考试倒计时
-        let examTimerInterval;
-        function startExamTimer(seconds) {
-            clearInterval(examTimerInterval);
-            let time = seconds;
-            const timerEl = document.getElementById('exam-timer');
-            function update() {
-                const m = String(Math.floor(time / 60)).padStart(2, '0');
-                const s = String(time % 60).padStart(2, '0');
-                timerEl.textContent = `00:${m}:${s}`;
-                if (time <= 0) {
-                    clearInterval(examTimerInterval);
-                    document.getElementById('exam-status').textContent = '考试时间到，已自动提交。';
-                } else {
-                    time--;
-                }
-            }
-            update();
-            examTimerInterval = setInterval(update, 1000);
-        }
-
-        // 自动判分原型
-        function autoGradeExam() {
-            // 简单原型：假设正确答案为C、A
-            const q1 = document.querySelector('input[name="q1"]:checked');
-            const q2 = document.querySelector('input[name="q2"]:checked');
-            let score = 0;
-            if (q1 && q1.nextSibling.nextSibling.textContent.trim().startsWith('C')) score += 5;
-            if (q2 && q2.nextSibling.nextSibling.textContent.trim().startsWith('A')) score += 5;
-            document.getElementById('exam-status').textContent = `判分完成，得分：${score} / 10`;
-            clearInterval(examTimerInterval);
-        }
+        // 页面初始化可能需要的其他脚本
     </script>
 </body>
 </html>
