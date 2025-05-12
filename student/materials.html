@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>学生端 - 教材查看</title>
+    <title>学生端 - 本地库</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
@@ -19,170 +19,149 @@
             background-color: rgba(0,0,0,0.5);
             display: none;
         }
+        .file-drop-area {
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .file-drop-area:hover, .file-drop-area.drag-over {
+            border-color: #9061F9;
+            background-color: rgba(144, 97, 249, 0.05);
+        }
     </style>
 </head>
 <body class="bg-gray-100">
     <div class="p-6">
-        <div class="mb-6">
-            <h1 class="text-2xl font-bold text-gray-800">教材查看</h1>
-            <p class="text-gray-500">浏览课程教材与章节资源</p>
-        </div>
-
-        <!-- 教材分类选项卡 -->
-        <div class="mb-6 border-b border-gray-200">
-            <ul class="flex flex-wrap -mb-px text-sm font-medium text-center">
-                <li class="mr-2">
-                    <a href="#" class="inline-block p-4 border-b-2 border-blue-600 text-blue-600 rounded-t-lg active" aria-current="page">所有教材</a>
-                </li>
-                <li class="mr-2">
-                    <a href="#" class="inline-block p-4 border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 rounded-t-lg">最近查看</a>
-                </li>
-                <li class="mr-2">
-                    <a href="#" class="inline-block p-4 border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 rounded-t-lg">已下载</a>
-                </li>
-            </ul>
-        </div>
-
-        <!-- 教材搜索 -->
-        <div class="mb-6">
-            <div class="relative">
-                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                    <i class="fas fa-search text-gray-400"></i>
-                </div>
-                <input type="text" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full pl-10 p-2.5" placeholder="搜索教材...">
+        <div class="mb-6 flex justify-between items-center">
+            <div>
+                <h1 class="text-2xl font-bold text-gray-800">本地库</h1>
+                <p class="text-gray-500">导入并查看教师资源</p>
             </div>
+            <label for="file-upload" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg flex items-center cursor-pointer">
+                <i class="fas fa-upload mr-2"></i> 导入资源
+                <input id="file-upload" type="file" class="hidden" accept=".zip,.pdf,.ppt,.pptx,.doc,.docx,.mp4">
+            </label>
         </div>
 
-        <!-- 教材卡片网格 -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- 教材卡片1 -->
+        <!-- 导入区域 -->
+        <div id="empty-state" class="file-drop-area mb-8">
+            <img src="https://cdn-icons-png.flaticon.com/512/4208/4208479.png" class="w-20 h-20 mx-auto mb-4 opacity-50" alt="Empty library">
+            <h3 class="text-xl font-medium text-gray-700 mb-2">本地库暂无资源</h3>
+            <p class="text-gray-500 mb-4">拖放文件至此区域或点击下方按钮导入</p>
+            <label for="drop-file-upload" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg inline-flex items-center cursor-pointer">
+                <i class="fas fa-upload mr-2"></i> 导入教师资源
+                <input id="drop-file-upload" type="file" class="hidden" accept=".zip,.pdf,.ppt,.pptx,.doc,.docx,.mp4">
+            </label>
+            <p class="text-xs text-gray-500 mt-3">支持从教师端导出的ZIP包、PDF、PPT、Word和视频格式</p>
+        </div>
+
+        <!-- 已导入资源卡片网格 -->
+        <div id="resource-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 hidden">
+            <!-- 资源卡片1 - PDF -->
             <div class="material-card bg-white rounded-xl shadow-md overflow-hidden">
-                <div class="h-40 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80" alt="高等数学教材" class="w-full object-cover">
+                <div class="h-10 bg-red-600 flex items-center justify-center">
+                    <i class="fas fa-file-pdf text-white text-xl"></i>
                 </div>
                 <div class="p-5">
                     <div class="flex justify-between items-start mb-3">
-                        <h3 class="text-xl font-bold text-gray-800">高等数学教材</h3>
-                        <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">必修</span>
+                        <h3 class="text-lg font-bold text-gray-800">高等数学期中复习资料</h3>
+                        <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full">PDF</span>
                     </div>
-                    <div class="text-gray-600 mb-2 text-sm">出版社：高等教育出版社</div>
-                    <div class="text-gray-400 text-sm mb-3">章节数：12 | 电子版</div>
-                    <p class="text-gray-600 text-sm mb-4">内容涵盖极限、导数、积分等基础知识，配有丰富例题与习题。</p>
+                    <div class="text-gray-600 mb-2 text-sm">来源：李老师</div>
+                    <div class="text-gray-400 text-sm mb-3">大小：2.5MB | 导入日期：2023-10-15</div>
                     <div class="flex justify-between">
-                        <button onclick="showMaterialDetail('math')" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded flex items-center text-sm">
+                        <button onclick="viewResource('pdf-resource')" class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-2 rounded flex items-center text-sm">
                             <i class="fas fa-eye mr-1"></i> 查看
                         </button>
-                        <button class="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded flex items-center text-sm">
-                            <i class="fas fa-download mr-1"></i> 下载
+                        <button onclick="deleteResource('pdf-resource')" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-2 rounded flex items-center text-sm">
+                            <i class="fas fa-trash-alt mr-1"></i> 删除
                         </button>
                     </div>
                 </div>
             </div>
 
-            <!-- 教材卡片2 -->
+            <!-- 资源卡片2 - PPT -->
             <div class="material-card bg-white rounded-xl shadow-md overflow-hidden">
-                <div class="h-40 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=800&q=80" alt="大学英语教材" class="w-full object-cover">
+                <div class="h-10 bg-orange-600 flex items-center justify-center">
+                    <i class="fas fa-file-powerpoint text-white text-xl"></i>
                 </div>
                 <div class="p-5">
                     <div class="flex justify-between items-start mb-3">
-                        <h3 class="text-xl font-bold text-gray-800">大学英语教材</h3>
-                        <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">必修</span>
+                        <h3 class="text-lg font-bold text-gray-800">微积分知识点讲解</h3>
+                        <span class="bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded-full">PPT</span>
                     </div>
-                    <div class="text-gray-600 mb-2 text-sm">出版社：外语教学与研究出版社</div>
-                    <div class="text-gray-400 text-sm mb-3">章节数：10 | 电子版</div>
-                    <p class="text-gray-600 text-sm mb-4">涵盖听说读写译各项能力训练，适合大学阶段英语学习。</p>
+                    <div class="text-gray-600 mb-2 text-sm">来源：李老师</div>
+                    <div class="text-gray-400 text-sm mb-3">大小：5.8MB | 导入日期：2023-10-12</div>
                     <div class="flex justify-between">
-                        <button onclick="showMaterialDetail('english')" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded flex items-center text-sm">
+                        <button onclick="viewResource('ppt-resource')" class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-2 rounded flex items-center text-sm">
                             <i class="fas fa-eye mr-1"></i> 查看
                         </button>
-                        <button class="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded flex items-center text-sm">
-                            <i class="fas fa-download mr-1"></i> 下载
+                        <button onclick="deleteResource('ppt-resource')" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-2 rounded flex items-center text-sm">
+                            <i class="fas fa-trash-alt mr-1"></i> 删除
                         </button>
                     </div>
                 </div>
             </div>
 
-            <!-- 教材卡片3 -->
+            <!-- 资源卡片3 - 视频 -->
             <div class="material-card bg-white rounded-xl shadow-md overflow-hidden">
-                <div class="h-40 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1581093588401-fbb62a02f120?auto=format&fit=crop&w=800&q=80" alt="大学物理教材" class="w-full object-cover">
+                <div class="h-10 bg-blue-600 flex items-center justify-center">
+                    <i class="fas fa-video text-white text-xl"></i>
                 </div>
                 <div class="p-5">
                     <div class="flex justify-between items-start mb-3">
-                        <h3 class="text-xl font-bold text-gray-800">大学物理教材</h3>
-                        <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full">选修</span>
+                        <h3 class="text-lg font-bold text-gray-800">导数应用视频讲解</h3>
+                        <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">视频</span>
                     </div>
-                    <div class="text-gray-600 mb-2 text-sm">出版社：科学出版社</div>
-                    <div class="text-gray-400 text-sm mb-3">章节数：8 | 电子版</div>
-                    <p class="text-gray-600 text-sm mb-4">包含力学、热学、电磁学等章节，理论与实验相结合。</p>
+                    <div class="text-gray-600 mb-2 text-sm">来源：李老师</div>
+                    <div class="text-gray-400 text-sm mb-3">大小：45MB | 导入日期：2023-10-08</div>
                     <div class="flex justify-between">
-                        <button onclick="showMaterialDetail('physics')" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded flex items-center text-sm">
-                            <i class="fas fa-eye mr-1"></i> 查看
+                        <button onclick="viewResource('video-resource')" class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-2 rounded flex items-center text-sm">
+                            <i class="fas fa-play mr-1"></i> 播放
                         </button>
-                        <button class="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded flex items-center text-sm">
-                            <i class="fas fa-download mr-1"></i> 下载
+                        <button onclick="deleteResource('video-resource')" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-2 rounded flex items-center text-sm">
+                            <i class="fas fa-trash-alt mr-1"></i> 删除
                         </button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- 教材详情模态框 -->
-        <div id="modal-material-detail" class="modal-container fixed inset-0 flex items-center justify-center z-50">
-            <div class="bg-white rounded-lg shadow-lg w-full max-w-4xl p-8 relative animate__animated animate__fadeIn">
-                <button class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-2xl" onclick="closeModal('modal-material-detail')">
+        <!-- 资源预览模态框 -->
+        <div id="modal-resource-preview" class="modal-container fixed inset-0 flex items-center justify-center z-50">
+            <div class="bg-white rounded-lg shadow-lg w-full max-w-4xl p-6 relative animate__animated animate__fadeIn">
+                <button class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-2xl" onclick="closeModal('modal-resource-preview')">
                     <i class="fas fa-times"></i>
                 </button>
-                <h3 class="text-xl font-bold mb-4 text-gray-800 border-b pb-4">高等数学教材 - 详情</h3>
+                <h3 class="text-xl font-bold mb-4 text-gray-800 border-b pb-4" id="preview-title">资源预览</h3>
                 
-                <div class="flex flex-col md:flex-row gap-6 mb-6">
-                    <div class="md:w-1/3">
-                        <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80" class="rounded-lg w-full object-cover mb-4" alt="教材封面">
-                        <div class="bg-gray-50 p-4 rounded-lg">
-                            <h4 class="font-bold mb-2 text-gray-700">基本信息</h4>
-                            <ul class="text-sm text-gray-600 space-y-2">
-                                <li><span class="font-medium">作者：</span>张三、李四</li>
-                                <li><span class="font-medium">出版社：</span>高等教育出版社</li>
-                                <li><span class="font-medium">出版日期：</span>2022年1月</li>
-                                <li><span class="font-medium">ISBN：</span>978-7-XXXX-XXXX-X</li>
-                                <li><span class="font-medium">页数：</span>425页</li>
-                                <li><span class="font-medium">语言：</span>中文</li>
-                            </ul>
-                        </div>
+                <div class="preview-container min-h-[400px] flex items-center justify-center bg-gray-100 rounded-lg">
+                    <div id="pdf-preview" class="w-full h-[400px] hidden">
+                        <iframe src="https://docs.google.com/viewer?embedded=true&url=https://example.com/sample.pdf" class="w-full h-full border-0 rounded"></iframe>
                     </div>
-                    <div class="md:w-2/3">
-                        <div class="bg-gray-50 p-4 rounded-lg mb-4">
-                            <h4 class="font-bold mb-2 text-gray-700">教材简介</h4>
-                            <p class="text-gray-600 text-sm">本教材是为高等院校理工科专业学生编写的数学基础教材，全面系统地介绍了高等数学的基本概念、基本理论和基本方法。内容包括函数与极限、导数与微分、微分中值定理与导数应用、不定积分、定积分及其应用、多元函数微分学、二重积分、微分方程等。</p>
-                            <p class="text-gray-600 text-sm mt-2">教材注重理论与实际应用的结合，每章配有丰富的例题和习题，帮助学生掌握知识点并提高解题能力。</p>
-                        </div>
-                        <div class="bg-gray-50 p-4 rounded-lg">
-                            <h4 class="font-bold mb-2 text-gray-700">章节目录</h4>
-                            <ul class="list-disc ml-5 text-gray-600 text-sm">
-                                <li class="mb-1">第一章：函数与极限</li>
-                                <li class="mb-1">第二章：导数与微分</li>
-                                <li class="mb-1">第三章：微分中值定理与导数应用</li>
-                                <li class="mb-1">第四章：不定积分</li>
-                                <li class="mb-1">第五章：定积分</li>
-                                <li class="mb-1">第六章：定积分的应用</li>
-                                <li class="mb-1">第七章：多元函数微分学</li>
-                                <li class="mb-1">第八章：二重积分</li>
-                                <li class="mb-1">第九章：微分方程</li>
-                                <li class="mb-1">第十章：无穷级数</li>
-                                <li class="mb-1">第十一章：空间解析几何与向量代数</li>
-                                <li class="mb-1">第十二章：线性代数基础</li>
-                            </ul>
-                        </div>
+                    <div id="ppt-preview" class="w-full h-[400px] hidden">
+                        <iframe src="https://docs.google.com/viewer?embedded=true&url=https://example.com/sample.pptx" class="w-full h-full border-0 rounded"></iframe>
+                    </div>
+                    <div id="video-preview" class="w-full h-[400px] hidden">
+                        <video controls class="w-full h-full rounded">
+                            <source src="#" type="video/mp4">
+                            您的浏览器不支持视频播放
+                        </video>
+                    </div>
+                    <div id="loading-preview" class="text-center p-10">
+                        <i class="fas fa-spinner fa-spin text-purple-600 text-4xl mb-4"></i>
+                        <p class="text-gray-600">资源加载中，请稍候...</p>
                     </div>
                 </div>
                 
-                <div class="flex justify-between border-t pt-4">
-                    <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded flex items-center">
-                        <i class="fas fa-book-open mr-2"></i> 在线阅读
-                    </a>
-                    <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded flex items-center">
-                        <i class="fas fa-download mr-2"></i> 下载教材 (PDF, 25MB)
+                <div class="flex justify-between mt-6">
+                    <button class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded flex items-center" onclick="closeModal('modal-resource-preview')">
+                        <i class="fas fa-times mr-2"></i> 关闭
+                    </button>
+                    <button class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded flex items-center">
+                        <i class="fas fa-download mr-2"></i> 下载原文件
                     </button>
                 </div>
             </div>
@@ -191,8 +170,133 @@
 
     <!-- 脚本 -->
     <script>
-        function showMaterialDetail(id) {
-            document.getElementById('modal-material-detail').style.display = 'flex';
+        // 模拟数据加载
+        window.addEventListener('DOMContentLoaded', function() {
+            // 这里可以添加检查本地存储的逻辑
+            // 如果有已导入的资源，则显示资源网格，隐藏空状态
+            // 为了演示，我们添加一个按钮来触发显示资源网格
+            
+            const hasResources = localStorage.getItem('hasImportedResources');
+            if (hasResources === 'true') {
+                showResourceGrid();
+            }
+            
+            // 文件上传处理
+            setupFileUploads();
+            
+            // 拖放功能
+            setupDragAndDrop();
+        });
+        
+        function setupFileUploads() {
+            const fileInputs = document.querySelectorAll('input[type="file"]');
+            fileInputs.forEach(input => {
+                input.addEventListener('change', function(e) {
+                    if (this.files.length > 0) {
+                        // 显示上传进度或处理上传逻辑
+                        handleFileUpload(this.files);
+                    }
+                });
+            });
+        }
+        
+        function setupDragAndDrop() {
+            const dropArea = document.querySelector('.file-drop-area');
+            
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, preventDefaults, false);
+            });
+            
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropArea.addEventListener(eventName, highlight, false);
+            });
+            
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, unhighlight, false);
+            });
+            
+            function highlight() {
+                dropArea.classList.add('drag-over');
+            }
+            
+            function unhighlight() {
+                dropArea.classList.remove('drag-over');
+            }
+            
+            dropArea.addEventListener('drop', handleDrop, false);
+            
+            function handleDrop(e) {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                handleFileUpload(files);
+            }
+        }
+        
+        function handleFileUpload(files) {
+            // 这里处理文件上传逻辑
+            // 可以添加文件类型检查、大小限制等
+            
+            // 模拟上传完成后显示资源
+            setTimeout(() => {
+                showResourceGrid();
+                // 保存状态到本地存储
+                localStorage.setItem('hasImportedResources', 'true');
+                
+                // 显示成功提示
+                alert('文件导入成功！');
+            }, 1000);
+        }
+        
+        function showResourceGrid() {
+            document.getElementById('empty-state').classList.add('hidden');
+            document.getElementById('resource-grid').classList.remove('hidden');
+        }
+        
+        function viewResource(type) {
+            const modal = document.getElementById('modal-resource-preview');
+            modal.style.display = 'flex';
+            
+            // 隐藏所有预览容器
+            document.getElementById('pdf-preview').classList.add('hidden');
+            document.getElementById('ppt-preview').classList.add('hidden');
+            document.getElementById('video-preview').classList.add('hidden');
+            document.getElementById('loading-preview').classList.remove('hidden');
+            
+            // 根据资源类型显示对应的预览
+            setTimeout(() => {
+                document.getElementById('loading-preview').classList.add('hidden');
+                
+                if (type === 'pdf-resource') {
+                    document.getElementById('preview-title').textContent = '高等数学期中复习资料';
+                    document.getElementById('pdf-preview').classList.remove('hidden');
+                } else if (type === 'ppt-resource') {
+                    document.getElementById('preview-title').textContent = '微积分知识点讲解';
+                    document.getElementById('ppt-preview').classList.remove('hidden');
+                } else if (type === 'video-resource') {
+                    document.getElementById('preview-title').textContent = '导数应用视频讲解';
+                    document.getElementById('video-preview').classList.remove('hidden');
+                }
+            }, 1500);
+        }
+        
+        function deleteResource(id) {
+            if (confirm('确定要删除该资源吗？')) {
+                // 这里可以添加实际的删除逻辑
+                alert('资源已删除');
+                
+                // 如果删除了最后一个资源，则显示空状态
+                const resourceCards = document.querySelectorAll('.material-card');
+                if (resourceCards.length <= 1) {
+                    document.getElementById('resource-grid').classList.add('hidden');
+                    document.getElementById('empty-state').classList.remove('hidden');
+                    localStorage.removeItem('hasImportedResources');
+                }
+            }
         }
         
         function closeModal(id) {
