@@ -199,28 +199,24 @@
             
             <!-- 课程列表 -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <!-- 课程卡片1 -->
-                <div class="course-card bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all duration-300" data-course-id="1">
-                    <div class="h-40 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1592303645463-5638e11ce4f7?w=500&h=200&fit=crop');">
-                        <div class="h-full w-full bg-black bg-opacity-30 p-4 flex justify-between">
-                            <div>
-                                <span class="inline-block bg-green-600 text-white text-xs px-2 py-1 rounded-md">已发布</span>
-                            </div>
-                            <div class="course-actions">
-                                <button class="p-2 bg-white bg-opacity-90 rounded-full text-blue-600 hover:bg-opacity-100 edit-course-btn" title="编辑课程">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="p-2 ml-2 bg-white bg-opacity-90 rounded-full text-red-600 hover:bg-opacity-100 delete-course-btn" title="删除课程">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                <!-- 课程卡片1（已发布） -->
+                <div class="course-card bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-all duration-300 border-l-4 border-green-500" data-course-id="1">
                     <div class="p-5">
                         <div class="flex justify-between items-start">
                             <div>
+                                <div class="flex items-center mb-2">
+                                    <span class="bg-green-600 text-white text-xs px-2 py-1 rounded-md mr-2">已发布</span>
+                                </div>
                                 <h3 class="text-lg font-semibold text-gray-800">Python编程入门</h3>
-                                <p class="text-sm text-gray-500 mt-1">适合高一年级 • 更新于 2023-05-12</p>
+                                <p class="text-sm text-gray-500 mt-1">班级：高一年级 • 地点：计算机教室(301) • 时间：14:00</p>
+                            </div>
+                            <div class="course-actions flex">
+                                <button class="p-2 bg-gray-100 rounded-full text-blue-600 hover:bg-gray-200 edit-course-btn" title="编辑课程">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="p-2 ml-2 bg-gray-100 rounded-full text-red-600 hover:bg-gray-200 delete-course-btn" title="删除课程">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
                             </div>
                         </div>
                         <div class="mt-4 flex flex-wrap gap-2">
@@ -230,11 +226,8 @@
                         </div>
                         <div class="mt-4 pt-4 border-t border-gray-100 flex justify-between items-center">
                             <div class="flex space-x-2">
-                                <a href="course-detail.html" class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center view-course-detail">
+                                <a href="course-detail.html?chapter=1&course=1" class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center view-course-detail">
                                     <i class="fas fa-info-circle mr-1"></i> 查看详情
-                                </a>
-                                <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center ml-4 view-course-materials">
-                                    <i class="fas fa-book mr-1"></i> 教材查看
                                 </a>
                                 <a href="#" class="text-green-600 hover:text-green-800 text-sm font-medium flex items-center ml-4 generate-exam">
                                     <i class="fas fa-file-medical mr-1"></i> 生成试题
@@ -244,28 +237,24 @@
                     </div>
                 </div>
 
-                <!-- 课程卡片2 -->
-                <div class="course-card bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all duration-300" data-course-id="2">
-                    <div class="h-40 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=500&h=200&fit=crop');">
-                        <div class="h-full w-full bg-black bg-opacity-30 p-4 flex justify-between">
-                            <div>
-                                <span class="inline-block bg-yellow-600 text-white text-xs px-2 py-1 rounded-md">草稿</span>
-                            </div>
-                            <div class="course-actions">
-                                <button class="p-2 bg-white bg-opacity-90 rounded-full text-blue-600 hover:bg-opacity-100 edit-course-btn" title="编辑课程">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="p-2 ml-2 bg-white bg-opacity-90 rounded-full text-red-600 hover:bg-opacity-100 delete-course-btn" title="删除课程">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                <!-- 课程卡片2（草稿） -->
+                <div class="course-card bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-all duration-300 border-l-4 border-yellow-500" data-course-id="2">
                     <div class="p-5">
                         <div class="flex justify-between items-start">
                             <div>
+                                <div class="flex items-center mb-2">
+                                    <span class="bg-yellow-600 text-white text-xs px-2 py-1 rounded-md mr-2">草稿</span>
+                                </div>
                                 <h3 class="text-lg font-semibold text-gray-800">算法基础</h3>
-                                <p class="text-sm text-gray-500 mt-1">适合高一年级 • 更新于 2023-05-20</p>
+                                <p class="text-sm text-gray-500 mt-1">班级：高一年级 • 地点：计算机教室(302) • 时间：16:00</p>
+                            </div>
+                            <div class="course-actions flex">
+                                <button class="p-2 bg-gray-100 rounded-full text-blue-600 hover:bg-gray-200 edit-course-btn" title="编辑课程">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="p-2 ml-2 bg-gray-100 rounded-full text-red-600 hover:bg-gray-200 delete-course-btn" title="删除课程">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
                             </div>
                         </div>
                         <div class="mt-4 flex flex-wrap gap-2">
@@ -274,11 +263,8 @@
                         </div>
                         <div class="mt-4 pt-4 border-t border-gray-100 flex justify-between items-center">
                             <div class="flex space-x-2">
-                                <a href="course-detail.html" class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center view-course-detail">
+                                <a href="course-detail.html?chapter=1&course=2" class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center view-course-detail">
                                     <i class="fas fa-info-circle mr-1"></i> 查看详情
-                                </a>
-                                <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center ml-4 view-course-materials">
-                                    <i class="fas fa-book mr-1"></i> 教材查看
                                 </a>
                                 <a href="#" class="text-green-600 hover:text-green-800 text-sm font-medium flex items-center ml-4 generate-exam">
                                     <i class="fas fa-file-medical mr-1"></i> 生成试题
@@ -298,9 +284,6 @@
                     <i class="fas fa-arrow-left mr-2"></i> 返回课程列表
                 </button>
                 <div class="flex space-x-3">
-                    <button id="view-materials-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center">
-                        <i class="fas fa-book mr-2"></i> 教材查看
-                    </button>
                     <button id="generate-exam-btn" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg flex items-center">
                         <i class="fas fa-file-medical mr-2"></i> 生成试题
                     </button>
@@ -831,6 +814,9 @@
                     
                     // 设置当前章节ID
                     document.getElementById('course-chapter-id').value = chapterId;
+                    
+                    // 更新URL以便于从课程详情页返回
+                    history.pushState(null, '', `?view=courses&chapter=${chapterId}`);
                 });
             });
             
@@ -845,6 +831,9 @@
                 
                 // 恢复页面标题
                 pageTitle.textContent = '章节管理';
+                
+                // 清除URL参数
+                history.pushState(null, '', 'chapters.html');
             });
             
             // 新增章节相关代码
@@ -962,6 +951,39 @@
                     // 可以添加更多字段填充逻辑
                 });
             });
+
+            // 处理URL参数，确保能正确显示章节详情或课程列表
+            const urlParams = new URLSearchParams(window.location.search);
+            const view = urlParams.get('view');
+            const chapterId = urlParams.get('chapter');
+            
+            // 如果URL参数指定显示课程列表，则自动切换到课程列表视图
+            if (view === 'courses' && chapterId) {
+                // 隐藏章节列表，显示课程列表
+                document.getElementById('chapters-list').classList.add('hidden');
+                document.getElementById('courses-list').classList.remove('hidden');
+                
+                // 更新页面标题和其他UI元素
+                document.getElementById('page-title').textContent = '课程列表';
+                document.getElementById('chapter-header').classList.add('hidden');
+                
+                // 更新当前章节标题（根据chapterId查找对应章节）
+                let chapterTitle = '';
+                switch (chapterId) {
+                    case '1':
+                        chapterTitle = '第一章：基础概念';
+                        break;
+                    case '2':
+                        chapterTitle = '第二章：进阶理论';
+                        break;
+                    case '3':
+                        chapterTitle = '第三章：实践应用';
+                        break;
+                    default:
+                        chapterTitle = '未知章节';
+                }
+                document.getElementById('current-chapter-title').textContent = chapterTitle;
+            }
         });
     </script>
 </body>
