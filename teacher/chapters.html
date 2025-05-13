@@ -55,6 +55,7 @@
                         <div class="flex justify-between items-start">
                             <div>
                                 <h3 class="text-lg font-semibold text-gray-800">Python编程基础</h3>
+                                <p class="text-sm text-gray-500 mt-1">班级：高一年级</p>
                                 <p class="text-sm text-gray-500 mt-1">包含5个课程 • 更新于 2023-05-12</p>
                             </div>
                             <div class="chapter-actions flex space-x-1">
@@ -86,6 +87,7 @@
                         <div class="flex justify-between items-start">
                             <div>
                                 <h3 class="text-lg font-semibold text-gray-800">算法与数据结构</h3>
+                                <p class="text-sm text-gray-500 mt-1">班级：高二年级</p>
                                 <p class="text-sm text-gray-500 mt-1">包含3个课程 • 更新于 2023-05-18</p>
                             </div>
                             <div class="chapter-actions flex space-x-1">
@@ -117,6 +119,7 @@
                         <div class="flex justify-between items-start">
                             <div>
                                 <h3 class="text-lg font-semibold text-gray-800">项目实践指南</h3>
+                                <p class="text-sm text-gray-500 mt-1">班级：高三年级</p>
                                 <p class="text-sm text-gray-500 mt-1">包含7个课程 • 更新于 2023-06-01</p>
                             </div>
                             <div class="chapter-actions flex space-x-1">
@@ -158,10 +161,12 @@
             
             <!-- 书籍标题 -->
             <div class="bg-white p-4 rounded-xl shadow-sm mb-6">
-                <h2 id="current-chapter-title" class="text-xl font-bold text-gray-800">第一章：基础概念</h2>
+                <h2 id="current-chapter-title" class="text-xl font-bold text-gray-800">Python编程基础</h2>
                 <div class="flex justify-between items-center mt-2">
                     <div class="flex items-center text-sm text-gray-600">
                         <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium mr-3">已发布</span>
+                        <span class="mr-3"><i class="fas fa-users mr-1"></i>班级：高一年级</span>
+                        <span class="mr-3"><i class="fas fa-user-tie mr-1"></i>开课老师：王老师</span>
                         <span><i class="fas fa-clock mr-1"></i> 预计学时：3小时</span>
                     </div>
                     <div>
@@ -208,7 +213,7 @@
                                     <span class="bg-green-600 text-white text-xs px-2 py-1 rounded-md mr-2">已发布</span>
                                 </div>
                                 <h3 class="text-lg font-semibold text-gray-800">Python编程入门</h3>
-                                <p class="text-sm text-gray-500 mt-1">班级：高一年级 • 地点：计算机教室(301) • 时间：14:00</p>
+                                <p class="text-sm text-gray-500 mt-1">地点：计算机教室(301) • 时间：14:00</p>
                             </div>
                             <div class="course-actions flex">
                                 <button class="p-2 bg-gray-100 rounded-full text-blue-600 hover:bg-gray-200 edit-course-btn" title="编辑课程">
@@ -254,7 +259,7 @@
                                     <span class="bg-yellow-600 text-white text-xs px-2 py-1 rounded-md mr-2">草稿</span>
                                 </div>
                                 <h3 class="text-lg font-semibold text-gray-800">算法基础</h3>
-                                <p class="text-sm text-gray-500 mt-1">班级：高一年级 • 地点：计算机教室(302) • 时间：16:00</p>
+                                <p class="text-sm text-gray-500 mt-1">地点：计算机教室(302) • 时间：16:00</p>
                             </div>
                             <div class="course-actions flex">
                                 <button class="p-2 bg-gray-100 rounded-full text-blue-600 hover:bg-gray-200 edit-course-btn" title="编辑课程">
@@ -530,7 +535,21 @@
                     <label class="block text-gray-700 text-sm font-medium mb-2" for="chapter-title">
                         书籍名称 <span class="text-red-500">*</span>
                     </label>
-                    <input type="text" id="chapter-title" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="请输入书籍名称（如：第一章：基础概念）">
+                    <input type="text" id="chapter-title" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="请输入书籍名称（如：Python编程基础）">
+                </div>
+
+                <!-- 班级 -->
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-medium mb-2" for="chapter-class">
+                        班级 <span class="text-red-500">*</span>
+                    </label>
+                    <select id="chapter-class" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <option value="">请选择班级</option>
+                        <option value="0">公开课</option>
+                        <option value="1">高一年级</option>
+                        <option value="2">高二年级</option>
+                        <option value="3">高三年级</option>
+                    </select>
                 </div>
 
                 <!-- 书籍描述 -->
@@ -597,7 +616,20 @@
                     <label class="block text-gray-700 text-sm font-medium mb-2" for="edit-chapter-title">
                         书籍名称 <span class="text-red-500">*</span>
                     </label>
-                    <input type="text" id="edit-chapter-title" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" value="第一章：基础概念">
+                    <input type="text" id="edit-chapter-title" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" value="Python编程基础">
+                </div>
+                <!-- 班级 -->
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-medium mb-2" for="edit-chapter-class">
+                        班级 <span class="text-red-500">*</span>
+                    </label>
+                    <select id="edit-chapter-class" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <option value="">请选择班级</option>
+                        <option value="0">公开课</option>
+                        <option value="1">高一年级</option>
+                        <option value="2">高二年级</option>
+                        <option value="3">高三年级</option>
+                    </select>
                 </div>
                 
                 <!-- 书籍描述 -->
@@ -719,47 +751,12 @@
                     <textarea id="course-description" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="请输入课程简介"></textarea>
                 </div>
                 
-                <!-- 开课教师 -->
-                <div class="grid grid-cols-2 gap-4 mb-4">
-                    <div>
-                        <label class="block text-gray-700 text-sm font-medium mb-2" for="course-teacher">
-                            开课教师 <span class="text-red-500">*</span>
-                        </label>
-                        <input type="text" id="course-teacher" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="请输入教师姓名">
-                    </div>
-                    
-                    <!-- 开课地点 -->
-                    <div>
-                        <label class="block text-gray-700 text-sm font-medium mb-2" for="course-location">
-                            开课地点
-                        </label>
-                        <input type="text" id="course-location" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="请输入教室或上课地点">
-                    </div>
-                </div>
-                
-                <!-- 班级分类和状态 -->
-                <div class="grid grid-cols-2 gap-4 mb-4">
-                    <div>
-                        <label class="block text-gray-700 text-sm font-medium mb-2" for="course-class">
-                            班级 <span class="text-red-500">*</span>
-                        </label>
-                        <select id="course-class" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                            <option value="">请选择班级</option>
-                            <option value="0">公开课</option>
-                            <option value="1">高一年级</option>
-                            <option value="2">高二年级</option>
-                            <option value="3">高三年级</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-gray-700 text-sm font-medium mb-2" for="course-status">
-                            发布状态
-                        </label>
-                        <select id="course-status" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                            <option value="draft">草稿</option>
-                            <option value="published">已发布</option>
-                        </select>
-                    </div>
+                <!-- 开课地点 -->
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-medium mb-2" for="course-location">
+                        开课地点
+                    </label>
+                    <input type="text" id="course-location" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="请输入教室或上课地点">
                 </div>
                 
                 <!-- 上课日期和时间 -->
@@ -1012,7 +1009,6 @@
                 // 清空表单字段
                 document.getElementById('course-title').value = '';
                 document.getElementById('course-description').value = '';
-                document.getElementById('course-teacher').value = '';
                 document.getElementById('course-location').value = '';
                 document.getElementById('course-date').value = '';
                 document.getElementById('course-time').value = '';
