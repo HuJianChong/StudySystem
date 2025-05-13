@@ -46,28 +46,24 @@
             <!-- 课程基本信息 -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div>
-                    <h3 class="text-sm font-medium text-gray-500">任课教师</h3>
-                    <p class="mt-1 text-gray-900" id="course-teacher">李老师</p>
+                    <h3 class="text-sm font-medium text-gray-500">所属章节</h3>
+                    <p class="mt-1 text-gray-900" id="course-chapter">第一章：基础概念</p>
                 </div>
                 <div>
-                    <h3 class="text-sm font-medium text-gray-500">所属班级</h3>
+                    <h3 class="text-sm font-medium text-gray-500">开课班级</h3>
                     <p class="mt-1 text-gray-900" id="course-class">高一年级</p>
                 </div>
                 <div>
-                    <h3 class="text-sm font-medium text-gray-500">课程编号</h3>
-                    <p class="mt-1 text-gray-900" id="course-code">MATH101</p>
+                    <h3 class="text-sm font-medium text-gray-500">开课老师</h3>
+                    <p class="mt-1 text-gray-900" id="course-teacher">李老师</p>
                 </div>
                 <div>
-                    <h3 class="text-sm font-medium text-gray-500">上课地点</h3>
+                    <h3 class="text-sm font-medium text-gray-500">开课地点</h3>
                     <p class="mt-1 text-gray-900" id="course-location">教学楼301</p>
                 </div>
                 <div>
-                    <h3 class="text-sm font-medium text-gray-500">学习进度</h3>
-                    <p class="mt-1 text-gray-900">3/4 已完成</p>
-                </div>
-                <div>
-                    <h3 class="text-sm font-medium text-gray-500">总学时</h3>
-                    <p class="mt-1 text-gray-900">48学时</p>
+                    <h3 class="text-sm font-medium text-gray-500">开课时间</h3>
+                    <p class="mt-1 text-gray-900" id="course-time">2024-03-01 08:00</p>
                 </div>
             </div>
             
@@ -237,7 +233,7 @@
         // 加载课程详情
         function loadCourseDetail() {
             const courseId = getUrlParam('id');
-            // 这里只是示例，实际应用中应该根据courseId从服务器获取数据
+            // 示例数据，实际应从服务器获取
             const courseData = {
                 'math': {
                     title: '高等数学',
@@ -245,6 +241,8 @@
                     class: '高一年级',
                     code: 'MATH101',
                     location: '教学楼301',
+                    time: '2024-03-01 08:00',
+                    chapter: '第一章：基础概念',
                     intro: '本课程涵盖微积分、极限、导数等内容，适合理工科学生。课程目标是培养学生的数学思维与分析能力，建立坚实的数学基础，为后续专业课程打下基础。'
                 },
                 'english': {
@@ -253,18 +251,21 @@
                     class: '高一年级',
                     code: 'ENG101',
                     location: '外语楼203',
+                    time: '2024-03-02 10:00',
+                    chapter: '第一章：英语基础',
                     intro: '本课程注重英语听说读写能力的全面培养，配合丰富的文化讲解。通过大量实践活动，提高学生的语言应用能力和跨文化交际能力。'
                 }
             };
             
-            const course = courseData[courseId] || courseData['math']; // 默认显示数学课程
+            const course = courseData[courseId] || courseData['math'];
             
             // 更新页面内容
             document.getElementById('course-title').textContent = course.title;
             document.getElementById('course-teacher').textContent = course.teacher;
             document.getElementById('course-class').textContent = course.class;
-            document.getElementById('course-code').textContent = course.code;
             document.getElementById('course-location').textContent = course.location;
+            document.getElementById('course-time').textContent = course.time;
+            document.getElementById('course-chapter').textContent = course.chapter;
             document.getElementById('course-intro').textContent = course.intro;
             
             // 更新页面标题
