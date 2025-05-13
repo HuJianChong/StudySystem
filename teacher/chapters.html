@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>章节管理</title>
+    <title>书库管理</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -31,30 +31,30 @@
 </head>
 <body class="bg-gray-100 h-screen">
     <div class="p-6 h-full flex flex-col">
-        <!-- 顶部导航和搜索 - 章节管理视图 -->
+        <!-- 顶部导航和搜索 - 书库管理视图 -->
         <div id="chapter-header" class="flex justify-between items-center mb-6">
-            <h1 class="text-2xl font-bold text-gray-800" id="page-title">章节管理</h1>
+            <h1 class="text-2xl font-bold text-gray-800" id="page-title">书库管理</h1>
             <div class="flex space-x-4">
                 <div class="relative">
-                    <input type="text" placeholder="搜索章节..." class="pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <input type="text" placeholder="搜索书籍..." class="pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                     <i class="fas fa-search text-gray-400 absolute left-3 top-3"></i>
                 </div>
                 <button id="add-chapter-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center">
-                    <i class="fas fa-plus mr-2"></i> 新增章节
+                    <i class="fas fa-plus mr-2"></i> 新增书籍
                 </button>
             </div>
         </div>
 
-        <!-- 章节列表区域 -->
+        <!-- 书籍列表区域 -->
         <div id="chapters-list" class="flex-1 overflow-y-auto">
-            <!-- 章节列表 -->
+            <!-- 书籍列表 -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- 章节卡片1 -->
+                <!-- 书籍卡片1 -->
                 <div class="chapter-card bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all duration-300" data-chapter-id="1">
                     <div class="p-5">
                         <div class="flex justify-between items-start">
                             <div>
-                                <h3 class="text-lg font-semibold text-gray-800">第一章：基础概念</h3>
+                                <h3 class="text-lg font-semibold text-gray-800">Python编程基础</h3>
                                 <p class="text-sm text-gray-500 mt-1">包含5个课程 • 更新于 2023-05-12</p>
                             </div>
                             <div class="chapter-actions flex space-x-1">
@@ -80,12 +80,12 @@
                     </div>
                 </div>
 
-                <!-- 章节卡片2 -->
+                <!-- 书籍卡片2 -->
                 <div class="chapter-card bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all duration-300" data-chapter-id="2">
                     <div class="p-5">
                         <div class="flex justify-between items-start">
                             <div>
-                                <h3 class="text-lg font-semibold text-gray-800">第二章：进阶理论</h3>
+                                <h3 class="text-lg font-semibold text-gray-800">算法与数据结构</h3>
                                 <p class="text-sm text-gray-500 mt-1">包含3个课程 • 更新于 2023-05-18</p>
                             </div>
                             <div class="chapter-actions flex space-x-1">
@@ -111,12 +111,12 @@
                     </div>
                 </div>
 
-                <!-- 章节卡片3 -->
+                <!-- 书籍卡片3 -->
                 <div class="chapter-card bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all duration-300" data-chapter-id="3">
                     <div class="p-5">
                         <div class="flex justify-between items-start">
                             <div>
-                                <h3 class="text-lg font-semibold text-gray-800">第三章：实践应用</h3>
+                                <h3 class="text-lg font-semibold text-gray-800">项目实践指南</h3>
                                 <p class="text-sm text-gray-500 mt-1">包含7个课程 • 更新于 2023-06-01</p>
                             </div>
                             <div class="chapter-actions flex space-x-1">
@@ -149,14 +149,14 @@
             <!-- 返回按钮 -->
             <div class="mb-4 flex justify-between items-center">
                 <button id="back-to-chapters" class="flex items-center text-blue-600 hover:text-blue-800">
-                    <i class="fas fa-arrow-left mr-2"></i> 返回章节列表
+                    <i class="fas fa-arrow-left mr-2"></i> 返回书籍列表
                 </button>
                 <button id="add-course-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center">
                     <i class="fas fa-plus mr-2"></i> 新增课程
                 </button>
             </div>
             
-            <!-- 章节标题 -->
+            <!-- 书籍标题 -->
             <div class="bg-white p-4 rounded-xl shadow-sm mb-6">
                 <h2 id="current-chapter-title" class="text-xl font-bold text-gray-800">第一章：基础概念</h2>
                 <div class="flex justify-between items-center mt-2">
@@ -166,7 +166,7 @@
                     </div>
                     <div>
                         <button class="edit-chapter-btn px-3 py-1 text-blue-600 hover:bg-blue-50 border border-blue-600 rounded text-sm">
-                            <i class="fas fa-edit mr-1"></i> 编辑章节
+                            <i class="fas fa-edit mr-1"></i> 编辑书籍
                         </button>
                     </div>
                 </div>
@@ -515,30 +515,30 @@
         </div>
     </div>
 
-    <!-- 新增章节模态框 -->
+    <!-- 新增书籍模态框 -->
     <div id="add-chapter-modal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
         <div class="bg-white rounded-xl shadow-xl w-full max-w-md p-6">
             <div class="flex justify-between items-center mb-4">
-                <h3 class="text-xl font-bold text-gray-800">新增章节</h3>
+                <h3 class="text-xl font-bold text-gray-800">新增书籍</h3>
                 <button id="close-add-modal" class="text-gray-500 hover:text-gray-700">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
             <form>
-                <!-- 章节名称 -->
+                <!-- 书籍名称 -->
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-medium mb-2" for="chapter-title">
-                        章节名称 <span class="text-red-500">*</span>
+                        书籍名称 <span class="text-red-500">*</span>
                     </label>
-                    <input type="text" id="chapter-title" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="请输入章节名称（如：第一章：基础概念）">
+                    <input type="text" id="chapter-title" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="请输入书籍名称（如：第一章：基础概念）">
                 </div>
 
-                <!-- 章节描述 -->
+                <!-- 书籍描述 -->
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-medium mb-2" for="chapter-description">
-                        章节描述
+                        书籍描述
                     </label>
-                    <textarea id="chapter-description" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="请输入章节描述，简要介绍本章内容"></textarea>
+                    <textarea id="chapter-description" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="请输入书籍描述，简要介绍本章内容"></textarea>
                 </div>
 
                 <!-- 排序 -->
@@ -582,28 +582,28 @@
         </div>
     </div>
 
-    <!-- 编辑章节模态框 -->
+    <!-- 编辑书籍模态框 -->
     <div id="edit-chapter-modal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
         <div class="bg-white rounded-xl shadow-xl w-full max-w-md p-6">
             <div class="flex justify-between items-center mb-4">
-                <h3 class="text-xl font-bold text-gray-800">编辑章节</h3>
+                <h3 class="text-xl font-bold text-gray-800">编辑书籍</h3>
                 <button id="close-edit-modal" class="text-gray-500 hover:text-gray-700">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
             <form>
-                <!-- 章节名称 -->
+                <!-- 书籍名称 -->
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-medium mb-2" for="edit-chapter-title">
-                        章节名称 <span class="text-red-500">*</span>
+                        书籍名称 <span class="text-red-500">*</span>
                     </label>
                     <input type="text" id="edit-chapter-title" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" value="第一章：基础概念">
                 </div>
                 
-                <!-- 章节描述 -->
+                <!-- 书籍描述 -->
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-medium mb-2" for="edit-chapter-description">
-                        章节描述
+                        书籍描述
                     </label>
                     <textarea id="edit-chapter-description" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">本章介绍了基础概念，适合初学者学习。</textarea>
                 </div>
@@ -656,8 +656,8 @@
                 <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-red-100 mb-4">
                     <i class="fas fa-exclamation-triangle text-red-600 text-xl"></i>
                 </div>
-                <h3 class="text-xl font-bold text-gray-800 mb-2">确认删除章节？</h3>
-                <p class="text-gray-600 mb-6">删除后将无法恢复，章节下的所有课程也将被删除。</p>
+                <h3 class="text-xl font-bold text-gray-800 mb-2">确认删除书籍？</h3>
+                <p class="text-gray-600 mb-6">删除后将无法恢复，书籍下的所有课程也将被删除。</p>
                 <div class="flex justify-center space-x-3">
                     <button id="cancel-delete" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-lg">
                         取消
@@ -889,18 +889,18 @@
                     const chapterId = chapterCard.getAttribute('data-chapter-id');
                     const chapterTitle = chapterCard.querySelector('h3').textContent;
                     
-                    // 显示课程列表，隐藏章节列表
+                    // 显示课程列表，隐藏书籍列表
                     chaptersListContainer.classList.add('hidden');
                     coursesListContainer.classList.remove('hidden');
                     
-                    // 隐藏章节管理顶部导航（搜索框和新增章节按钮）
+                    // 隐藏书籍管理顶部导航（搜索框和新增书籍按钮）
                     chapterHeader.classList.add('hidden');
                     
-                    // 更新页面标题和章节标题
+                    // 更新页面标题和书籍标题
                     pageTitle.textContent = `${chapterTitle} - 课程管理`;
                     currentChapterTitle.textContent = chapterTitle;
                     
-                    // 设置当前章节ID
+                    // 设置当前书籍ID
                     document.getElementById('course-chapter-id').value = chapterId;
                     
                     // 更新URL以便于从课程详情页返回
@@ -908,33 +908,33 @@
                 });
             });
             
-            // 点击"返回章节列表"按钮
+            // 点击"返回书籍列表"按钮
             backToChaptersButton.addEventListener('click', function() {
-                // 显示章节列表，隐藏课程列表
+                // 显示书籍列表，隐藏课程列表
                 chaptersListContainer.classList.remove('hidden');
                 coursesListContainer.classList.add('hidden');
                 
-                // 显示章节管理顶部导航（搜索框和新增章节按钮）
+                // 显示书籍管理顶部导航（搜索框和新增书籍按钮）
                 chapterHeader.classList.remove('hidden');
                 
                 // 恢复页面标题
-                pageTitle.textContent = '章节管理';
+                pageTitle.textContent = '书库管理';
                 
                 // 清除URL参数
                 history.pushState(null, '', 'chapters.html');
             });
             
-            // 新增章节相关代码
+            // 新增书籍相关代码
             const addChapterModal = document.getElementById('add-chapter-modal');
             const closeAddModal = document.getElementById('close-add-modal');
             const cancelAdd = document.getElementById('cancel-add');
             
-            // 点击"新增章节"按钮，显示模态框
+            // 点击"新增书籍"按钮，显示模态框
             addChapterButton.addEventListener('click', function() {
                 addChapterModal.classList.remove('hidden');
             });
             
-            // 隐藏新增章节模态框
+            // 隐藏新增书籍模态框
             function hideAddModal() {
                 addChapterModal.classList.add('hidden');
             }
@@ -943,13 +943,13 @@
             closeAddModal.addEventListener('click', hideAddModal);
             cancelAdd.addEventListener('click', hideAddModal);
             
-            // 编辑章节相关代码
+            // 编辑书籍相关代码
             const editChapterBtns = document.querySelectorAll('.edit-chapter-btn');
             const editChapterModal = document.getElementById('edit-chapter-modal');
             const closeEditModal = document.getElementById('close-edit-modal');
             const cancelEdit = document.getElementById('cancel-edit');
             
-            // 点击编辑章节按钮
+            // 点击编辑书籍按钮
             editChapterBtns.forEach(btn => {
                 btn.addEventListener('click', function(e) {
                     e.stopPropagation(); // 阻止事件冒泡
@@ -957,7 +957,7 @@
                 });
             });
             
-            // 隐藏编辑章节模态框
+            // 隐藏编辑书籍模态框
             function hideEditModal() {
                 editChapterModal.classList.add('hidden');
             }
@@ -966,7 +966,7 @@
             closeEditModal.addEventListener('click', hideEditModal);
             cancelEdit.addEventListener('click', hideEditModal);
             
-            // 删除章节相关代码
+            // 删除书籍相关代码
             const deleteChapterBtns = document.querySelectorAll('.delete-chapter-btn');
             const deleteConfirmModal = document.getElementById('delete-confirm-modal');
             const cancelDelete = document.getElementById('cancel-delete');
@@ -1043,14 +1043,14 @@
                 });
             });
 
-            // 处理URL参数，确保能正确显示章节详情或课程列表
+            // 处理URL参数，确保能正确显示书籍详情或课程列表
             const urlParams = new URLSearchParams(window.location.search);
             const view = urlParams.get('view');
             const chapterId = urlParams.get('chapter');
             
             // 如果URL参数指定显示课程列表，则自动切换到课程列表视图
             if (view === 'courses' && chapterId) {
-                // 隐藏章节列表，显示课程列表
+                // 隐藏书籍列表，显示课程列表
                 document.getElementById('chapters-list').classList.add('hidden');
                 document.getElementById('courses-list').classList.remove('hidden');
                 
@@ -1058,7 +1058,7 @@
                 document.getElementById('page-title').textContent = '课程列表';
                 document.getElementById('chapter-header').classList.add('hidden');
                 
-                // 更新当前章节标题（根据chapterId查找对应章节）
+                // 更新当前书籍标题（根据chapterId查找对应书籍）
                 let chapterTitle = '';
                 switch (chapterId) {
                     case '1':
@@ -1071,7 +1071,7 @@
                         chapterTitle = '第三章：实践应用';
                         break;
                     default:
-                        chapterTitle = '未知章节';
+                        chapterTitle = '未知书籍';
                 }
                 document.getElementById('current-chapter-title').textContent = chapterTitle;
             }
