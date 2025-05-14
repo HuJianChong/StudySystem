@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>教材预览</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .chapter-list {
+            transition: max-height 0.3s ease;
+            overflow: hidden;
+        }
+        .chapter-list.open {
+            max-height: 500px;
+        }
+        .chapter-list.closed {
+            max-height: 0;
+        }
+        .chapter-btn.active {
+            background: #e0e7ff;
+            color: #3730a3;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="max-w-5xl mx-auto p-6">
+        <div class="flex items-center mb-6">
+            <button id="toggle-chapter-list" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded flex items-center text-sm mr-4">
+                <i class="fas fa-list mr-2"></i> 章节
+            </button>
+            <h1 class="text-2xl font-bold text-gray-800">教材预览</h1>
+        </div>
+        <div class="flex gap-6">
+            <!-- 左侧章节列表 -->
+            <div id="chapter-list-panel" class="w-64 min-w-[200px] bg-white rounded shadow p-0 flex flex-col hidden">
+                <div class="flex items-center justify-between px-4 py-3 border-b">
+                    <span class="font-semibold text-gray-700 text-lg">章节</span>
+                </div>
+                <ul id="chapter-list" class="divide-y divide-gray-100 flex-1 overflow-y-auto">
+                    <!-- 动态章节列表 -->
+                </ul>
+            </div>
+            <!-- 右侧正文内容 -->
+            <div class="flex-1 bg-white rounded shadow p-6 min-h-[400px]">
+                <h2 id="chapter-title" class="text-xl font-semibold text-gray-800 mb-4">正文</h2>
+                <div id="chapter-content" class="prose max-w-none text-gray-800">
+                    这里是教材正文内容。请在编辑页面编辑并保存后，预览效果会在此处显示。
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // 示例章节数据
+        const chapters = [
+            { 
+                title: '第一章 绪论', 
+                content: `
+                    <h3>课程简介</h3>
+                    <p>本章介绍Python语言的发展历史、应用领域及其优势。</p>
+                    <ul>
+                        <li>Python的起源与发展</li>
+                        <li>主流应用场景</li>
+                        <li>学习建议</li>
+                    </ul>
+                    <img src="https://img2.baidu.com/it/u=1812345678,1234567890&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=300" alt="Python Logo" class="rounded shadow my-4 w-1/2">
+                    <blockquote>“人生苦短，我用Python。”</blockquote>
+                ` 
+            },
+            { 
+                title: '第二章 基础语法', 
+                content: `
+                    <h3>变量与数据类型</h3>
+                    <p>本章讲解Python的基本语法，包括变量定义、常用数据类型、输入输出等。</p>
+                    <ol>
+                        <li>变量命名规则</li>
+                        <li>常见数据类型：<strong>int</strong>、<strong>float</strong>、<strong>str</strong>、<strong>bool</strong></li>
+                        <li>print()与input()函数</li>
+                    </ol>
+                    <pre><code>name = input('请输入姓名: ')
+print('你好,', name)
+</code></pre>
+                ` 
+            }
+        ];
+        let currentChapter = -1;
+        // 渲染章节列表
+        function renderChapterList() {
+            const list = document.getElementById('chapter-list');
+            list.innerHTML = '';
+            chapters.forEach((ch, idx) => {
+                const li = document.createElement('li');
+                li.innerHTML = `<button class='w-full text-left px-4 py-2 chapter-btn' data-idx='${idx}'>${ch.title}</button>`;
+                list.appendChild(li);
+            });
+            // 按钮事件
+            document.querySelectorAll('.chapter-btn').forEach(btn => {
+                btn.onclick = function() {
+                    const idx = parseInt(this.getAttribute('data-idx'));
+                    showChapter(idx);
+                };
+            });
+        }
+        // 显示章节内容
+        function showChapter(idx) {
+            currentChapter = idx;
+            document.getElementById('chapter-title').textContent = chapters[idx].title;
+            document.getElementById('chapter-content').innerHTML = chapters[idx].content;
+            document.querySelectorAll('.chapter-btn').forEach((btn, i) => {
+                btn.classList.toggle('active', i === idx);
+            });
+        }
+        // 章节展开/收起按钮逻辑
+        document.getElementById('toggle-chapter-list').onclick = function() {
+            const panel = document.getElementById('chapter-list-panel');
+            panel.classList.toggle('hidden');
+        };
+        // 初始化
+        renderChapterList();
+        // 默认显示正文
+        document.getElementById('chapter-title').textContent = '正文';
+        document.getElementById('chapter-content').innerHTML = `
+            <h2>欢迎进入教材预览</h2>
+            <p>请点击左侧章节，查看对应内容。</p>
+            <img src="https://img2.baidu.com/it/u=1812345678,1234567890&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=300" alt="教材示例图片" class="rounded shadow my-4 w-1/2">
+            <ul>
+                <li>支持图片、标题、列表、代码块等富文本内容</li>
+                <li>章节内容可在编辑页面自定义</li>
+            </ul>
+        `;
+    </script>
+</body>
+</html>

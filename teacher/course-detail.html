@@ -97,6 +97,26 @@
             </div>
         </div>
 
+        <!-- 教材区 -->
+        <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-semibold text-gray-800">教材</h3>
+                <div class="flex space-x-2">
+                    <a href="material-edit.html" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded flex items-center text-sm">
+                        <i class="fas fa-plus mr-2"></i> 添加教材
+                    </a>
+                    <a href="material-preview.html" target="_blank" class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded flex items-center text-sm">
+                        <i class="fas fa-eye mr-2"></i> 预览教材
+                    </a>
+                </div>
+            </div>
+            <!-- 教材预览区（如有教材则显示，否则显示提示）-->
+            <div id="material-preview" class="mt-4">
+                <div class="text-gray-500 text-sm">暂无教材，请点击右上角"添加教材"上传。</div>
+                <!-- 有教材时可替换为教材内容预览卡片 -->
+            </div>
+        </div>
+
         <!-- 教材列表内容 -->
         <div class="bg-white rounded-xl shadow-sm p-6">
             <!-- 教材列表容器 -->
@@ -106,9 +126,6 @@
                         <h3 class="text-lg font-semibold text-gray-800">课件列表</h3>
                     </div>
                     <div class="flex space-x-3">
-                        <button id="add-course-material-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-lg flex items-center text-sm">
-                            <i class="fas fa-plus mr-2"></i> 添加课件
-                        </button>
                         <button id="import-course-material-btn" class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded-lg flex items-center text-sm">
                             <i class="fas fa-file-import mr-2"></i> 导入课件
                         </button>

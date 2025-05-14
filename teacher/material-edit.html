@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>编辑教材</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.0-rc.2/dist/quill.snow.css" rel="stylesheet">
+    <style>
+        .chapter-item.active {
+            background: #e0e7ff;
+            color: #3730a3;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="flex h-screen">
+        <!-- 左侧章节列表 -->
+        <div class="w-1/4 bg-white p-6 border-r border-gray-200 flex flex-col">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-bold text-gray-800">章节管理</h2>
+                <button id="add-chapter-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded flex items-center text-sm">
+                    <i class="fas fa-plus mr-1"></i> 添加章节
+                </button>
+            </div>
+            <ul id="chapter-list" class="flex-1 overflow-y-auto space-y-2">
+                <!-- 动态章节项 -->
+            </ul>
+        </div>
+        <!-- 右侧章节内容编辑 -->
+        <div class="flex-1 flex flex-col">
+            <div class="p-6 border-b border-gray-200 flex items-center justify-between bg-white">
+                <div class="text-xl font-bold text-gray-800" id="current-chapter-title">请选择章节</div>
+                <button onclick="window.history.back()" class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded text-sm flex items-center">
+                    <i class="fas fa-arrow-left mr-2"></i> 返回
+                </button>
+            </div>
+            <div class="flex-1 p-6 overflow-y-auto bg-gray-50">
+                <div id="editor-container" class="h-full">
+                    <div id="editor" style="height: 400px;"></div>
+                </div>
+                <div class="mt-6 flex justify-end">
+                    <button id="save-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded text-sm font-bold flex items-center">
+                        <i class="fas fa-save mr-2"></i> 保存章节内容
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.0-rc.2/dist/quill.min.js"></script>
+    <script>
+        // 章节数据结构
+        let chapters = [
+            { title: '第一章 绪论', content: '' },
+            { title: '第二章 基础语法', content: '' }
+        ];
+        let currentChapter = 0;
+        // 渲染章节列表
+        function renderChapterList() {
+            const list = document.getElementById('chapter-list');
+            list.innerHTML = '';
+            chapters.forEach((ch, idx) => {
+                const li = document.createElement('li');
+                li.className = 'chapter-item px-3 py-2 rounded cursor-pointer flex justify-between items-center' + (idx === currentChapter ? ' active' : '');
+                li.innerHTML = `<span>${ch.title}</span><button class='text-red-500 hover:text-red-700 ml-2 delete-chapter-btn'><i class='fas fa-trash'></i></button>`;
+                li.onclick = (e) => {
+                    if (e.target.closest('.delete-chapter-btn')) {
+                        e.stopPropagation();
+                        if (confirm('确定要删除该章节吗？')) {
+                            chapters.splice(idx, 1);
+                            if (currentChapter >= chapters.length) currentChapter = chapters.length - 1;
+                            renderChapterList();
+                            loadChapterContent();
+                        }
+                        return;
+                    }
+                    currentChapter = idx;
+                    renderChapterList();
+                    loadChapterContent();
+                };
+                list.appendChild(li);
+            });
+        }
+        // 加载章节内容到编辑器
+        function loadChapterContent() {
+            if (chapters.length === 0) {
+                quill.setText('');
+                document.getElementById('current-chapter-title').textContent = '请选择章节';
+                return;
+            }
+            quill.setContents(chapters[currentChapter].content ? JSON.parse(chapters[currentChapter].content) : '');
+            document.getElementById('current-chapter-title').textContent = chapters[currentChapter].title;
+        }
+        // 初始化富文本编辑器
+        var quill = new Quill('#editor', {
+            theme: 'snow',
+            modules: {
+                toolbar: [
+                    ['bold', 'italic', 'underline', 'strike'],
+                    ['blockquote', 'code-block'],
+                    [{ 'header': 1 }, { 'header': 2 }],
+                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                    [{ 'script': 'sub'}, { 'script': 'super' }],
+                    [{ 'indent': '-1'}, { 'indent': '+1' }],
+                    [{ 'size': ['small', false, 'large', 'huge'] }],
+                    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+                    [{ 'color': [] }, { 'background': [] }],
+                    [{ 'align': [] }],
+                    ['link', 'image'],
+                    ['clean']
+                ]
+            }
+        });
+        // 保存章节内容
+        document.getElementById('save-btn').onclick = function() {
+            if (chapters.length === 0) return;
+            chapters[currentChapter].content = JSON.stringify(quill.getContents());
+            alert('章节内容已保存！');
+        };
+        // 添加章节
+        document.getElementById('add-chapter-btn').onclick = function() {
+            const title = prompt('请输入新章节标题');
+            if (title) {
+                chapters.push({ title, content: '' });
+                currentChapter = chapters.length - 1;
+                renderChapterList();
+                loadChapterContent();
+            }
+        };
+        // 初始化
+        renderChapterList();
+        loadChapterContent();
+    </script>
+</body>
+</html>
