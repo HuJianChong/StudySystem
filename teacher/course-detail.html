@@ -65,8 +65,8 @@
             <!-- 课程基本信息 -->
             <div class="grid grid-cols-3 gap-6">
                 <div>
-                    <h3 class="text-sm font-medium text-gray-500">所属章节</h3>
-                    <p class="mt-1 text-gray-900" id="chapter-title">第一章：基础概念</p>
+                    <h3 class="text-sm font-medium text-gray-500">所属书籍</h3>
+                    <p class="mt-1 text-gray-900" id="chapter-title">Python编程基础</p>
                 </div>
                 <div>
                     <h3 class="text-sm font-medium text-gray-500">开课地点</h3>
@@ -725,13 +725,10 @@
             let chapterTitle = '未知章节';
             switch(chapterId) {
                 case '1':
-                    chapterTitle = '第一章：基础概念';
+                    chapterTitle = 'Python编程基础';
                     break;
                 case '2':
-                    chapterTitle = '第二章：进阶理论';
-                    break;
-                case '3':
-                    chapterTitle = '第三章：实践应用';
+                    chapterTitle = '算法与数据结构';
                     break;
             }
             document.getElementById('chapter-title').textContent = chapterTitle;

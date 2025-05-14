@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学生端 - 书籍详情</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-100">
+    <div class="p-6">
+        <div class="mb-6 flex items-center">
+            <a href="books.html" class="text-gray-600 hover:text-blue-600 mr-4">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <h1 class="text-2xl font-bold text-gray-800">书籍详情</h1>
+        </div>
+        <!-- 书籍信息区 -->
+        <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
+            <h2 class="text-xl font-semibold text-gray-800 mb-2">Python编程基础</h2>
+            <div class="flex flex-wrap items-center text-sm text-gray-600 mb-2">
+                <span class="mr-4"><i class="fas fa-users mr-1"></i>班级：高一年级</span>
+                <span class="mr-4"><i class="fas fa-user-tie mr-1"></i>开课老师：王老师</span>
+                <span><i class="fas fa-clock mr-1"></i>预计学时：3小时</span>
+            </div>
+            <div class="text-gray-500 text-sm mb-2">包含5个课程 • 更新于 2023-05-12</div>
+            <div class="mt-2 text-gray-700">本书籍涵盖Python基础知识，适合零基础同学学习。</div>
+        </div>
+        <!-- 课程列表 -->
+        <div class="bg-white rounded-xl shadow-sm p-6">
+            <div class="mb-4 flex justify-between items-center">
+                <h3 class="text-lg font-semibold text-gray-800">课程列表</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- 课程卡片1 -->
+                <div class="course-card bg-gray-50 rounded-lg border border-gray-200 overflow-hidden hover:shadow-md transition-all duration-300">
+                    <div class="p-4 flex flex-col h-full">
+                        <h4 class="text-md font-semibold text-gray-800 mb-1">Python编程入门</h4>
+                        <div class="text-gray-500 text-sm mb-1">开课地点：计算机教室(301)</div>
+                        <div class="text-gray-500 text-sm mb-1">开课时间：每周一 14:00-16:00</div>
+                        <div class="text-gray-600 text-sm mb-2">本课程是Python编程的入门课程，面向零基础学生，通过实例讲解Python基础知识。</div>
+                        <div class="flex mt-4 space-x-3">
+                            <a href="course-detail.html?id=1" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded flex items-center text-xs">
+                                <i class="fas fa-info-circle mr-1"></i> 查看详情
+                            </a>
+                            <a href="exam-detail.html?id=1" target="_blank" class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1.5 rounded flex items-center text-xs">
+                                <i class="fas fa-pen-to-square mr-1"></i> 考试
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- 课程卡片2 -->
+                <div class="course-card bg-gray-50 rounded-lg border border-gray-200 overflow-hidden hover:shadow-md transition-all duration-300">
+                    <div class="p-4 flex flex-col h-full">
+                        <h4 class="text-md font-semibold text-gray-800 mb-1">Python进阶</h4>
+                        <div class="text-gray-500 text-sm mb-1">开课地点：计算机教室(302)</div>
+                        <div class="text-gray-500 text-sm mb-1">开课时间：每周三 10:00-12:00</div>
+                        <div class="text-gray-600 text-sm mb-2">本课程深入讲解Python高级语法和常用模块，适合有基础的同学。</div>
+                        <div class="flex mt-4">
+                            <a href="course-detail.html?id=2" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded flex items-center text-xs">
+                                <i class="fas fa-info-circle mr-1"></i> 查看详情
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

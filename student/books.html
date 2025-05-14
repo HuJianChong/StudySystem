@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学生端 - 书库</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-100">
+    <div class="p-6">
+        <div class="mb-6 flex justify-between items-center">
+            <div>
+                <h1 class="text-2xl font-bold text-gray-800">书库</h1>
+                <p class="text-gray-500">选择一本书，查看其下课程</p>
+            </div>
+        </div>
+        <!-- 书库列表 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- 示例书籍卡片1 -->
+            <div class="book-card bg-white rounded-xl shadow-md overflow-hidden cursor-pointer" onclick="window.location.href='book-detail.html?id=1'">
+                <div class="p-5">
+                    <h3 class="text-xl font-bold text-gray-800">Python编程基础</h3>
+                    <div class="text-gray-600 mb-2 text-sm">班级：高一年级</div>
+                    <div class="text-gray-600 mb-2 text-sm">开课老师：王老师</div>
+                    <div class="text-gray-600 mb-2 text-sm">预计学时：3小时</div>
+                    <div class="text-gray-400 text-sm mb-3">包含5个课程 • 更新于 2023-05-12</div>
+                    <p class="text-gray-600 text-sm mb-4">本书籍涵盖Python基础知识，适合零基础同学学习。</p>
+                </div>
+            </div>
+            <!-- 示例书籍卡片2 -->
+            <div class="book-card bg-white rounded-xl shadow-md overflow-hidden cursor-pointer" onclick="window.location.href='book-detail.html?id=2'">
+                <div class="p-5">
+                    <h3 class="text-xl font-bold text-gray-800">算法与数据结构</h3>
+                    <div class="text-gray-600 mb-2 text-sm">班级：高二年级</div>
+                    <div class="text-gray-600 mb-2 text-sm">开课老师：李老师</div>
+                    <div class="text-gray-600 mb-2 text-sm">预计学时：4小时</div>
+                    <div class="text-gray-400 text-sm mb-3">包含3个课程 • 更新于 2023-05-18</div>
+                    <p class="text-gray-600 text-sm mb-4">本书籍介绍常用算法和数据结构，提升编程能力。</p>
+                </div>
+            </div>
+            <!-- 示例书籍卡片3 -->
+            <div class="book-card bg-white rounded-xl shadow-md overflow-hidden cursor-pointer" onclick="window.location.href='book-detail.html?id=3'">
+                <div class="p-5">
+                    <h3 class="text-xl font-bold text-gray-800">项目实践指南</h3>
+                    <div class="text-gray-600 mb-2 text-sm">班级：高三年级</div>
+                    <div class="text-gray-600 mb-2 text-sm">开课老师：王老师</div>
+                    <div class="text-gray-600 mb-2 text-sm">预计学时：6小时</div>
+                    <div class="text-gray-400 text-sm mb-3">包含7个课程 • 更新于 2023-06-01</div>
+                    <p class="text-gray-600 text-sm mb-4">通过项目实践提升综合能力，适合进阶学习。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
