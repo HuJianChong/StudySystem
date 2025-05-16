@@ -27,10 +27,86 @@
         .attachment-card:hover {
             transform: translateY(-2px);
         }
+        .highlight {
+            background-color: #fef3c7;
+            cursor: pointer;
+            position: relative;
+        }
+        .annotation-panel {
+            width: 280px;
+            transition: transform 0.3s ease;
+        }
+        .annotation-item {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            padding: 12px;
+            background: #fff;
+            border-left: 3px solid #fbbf24;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        #annotations-container {
+            position: relative;
+            min-height: 400px;
+        }
+        .comment-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+        .context-menu {
+            display: none;
+            position: fixed;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+        .context-menu button {
+            display: block;
+            width: 100%;
+            padding: 8px 16px;
+            text-align: left;
+            border: none;
+            background: none;
+            cursor: pointer;
+        }
+        .context-menu button:hover {
+            background: #f3f4f6;
+        }
+        .comment-marker {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            margin-left: 8px;
+            color: #6b7280;
+            cursor: pointer;
+            transition: all 0.2s;
+            vertical-align: middle;
+        }
+        .comment-marker:hover {
+            color: #2563eb;
+        }
+        .comment-marker i {
+            font-size: 16px;
+        }
+        .comment-highlight {
+            background-color: #f0f9ff;
+            border-bottom: 2px dashed #0369a1;
+        }
     </style>
 </head>
 <body class="bg-gray-100 min-h-screen">
-    <div class="max-w-5xl mx-auto p-6">
+    <div class="max-w-6xl mx-auto p-6">
         <div class="flex items-center mb-6">
             <button id="toggle-chapter-list" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded flex items-center text-sm mr-4">
                 <i class="fas fa-list mr-2"></i> 章节
@@ -47,15 +123,61 @@
                     <!-- 动态章节列表 -->
                 </ul>
             </div>
-            <!-- 右侧正文内容 -->
+            <!-- 中间正文内容 -->
             <div class="flex-1 bg-white rounded shadow p-6 min-h-[400px]">
                 <h2 id="chapter-title" class="text-xl font-semibold text-gray-800 mb-4">正文</h2>
                 <div id="chapter-content" class="prose max-w-none text-gray-800">
                     这里是教材正文内容。请在编辑页面编辑并保存后，预览效果会在此处显示。
                 </div>
             </div>
+            <!-- 右侧批注面板 -->
+            <div id="annotation-panel" class="annotation-panel bg-white rounded shadow p-4">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">批注列表</h3>
+                <div id="annotations-container" class="space-y-4">
+                    <!-- 批注内容将动态添加到这里 -->
+                </div>
+            </div>
         </div>
     </div>
+
+    <!-- 右键菜单 -->
+    <div id="context-menu" class="context-menu">
+        <button id="add-annotation-btn">
+            <i class="fas fa-sticky-note mr-2"></i>添加批注
+        </button>
+        <button id="add-comment-btn">
+            <i class="fas fa-comments mr-2"></i>添加评论
+        </button>
+    </div>
+
+    <!-- 评论模态框 -->
+    <div id="comment-modal" class="comment-modal">
+        <div class="fixed inset-0 flex items-center justify-center">
+            <div class="bg-white rounded-lg shadow-xl w-full max-w-lg mx-4">
+                <div class="p-4 border-b">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xl font-semibold text-gray-900">评论</h3>
+                        <button id="close-modal" class="text-gray-400 hover:text-gray-500">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="p-4 max-h-[400px] overflow-y-auto" id="comments-container">
+                    <!-- 评论列表将动态添加到这里 -->
+                </div>
+                <div class="p-4 border-t">
+                    <div class="flex gap-2">
+                        <input type="text" id="comment-input" placeholder="输入评论..." 
+                            class="flex-1 border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <button id="submit-comment" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                            发送
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         // 示例章节数据
         const chapters = [
@@ -309,13 +431,249 @@ print(f"面积是: {result}")</code></pre>
             const panel = document.getElementById('chapter-list-panel');
             panel.classList.toggle('hidden');
         };
+        // 批注和评论功能
+        let selectedText = '';
+        let selectedRange = null;
+        let annotations = [];
+        let comments = [];
+
+        // 计算选中文本的位置
+        function getSelectionPosition() {
+            const range = selectedRange;
+            const rect = range.getBoundingClientRect();
+            const contentContainer = document.getElementById('chapter-content');
+            const containerRect = contentContainer.getBoundingClientRect();
+            return {
+                top: rect.top - containerRect.top,
+                height: rect.height
+            };
+        }
+
+        // 查找可用的批注位置
+        function findAvailablePosition(newAnnotation, yPosition) {
+            const container = document.getElementById('annotations-container');
+            const existingAnnotations = Array.from(container.children);
+            let position = yPosition;
+            
+            // 对现有批注按位置排序
+            const sortedAnnotations = existingAnnotations
+                .map(el => ({
+                    element: el,
+                    top: parseInt(el.style.top)
+                }))
+                .sort((a, b) => a.top - b.top);
+
+            // 检查每个位置是否有重叠
+            for (let i = 0; i < sortedAnnotations.length; i++) {
+                const current = sortedAnnotations[i];
+                const next = sortedAnnotations[i + 1];
+                
+                // 如果当前位置可用
+                if (position + 100 <= current.top) {
+                    return position;
+                }
+                
+                // 检查当前批注和下一个批注之间是否有足够空间
+                if (next && (next.top - (current.top + 100) >= 100)) {
+                    return current.top + 100;
+                }
+                
+                position = current.top + 100;
+            }
+            
+            // 如果没有找到合适的位置，放在最后
+            return position;
+        }
+
+        // 更新批注面板
+        function updateAnnotationPanel() {
+            const container = document.getElementById('annotations-container');
+            container.innerHTML = '';
+            
+            annotations.forEach((anno, index) => {
+                const div = document.createElement('div');
+                div.className = 'annotation-item';
+                div.innerHTML = `
+                    <p class="text-sm text-gray-600 mb-2">"${anno.text}"</p>
+                    <p class="text-gray-800">${anno.note}</p>
+                `;
+                
+                // 计算初始位置
+                let yPosition = anno.position || 0;
+                // 找到可用位置
+                yPosition = findAvailablePosition(div, yPosition);
+                
+                div.style.top = `${yPosition}px`;
+                container.appendChild(div);
+                
+                // 更新批注位置信息
+                anno.position = yPosition;
+            });
+        }
+
+        // 添加批注
+        document.getElementById('add-annotation-btn').addEventListener('click', function() {
+            if (selectedText && selectedRange) {
+                const span = document.createElement('span');
+                span.className = 'highlight';
+                span.textContent = selectedText;
+                
+                // 获取选中文本的位置
+                const position = getSelectionPosition();
+                
+                const annotation = {
+                    id: Date.now(),
+                    text: selectedText,
+                    note: prompt('请输入批注内容：') || '无批注内容',
+                    position: position.top // 保存初始位置
+                };
+                
+                annotations.push(annotation);
+                selectedRange.surroundContents(span);
+                updateAnnotationPanel();
+                
+                document.getElementById('context-menu').style.display = 'none';
+            }
+        });
+
+        // 添加评论
+        document.getElementById('add-comment-btn').addEventListener('click', function() {
+            if (selectedText) {
+                const comment = {
+                    id: Date.now(),
+                    text: selectedText,
+                    comments: []
+                };
+                comments.push(comment);
+
+                // 创建评论图标
+                const marker = document.createElement('span');
+                marker.className = 'comment-marker';
+                marker.innerHTML = '<i class="fas fa-comment"></i>';
+                marker.setAttribute('data-comment-id', comment.id);
+                marker.setAttribute('title', '点击查看评论');
+                marker.onclick = function(e) {
+                    e.stopPropagation();
+                    showCommentModal(comment);
+                };
+                
+                // 在选中文本后插入评论图标
+                const range = selectedRange.cloneRange();
+                range.collapse(false);
+                range.insertNode(marker);
+                
+                showCommentModal(comment);
+                document.getElementById('context-menu').style.display = 'none';
+            }
+        });
+
+        // 更新评论标记
+        function updateCommentMarker(comment) {
+            const marker = document.querySelector(`[data-comment-id="${comment.id}"]`);
+            if (marker) {
+                // 更新图标的title属性显示评论数量
+                marker.setAttribute('title', `${comment.comments.length}条评论`);
+                // 如果有评论，使用实心图标；没有评论，使用空心图标
+                marker.innerHTML = `<i class="fa${comment.comments.length > 0 ? 's' : 'r'} fa-comment"></i>`;
+            }
+        }
+
+        // 显示评论模态框
+        function showCommentModal(comment) {
+            const modal = document.getElementById('comment-modal');
+            const container = document.getElementById('comments-container');
+            modal.style.display = 'block';
+            
+            function updateComments() {
+                container.innerHTML = `
+                    <div class="bg-gray-50 p-3 rounded-lg mb-4">
+                        <p class="text-gray-600 mb-2">原文：</p>
+                        <p class="text-gray-800">"${comment.text}"</p>
+                    </div>
+                    ${comment.comments.map(c => `
+                        <div class="bg-white p-3 rounded-lg shadow-sm mb-2">
+                            <div class="flex items-start gap-3">
+                                <div class="flex-shrink-0">
+                                    <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-user text-blue-500"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="text-sm text-gray-600">学生</p>
+                                    <p class="text-gray-800">${c.content}</p>
+                                    <p class="text-xs text-gray-500 mt-1">${new Date(c.time).toLocaleString()}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                `;
+                // 更新评论标记
+                updateCommentMarker(comment);
+            }
+            
+            updateComments();
+
+            // 提交评论
+            document.getElementById('submit-comment').onclick = function() {
+                const input = document.getElementById('comment-input');
+                const content = input.value.trim();
+                if (content) {
+                    comment.comments.push({
+                        content: content,
+                        time: Date.now()
+                    });
+                    input.value = '';
+                    updateComments();
+                }
+            };
+
+            // 回车提交评论
+            document.getElementById('comment-input').onkeypress = function(e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    document.getElementById('submit-comment').click();
+                }
+            };
+
+            // 关闭模态框
+            document.getElementById('close-modal').onclick = function() {
+                modal.style.display = 'none';
+            };
+
+            // 点击模态框外部关闭
+            modal.onclick = function(e) {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            };
+        }
+
         // 初始化
         renderChapterList();
-        // 默认显示第一章
         showChapter(0);
         document.querySelectorAll('.chapter-btn')[0].classList.add('active');
-        // 默认展开章节列表
         document.getElementById('chapter-list-panel').classList.remove('hidden');
+
+        // 初始化右键菜单事件
+        document.addEventListener('mouseup', function(e) {
+            const selection = window.getSelection();
+            if (selection.toString().length > 0) {
+                selectedText = selection.toString();
+                selectedRange = selection.getRangeAt(0);
+                
+                const contextMenu = document.getElementById('context-menu');
+                contextMenu.style.display = 'block';
+                contextMenu.style.left = e.pageX + 'px';
+                contextMenu.style.top = e.pageY + 'px';
+            }
+        });
+
+        // 点击其他地方关闭右键菜单
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('#context-menu')) {
+                document.getElementById('context-menu').style.display = 'none';
+            }
+        });
     </script>
 </body>
 </html>
