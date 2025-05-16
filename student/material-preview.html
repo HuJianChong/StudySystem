@@ -21,6 +21,12 @@
             background: #e0e7ff;
             color: #3730a3;
         }
+        .attachment-card {
+            transition: transform 0.2s;
+        }
+        .attachment-card:hover {
+            transform: translateY(-2px);
+        }
     </style>
 </head>
 <body class="bg-gray-100 min-h-screen">
@@ -56,31 +62,219 @@
             { 
                 title: '第一章 绪论', 
                 content: `
-                    <h3>课程简介</h3>
+                    <h3>1.1 课程简介</h3>
                     <p>本章介绍Python语言的发展历史、应用领域及其优势。</p>
-                    <ul>
-                        <li>Python的起源与发展</li>
-                        <li>主流应用场景</li>
-                        <li>学习建议</li>
-                    </ul>
-                    <img src="https://img2.baidu.com/it/u=1812345678,1234567890&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=300" alt="Python Logo" class="rounded shadow my-4 w-1/2">
-                    <blockquote>“人生苦短，我用Python。”</blockquote>
+                    <div class="bg-blue-50 p-4 rounded-lg mb-4">
+                        <h4 class="text-blue-800 font-semibold">学习目标</h4>
+                        <ul class="list-disc list-inside text-blue-700">
+                            <li>了解Python的发展历史</li>
+                            <li>掌握Python的应用领域</li>
+                            <li>理解Python的优势</li>
+                        </ul>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&auto=format&fit=crop&q=80" alt="Python发展历程" class="rounded-lg shadow-lg my-4">
+                    <h3>1.2 Python的起源与发展</h3>
+                    <p>Python由荷兰人Guido van Rossum于1989年底发明，第一个公开发行版发行于1991年。</p>
+                    <div class="grid grid-cols-2 gap-4 my-4">
+                        <img src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=400&auto=format&fit=crop&q=80" alt="Python编程" class="rounded-lg shadow">
+                        <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=400&auto=format&fit=crop&q=80" alt="代码编辑器" class="rounded-lg shadow">
+                    </div>
+                    <div class="bg-yellow-50 p-4 rounded-lg my-4">
+                        <p class="text-yellow-800"><i class="fas fa-lightbulb mr-2"></i>小贴士：Python的名字来源于英国喜剧团体Monty Python。</p>
+                    </div>
+                    <h3>1.3 相关资源</h3>
+                    <div class="grid grid-cols-2 gap-4 my-4">
+                        <div class="attachment-card bg-gray-50 p-4 rounded-lg border border-gray-200">
+                            <div class="flex items-center">
+                                <i class="fas fa-file-pdf text-red-500 text-2xl mr-3"></i>
+                                <div>
+                                    <h4 class="font-semibold">Python学习路线图</h4>
+                                    <p class="text-sm text-gray-600">PDF文档 - 2.5MB</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="attachment-card bg-gray-50 p-4 rounded-lg border border-gray-200">
+                            <div class="flex items-center">
+                                <i class="fas fa-file-video text-purple-500 text-2xl mr-3"></i>
+                                <div>
+                                    <h4 class="font-semibold">Python发展史视频</h4>
+                                    <p class="text-sm text-gray-600">MP4视频 - 15分钟</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 ` 
             },
             { 
                 title: '第二章 基础语法', 
                 content: `
-                    <h3>变量与数据类型</h3>
+                    <h3>2.1 变量与数据类型</h3>
                     <p>本章讲解Python的基本语法，包括变量定义、常用数据类型、输入输出等。</p>
-                    <ol>
-                        <li>变量命名规则</li>
-                        <li>常见数据类型：<strong>int</strong>、<strong>float</strong>、<strong>str</strong>、<strong>bool</strong></li>
-                        <li>print()与input()函数</li>
-                    </ol>
-                    <pre><code>name = input('请输入姓名: ')
-print('你好,', name)
-</code></pre>
+                    <div class="bg-green-50 p-4 rounded-lg my-4">
+                        <h4 class="text-green-800 font-semibold">关键概念</h4>
+                        <ul class="list-disc list-inside text-green-700">
+                            <li>变量命名规则</li>
+                            <li>基本数据类型</li>
+                            <li>类型转换</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gray-100 p-4 rounded-lg my-4 font-mono">
+                        <pre><code># 变量命名示例
+student_name = "张三"  # 下划线命名法
+className = "Python基础"  # 驼峰命名法
+                        
+# 数据类型示例
+age = 18  # 整数
+height = 1.75  # 浮点数
+name = "李四"  # 字符串
+is_student = True  # 布尔值</code></pre>
+                    </div>
+                    <h3>2.2 练习题</h3>
+                    <div class="bg-purple-50 p-4 rounded-lg my-4">
+                        <h4 class="text-purple-800 font-semibold">实践作业</h4>
+                        <ol class="list-decimal list-inside text-purple-700">
+                            <li>创建三个不同类型的变量</li>
+                            <li>实现简单的类型转换</li>
+                            <li>编写输入输出程序</li>
+                        </ol>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 my-4">
+                        <div class="attachment-card bg-gray-50 p-4 rounded-lg border border-gray-200">
+                            <div class="flex items-center">
+                                <i class="fas fa-file-code text-blue-500 text-2xl mr-3"></i>
+                                <div>
+                                    <h4 class="font-semibold">练习代码模板</h4>
+                                    <p class="text-sm text-gray-600">Python文件 - 1.2KB</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="attachment-card bg-gray-50 p-4 rounded-lg border border-gray-200">
+                            <div class="flex items-center">
+                                <i class="fas fa-file-excel text-green-500 text-2xl mr-3"></i>
+                                <div>
+                                    <h4 class="font-semibold">课后作业</h4>
+                                    <p class="text-sm text-gray-600">Excel文档 - 500KB</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 ` 
+            },
+            {
+                title: '第三章 流程控制',
+                content: `
+                    <h3>3.1 条件语句</h3>
+                    <p>本章介绍Python中的流程控制语句，包括if条件语句、循环语句等。</p>
+                    <div class="bg-indigo-50 p-4 rounded-lg my-4">
+                        <h4 class="text-indigo-800 font-semibold">本节要点</h4>
+                        <ul class="list-disc list-inside text-indigo-700">
+                            <li>if-else语句</li>
+                            <li>elif的使用</li>
+                            <li>嵌套条件</li>
+                        </ul>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=600&auto=format&fit=crop&q=80" alt="流程图" class="rounded-lg shadow-lg my-4">
+                    <div class="bg-gray-100 p-4 rounded-lg my-4 font-mono">
+                        <pre><code># 条件语句示例
+score = 85
+
+if score >= 90:
+    print("优秀")
+elif score >= 80:
+    print("良好")
+elif score >= 60:
+    print("及格")
+else:
+    print("不及格")</code></pre>
+                    </div>
+                    <h3>3.2 多媒体资源</h3>
+                    <div class="grid grid-cols-3 gap-4 my-4">
+                        <div class="attachment-card bg-gray-50 p-4 rounded-lg border border-gray-200">
+                            <div class="flex items-center">
+                                <i class="fas fa-file-powerpoint text-red-500 text-2xl mr-3"></i>
+                                <div>
+                                    <h4 class="font-semibold">课件</h4>
+                                    <p class="text-sm text-gray-600">PPT - 5MB</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="attachment-card bg-gray-50 p-4 rounded-lg border border-gray-200">
+                            <div class="flex items-center">
+                                <i class="fas fa-file-audio text-yellow-500 text-2xl mr-3"></i>
+                                <div>
+                                    <h4 class="font-semibold">课程录音</h4>
+                                    <p class="text-sm text-gray-600">MP3 - 30分钟</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="attachment-card bg-gray-50 p-4 rounded-lg border border-gray-200">
+                            <div class="flex items-center">
+                                <i class="fas fa-file-image text-pink-500 text-2xl mr-3"></i>
+                                <div>
+                                    <h4 class="font-semibold">思维导图</h4>
+                                    <p class="text-sm text-gray-600">PNG - 1.8MB</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                title: '第四章 函数',
+                content: `
+                    <h3>4.1 函数定义与调用</h3>
+                    <p>本章讲解Python函数的定义、参数传递、返回值等内容。</p>
+                    <div class="bg-red-50 p-4 rounded-lg my-4">
+                        <h4 class="text-red-800 font-semibold">重点内容</h4>
+                        <ul class="list-disc list-inside text-red-700">
+                            <li>函数的基本结构</li>
+                            <li>参数类型</li>
+                            <li>返回值处理</li>
+                        </ul>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 my-4">
+                        <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=500&auto=format&fit=crop&q=80" alt="函数结构图" class="rounded-lg shadow">
+                        <div class="bg-gray-100 p-4 rounded-lg font-mono">
+                            <pre><code>def calculate_area(length, width):
+    """计算矩形面积"""
+    area = length * width
+    return area
+
+# 调用函数
+result = calculate_area(5, 3)
+print(f"面积是: {result}")</code></pre>
+                        </div>
+                    </div>
+                    <div class="bg-orange-50 p-4 rounded-lg my-4">
+                        <h4 class="text-orange-800 font-semibold"><i class="fas fa-exclamation-triangle mr-2"></i>注意事项</h4>
+                        <ul class="list-disc list-inside text-orange-700">
+                            <li>函数名应该具有描述性</li>
+                            <li>注意参数的默认值</li>
+                            <li>返回值类型的一致性</li>
+                        </ul>
+                    </div>
+                    <h3>4.2 课程资源</h3>
+                    <div class="grid grid-cols-2 gap-4 my-4">
+                        <div class="attachment-card bg-gray-50 p-4 rounded-lg border border-gray-200">
+                            <div class="flex items-center">
+                                <i class="fas fa-file-archive text-orange-500 text-2xl mr-3"></i>
+                                <div>
+                                    <h4 class="font-semibold">示例代码包</h4>
+                                    <p class="text-sm text-gray-600">ZIP - 3.5MB</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="attachment-card bg-gray-50 p-4 rounded-lg border border-gray-200">
+                            <div class="flex items-center">
+                                <i class="fas fa-file-word text-blue-500 text-2xl mr-3"></i>
+                                <div>
+                                    <h4 class="font-semibold">实验指导书</h4>
+                                    <p class="text-sm text-gray-600">Word - 2.1MB</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
             }
         ];
         let currentChapter = -1;
@@ -117,17 +311,11 @@ print('你好,', name)
         };
         // 初始化
         renderChapterList();
-        // 默认显示正文
-        document.getElementById('chapter-title').textContent = '正文';
-        document.getElementById('chapter-content').innerHTML = `
-            <h2>欢迎进入教材预览</h2>
-            <p>请点击左侧章节，查看对应内容。</p>
-            <img src="https://img2.baidu.com/it/u=1812345678,1234567890&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=300" alt="教材示例图片" class="rounded shadow my-4 w-1/2">
-            <ul>
-                <li>支持图片、标题、列表、代码块等富文本内容</li>
-                <li>章节内容可在编辑页面自定义</li>
-            </ul>
-        `;
+        // 默认显示第一章
+        showChapter(0);
+        document.querySelectorAll('.chapter-btn')[0].classList.add('active');
+        // 默认展开章节列表
+        document.getElementById('chapter-list-panel').classList.remove('hidden');
     </script>
 </body>
 </html>
