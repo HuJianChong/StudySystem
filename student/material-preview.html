@@ -153,6 +153,9 @@
                 <i class="fas fa-list mr-2"></i> 章节
             </button>
             <h1 class="text-2xl font-bold text-gray-800">教材</h1>
+            <button id="toggle-annotation-panel" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1 rounded flex items-center text-sm ml-auto">
+                <i class="fas fa-sticky-note mr-2"></i> 批注
+            </button>
         </div>
         <div class="flex gap-6">
             <!-- 左侧章节列表 -->
@@ -172,7 +175,7 @@
                 </div>
             </div>
             <!-- 右侧批注面板 -->
-            <div id="annotation-panel" class="annotation-panel bg-white rounded shadow p-4">
+            <div id="annotation-panel" class="annotation-panel bg-white rounded shadow p-4 hidden">
                 <h3 class="text-lg font-semibold text-gray-800 mb-4">批注列表</h3>
                 <div id="annotations-container" class="space-y-4">
                     <!-- 批注内容将动态添加到这里 -->
@@ -874,11 +877,28 @@ print(f"面积是: {result}")</code></pre>
             }
         });
 
+        // 批注面板展开/收起按钮逻辑
+        document.getElementById('toggle-annotation-panel').onclick = function() {
+            const panel = document.getElementById('annotation-panel');
+            panel.classList.toggle('hidden');
+            
+            // 更新按钮状态
+            const button = this;
+            if (panel.classList.contains('hidden')) {
+                button.classList.remove('bg-indigo-700');
+                button.classList.add('bg-indigo-600');
+            } else {
+                button.classList.remove('bg-indigo-600');
+                button.classList.add('bg-indigo-700');
+            }
+        };
+
         // 初始化
         renderChapterList();
         showChapter(0);
         document.querySelectorAll('.chapter-btn')[0].classList.add('active');
-        document.getElementById('chapter-list-panel').classList.remove('hidden');
+        // 默认隐藏章节列表面板
+        document.getElementById('chapter-list-panel').classList.add('hidden');
     </script>
 </body>
 </html>
