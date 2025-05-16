@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的笔记</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .note-card {
+            transition: all 0.3s ease;
+        }
+        .note-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="max-w-6xl mx-auto p-6">
+        <!-- 顶部导航 -->
+        <div class="flex items-center justify-between mb-8">
+            <div class="flex items-center gap-4">
+                <a href="progress.html" class="text-gray-600 hover:text-gray-800">
+                    <i class="fas fa-arrow-left text-xl"></i>
+                </a>
+                <h1 class="text-2xl font-bold text-gray-800">我的笔记</h1>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="relative">
+                    <input type="text" placeholder="搜索笔记..." 
+                        class="pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                    <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- 笔记列表 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Python基础笔记 -->
+            <a href="note-detail.html?course=python&chapter=1" class="note-card bg-white rounded-xl shadow-md p-6">
+                <div class="flex items-start justify-between mb-4">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-1">Python基础</h3>
+                        <p class="text-sm text-gray-500">第一章 绪论</p>
+                    </div>
+                    <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">编程</span>
+                </div>
+                <p class="text-gray-600 mb-4 line-clamp-3">本章介绍Python语言的发展历史、应用领域及其优势。Python由荷兰人Guido van Rossum于1989年底发明，第一个公开发行版发行于1991年...</p>
+                <div class="flex items-center justify-between text-sm text-gray-500">
+                    <span><i class="far fa-clock mr-1"></i>2024-03-15</span>
+                    <span><i class="far fa-edit mr-1"></i>最近更新</span>
+                </div>
+            </a>
+
+            <!-- 大学物理笔记 -->
+            <a href="note-detail.html?course=physics&chapter=3" class="note-card bg-white rounded-xl shadow-md p-6">
+                <div class="flex items-start justify-between mb-4">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-1">大学物理</h3>
+                        <p class="text-sm text-gray-500">第三章 力学基础</p>
+                    </div>
+                    <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">理科</span>
+                </div>
+                <p class="text-gray-600 mb-4 line-clamp-3">牛顿运动定律是经典力学的基础，包括惯性定律、加速度定律和作用力与反作用力定律。这些定律描述了物体运动的基本规律...</p>
+                <div class="flex items-center justify-between text-sm text-gray-500">
+                    <span><i class="far fa-clock mr-1"></i>2024-03-14</span>
+                    <span><i class="far fa-edit mr-1"></i>已完成</span>
+                </div>
+            </a>
+
+            <!-- 英语听力笔记 -->
+            <a href="note-detail.html?course=english&chapter=2" class="note-card bg-white rounded-xl shadow-md p-6">
+                <div class="flex items-start justify-between mb-4">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-1">英语听力</h3>
+                        <p class="text-sm text-gray-500">第二章 日常对话</p>
+                    </div>
+                    <span class="bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 rounded">语言</span>
+                </div>
+                <p class="text-gray-600 mb-4 line-clamp-3">本章主要练习日常生活中的常见对话场景，包括购物、问路、餐厅点餐等情境。重点掌握相关词汇和常用表达方式...</p>
+                <div class="flex items-center justify-between text-sm text-gray-500">
+                    <span><i class="far fa-clock mr-1"></i>2024-03-13</span>
+                    <span><i class="far fa-edit mr-1"></i>进行中</span>
+                </div>
+            </a>
+        </div>
+    </div>
+</body>
+</html> 
