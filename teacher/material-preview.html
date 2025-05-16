@@ -27,11 +27,52 @@
         .attachment-card:hover {
             transform: translateY(-2px);
         }
+        /* 固定悬浮的章节列表 */
+        #chapter-list-panel {
+            position: fixed;
+            left: -100%;  /* 默认隐藏在可视区域外 */
+            top: 5rem;
+            max-height: calc(100vh - 7rem);
+            overflow-y: auto;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+        #chapter-list-panel.show {
+            left: 1.5rem;  /* 显示时的位置 */
+        }
+        /* 内容区域动态宽度 */
+        .main-content {
+            transition: margin-left 0.3s ease;
+            margin-left: 0;
+        }
+        .main-content.with-sidebar {
+            margin-left: 16rem;
+        }
+        @media (max-width: 768px) {
+            .main-content {
+                margin-left: 0;
+            }
+        }
+        /* 滚动条美化 */
+        #chapter-list::-webkit-scrollbar {
+            width: 4px;
+        }
+        #chapter-list::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        #chapter-list::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 2px;
+        }
+        #chapter-list::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
     </style>
 </head>
 <body class="bg-gray-100 min-h-screen">
-    <div class="max-w-5xl mx-auto p-6">
-        <div class="flex items-center mb-6">
+    <div class="max-w-6xl mx-auto p-6">
+        <!-- 顶部导航 -->
+        <div class="flex items-center mb-6 sticky top-0 bg-gray-100 z-20 py-2">
             <button id="toggle-chapter-list" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded flex items-center text-sm mr-4">
                 <i class="fas fa-list mr-2"></i> 章节
             </button>
@@ -39,7 +80,7 @@
         </div>
         <div class="flex gap-6">
             <!-- 左侧章节列表 -->
-            <div id="chapter-list-panel" class="w-64 min-w-[200px] bg-white rounded shadow p-0 flex flex-col hidden">
+            <div id="chapter-list-panel" class="w-64 min-w-[200px] bg-white rounded shadow p-0 flex flex-col">
                 <div class="flex items-center justify-between px-4 py-3 border-b">
                     <span class="font-semibold text-gray-700 text-lg">章节</span>
                 </div>
@@ -47,15 +88,18 @@
                     <!-- 动态章节列表 -->
                 </ul>
             </div>
-            <!-- 右侧正文内容 -->
-            <div class="flex-1 bg-white rounded shadow p-6 min-h-[400px]">
-                <h2 id="chapter-title" class="text-xl font-semibold text-gray-800 mb-4">正文</h2>
-                <div id="chapter-content" class="prose max-w-none text-gray-800">
-                    这里是教材正文内容。请在编辑页面编辑并保存后，预览效果会在此处显示。
+            <!-- 中间正文内容 -->
+            <div class="flex-1 main-content">
+                <div class="bg-white rounded shadow p-6 min-h-[400px]">
+                    <h2 id="chapter-title" class="text-xl font-semibold text-gray-800 mb-4 hidden">正文</h2>
+                    <div id="chapter-content" class="prose max-w-none text-gray-800">
+                        <!-- 章节内容将连续展示在这里 -->
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
     <script>
         // 示例章节数据
         const chapters = [
@@ -278,6 +322,7 @@ print(f"面积是: {result}")</code></pre>
             }
         ];
         let currentChapter = -1;
+
         // 渲染章节列表
         function renderChapterList() {
             const list = document.getElementById('chapter-list');
@@ -287,35 +332,93 @@ print(f"面积是: {result}")</code></pre>
                 li.innerHTML = `<button class='w-full text-left px-4 py-2 chapter-btn' data-idx='${idx}'>${ch.title}</button>`;
                 list.appendChild(li);
             });
+
             // 按钮事件
             document.querySelectorAll('.chapter-btn').forEach(btn => {
                 btn.onclick = function() {
                     const idx = parseInt(this.getAttribute('data-idx'));
-                    showChapter(idx);
+                    scrollToChapter(idx);
                 };
             });
         }
-        // 显示章节内容
-        function showChapter(idx) {
+
+        // 渲染所有章节内容
+        function renderAllChapters() {
+            const content = document.getElementById('chapter-content');
+            content.innerHTML = chapters.map((chapter, idx) => `
+                <div class="chapter-section mb-12" data-chapter="${idx}">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4">${chapter.title}</h2>
+                    ${chapter.content}
+                </div>
+            `).join('');
+        }
+
+        // 滚动到指定章节
+        function scrollToChapter(idx) {
+            const chapterElement = document.querySelector(`[data-chapter="${idx}"]`);
+            if (chapterElement) {
+                chapterElement.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // 更新当前章节状态
+        function updateCurrentChapter(idx) {
+            if (currentChapter === idx) return;
             currentChapter = idx;
-            document.getElementById('chapter-title').textContent = chapters[idx].title;
-            document.getElementById('chapter-content').innerHTML = chapters[idx].content;
+            
+            // 更新章节按钮状态
             document.querySelectorAll('.chapter-btn').forEach((btn, i) => {
                 btn.classList.toggle('active', i === idx);
             });
         }
+
+        // 监听滚动事件，更新当前章节
+        function initScrollSpy() {
+            const content = document.getElementById('chapter-content');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const chapterIdx = parseInt(entry.target.getAttribute('data-chapter'));
+                        updateCurrentChapter(chapterIdx);
+                    }
+                });
+            }, {
+                root: null,
+                rootMargin: '-50% 0px',
+                threshold: 0
+            });
+
+            // 观察所有章节区域
+            document.querySelectorAll('.chapter-section').forEach(section => {
+                observer.observe(section);
+            });
+        }
+
         // 章节展开/收起按钮逻辑
         document.getElementById('toggle-chapter-list').onclick = function() {
             const panel = document.getElementById('chapter-list-panel');
-            panel.classList.toggle('hidden');
+            const mainContent = document.querySelector('.main-content');
+            
+            panel.classList.toggle('show');
+            mainContent.classList.toggle('with-sidebar');
+            
+            // 更新按钮状态
+            const button = this;
+            if (panel.classList.contains('show')) {
+                button.classList.remove('bg-blue-600');
+                button.classList.add('bg-blue-700');
+            } else {
+                button.classList.remove('bg-blue-700');
+                button.classList.add('bg-blue-600');
+            }
         };
+
         // 初始化
         renderChapterList();
-        // 默认显示第一章
-        showChapter(0);
-        document.querySelectorAll('.chapter-btn')[0].classList.add('active');
-        // 默认展开章节列表
-        document.getElementById('chapter-list-panel').classList.remove('hidden');
+        renderAllChapters();
+        initScrollSpy();
+        // 默认隐藏章节列表面板
+        document.getElementById('chapter-list-panel').classList.remove('show');
     </script>
 </body>
 </html>
